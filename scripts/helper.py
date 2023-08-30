@@ -6,7 +6,7 @@ import json
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import PatternFill, Font
 from collections import defaultdict
-
+import shutil
 
 def add_screenshots_to_docx(doc,directory_path, grafana_ids, table_ids):
     doc.add_heading("Charts", level=2)
@@ -37,6 +37,11 @@ def add_screenshots_to_docx(doc,directory_path, grafana_ids, table_ids):
                 doc.add_picture(file_path)
             except Exception as e:
                 print(f"Error processing image {filename}: {e}")
+    try:
+        shutil.rmtree(directory_path)
+        print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
+    except Exception as e:
+        print(f"Error deleting folder: {str(e)}")
     return doc
 
 def add_table(doc,data_dict):

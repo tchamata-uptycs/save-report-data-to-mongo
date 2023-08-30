@@ -28,8 +28,6 @@ if __name__ == "__main__":
 
     panel_loading_time_threshold_sec=45
     thread_len=10
-    username = prom_con_obj.username
-
     #-------------------------------------------------------------------------------------------------
 
     start_time = datetime.strptime(variables["start_time_str"], "%Y-%m-%d %H:%M")

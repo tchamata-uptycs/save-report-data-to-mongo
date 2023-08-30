@@ -1,11 +1,13 @@
-import json
+import json,os
 
 class PrometheusConnector:
-    def __init__(self,nodes_file_name=None, username='masabathulararao'):
+    def __init__(self,nodes_file_name=None):
         self.prometheus_port = "9090"
         self.prom_api_path = "/api/v1/query_range"
         self.prom_point_api_path = "/api/v1/query"
-        self.ROOT_PATH = f"/Users/{username}/Documents/Loadtest"
+
+        self.ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
         self.base_stack_config_path = f"{self.ROOT_PATH}/stack_config_files"
 
         if nodes_file_name:
@@ -19,4 +21,3 @@ class PrometheusConnector:
         self.GRAFANA_USERNAME="admin"
         self.GRAFANA_PASSWORD="admin123"
         self.GRAFANA_PORT = "3000"
-        self.username=username
