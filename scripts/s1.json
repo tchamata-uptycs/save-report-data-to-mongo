@@ -1,0 +1,269 @@
+{
+    "clusterId":0,
+    "name": "jupiter",
+    "domain":"jupiter.uptycs.io",
+    "ui_color": "#9C27B0",
+    "api_key":"asjbdkajsd",
+  
+    "monitor_node": {
+      "host_name": "s1monitor1v",
+      "lan_ip": "192.168.128.50",
+      "prometheus_port": 9090,
+      "data_ip": ""
+    },
+    
+    "elastic_node":{
+      "host_name":"s1elasticv",
+      "lan_ip" : "192.168.129.52"
+    },
+    
+    "logstash_nodes": {
+      "s1logstash1": {
+        "lan_ip": "192.168.129.50"
+      },
+      "s1logstash2": {
+        "lan_ip": "192.168.129.51"
+      }
+    },
+    
+    
+  
+    "pg_nodes": {
+      "s1configdb1": {
+        "lan_ip": "192.168.136.17",
+        "data_ip": "",
+        "active": true,
+        "id": 0
+      },
+      "s1configdb2": {
+        "lan_ip": "192.168.135.22",
+        "data_ip": "",
+        "active": false,
+        "id": 0
+      }
+    },
+  
+    "process_nodes": [
+      {
+        "host_name":"s1c1pn1v",
+        "lan_ip":"192.168.135.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": true,
+        "id": 0
+      },
+      {
+        "host_name":"s1c1pn2v",
+        "lan_ip":"192.168.138.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 1
+      },
+      {
+        "host_name":"s1c1pn3v",
+        "lan_ip":"192.168.139.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 2
+      },
+      {
+        "host_name":"s1c1pn4v",
+        "lan_ip":"192.168.140.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 3
+      },
+      {
+        "host_name":"s1c1pn5v",
+        "lan_ip":"192.168.141.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 4
+      },
+      {
+        "host_name":"s1c1pn6v",
+        "lan_ip":"192.168.142.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 5
+      },{
+        "host_name":"s1c2pn1v",
+        "lan_ip":"192.168.135.11",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": true,
+        "id": 6
+      },
+      {
+        "host_name":"s1c2pn2v",
+        "lan_ip":"192.168.138.12",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 7
+      },
+      {
+        "host_name":"s1c2pn3v",
+        "lan_ip":"192.168.139.12",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 8
+      },
+      {
+        "host_name":"s1c2pn4v",
+        "lan_ip":"192.168.140.12",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 9
+      },
+      {
+        "host_name":"s1c2pn5v",
+        "lan_ip":"192.168.141.12",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 10
+      },
+      {
+        "host_name":"s1c2pn6v",
+        "lan_ip":"192.168.142.12",
+        "data_ip":"",
+        "osqueryd_ip":"",
+        "ppn": true,
+        "first_pn": false,
+        "id": 11
+      }
+      
+    ],
+  
+    "data_nodes": [
+      {
+        "host_name":"s1c1dn1v",
+        "lan_ip":"192.168.128.11",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn":  true,
+        "id": 0,
+        "presto_coordinator": true
+      },
+      {
+      "host_name":"s1c1dn2v",
+      "lan_ip":"192.168.129.11",
+      "data_ip":"",
+      "pdn": true,
+      "first_dn": false,
+      "presto_coordinator": false,
+      "id": 1
+      },
+      {
+      "host_name":"s1c1dn3v",
+      "lan_ip":"192.168.130.11",
+      "data_ip":"",
+      "pdn": true,
+      "first_dn": false,
+      "presto_coordinator": false,
+      "id": 2
+      },
+      {
+        "host_name":"s1c1dn4v",
+        "lan_ip":"192.168.131.11",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn":  false,
+        "id": 3,
+        "presto_coordinator": false
+      },
+      {
+        "host_name":"s1c1dn5v",
+        "lan_ip":"192.168.133.11",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn": false,
+        "presto_coordinator": false,
+        "id": 4
+      },
+      {
+        "host_name":"s1c1dn6v",
+        "lan_ip":"192.168.134.11",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn": false,
+        "presto_coordinator": false,
+        "id": 5
+      },
+      {
+        "host_name":"s1c2dn1v",
+        "lan_ip":"192.168.128.12",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn":  true,
+        "id": 0,
+        "presto_coordinator": true
+      },
+      {
+      "host_name":"s1c2dn2v",
+      "lan_ip":"192.168.129.12",
+      "data_ip":"",
+      "pdn": true,
+      "first_dn": false,
+      "presto_coordinator": false,
+      "id": 1
+      },
+      {
+      "host_name":"s1c2dn3v",
+      "lan_ip":"192.168.130.12",
+      "data_ip":"",
+      "pdn": true,
+      "first_dn": false,
+      "presto_coordinator": false,
+      "id": 2
+      },
+      {
+        "host_name":"s1c2dn4v",
+        "lan_ip":"192.168.131.12",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn":  false,
+        "id": 3,
+        "presto_coordinator": false
+      },
+      {
+        "host_name":"s1c2dn5v",
+        "lan_ip":"192.168.133.12",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn": false,
+        "presto_coordinator": false,
+        "id": 4
+      },
+      {
+        "host_name":"s1c2dn6v",
+        "lan_ip":"192.168.134.12",
+        "data_ip":"",
+        "pdn": true,
+        "first_dn": false,
+        "presto_coordinator": false,
+        "id": 5
+      }
+    ]
+  }
+    
+  
