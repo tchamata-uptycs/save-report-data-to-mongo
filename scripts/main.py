@@ -115,7 +115,7 @@ if __name__ == "__main__":
 
         #-------------------------disk space--------------------------
 
-        if variables["add_disk_space_usage"]:
+        if variables["add_disk_space_usage"] and variables["load_type"] != "ControlPlane":
             print("Performing disk space calculations ...")
             calc = DISK(doc=doc,sprint=variables["sprint"],load_type=variables["load_type"],build=variables["build"],curr_ist_start_time=variables["start_time_str"],
                                 curr_ist_end_time=end_time_str,

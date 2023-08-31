@@ -7,10 +7,12 @@ import json
 from prometeus_utils import PrometheusConnector
 import os
 
-all_stack_config_paths = list(os.listdir(PrometheusConnector().base_stack_config_path))
+config_path = list(os.listdir(PrometheusConnector().base_stack_config_path))
+previous_input_path = f"{PrometheusConnector().base_stack_config_path}/prev_inp.ini"
+all_stack_config_paths = [filename for filename in config_path if filename.endswith('.json')]
 
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read(previous_input_path)
 
 load_type_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad']
 
@@ -48,25 +50,25 @@ def create_input_form():
         prom_con_obj = None
         root.quit()
 
+    def save_data(details):
+        global prom_con_obj
+        prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'])
+        config["DEFAULT"] = details
+        with open(previous_input_path, "w") as configfile:
+            config.write(configfile)
+        return prom_con_obj
     def submit():
         global prom_con_obj,details
         for (key,val) in details.items():
             Type , default , var = val
             details[key] = Type(var.get())
-            
-        prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'])
-        with open(prom_con_obj.nodes_file_path , 'r') as file:
-            stack_details = json.load(file)
-        stack=stack_details["stack"]
+        # prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'])
+        # config["DEFAULT"] = details
+        # with open(previous_input_path, "w") as configfile:
+        #     config.write(configfile)
+        prom_con_obj = save_data(details)
+        stack = details['nodes_file_name'].split('_')[0]
 
-        # Update the configuration with the new values
-        config["DEFAULT"] = details
-
-        # Save the updated configuration to the file
-        with open("config.ini", "w") as configfile:
-            config.write(configfile)
-
-        # Display a confirmation dialog
         confirm = messagebox.askokcancel("Confirmation", f"Are you sure that the details mentioned are correct for generating a report for stack {stack} ?")
 
         if confirm:
@@ -141,10 +143,12 @@ def create_input_form():
                 for key,val in details.items():
                     details[key] = val[0](input(f"Enter {key} :").strip())
 
-            prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'])
-            config["DEFAULT"] = details
-            with open("config.ini", "w") as configfile:
-                config.write(configfile)
+            # prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'])
+            # config["DEFAULT"] = details
+            # with open(previous_input_path, "w") as configfile:
+            #     config.write(configfile)
+            prom_con_obj = save_data(details)
+
             return details,prom_con_obj
         
         else:

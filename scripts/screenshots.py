@@ -11,8 +11,10 @@ from selenium.common.exceptions import NoSuchElementException
 import concurrent.futures
 import logging
 logging.getLogger('seleniumwire').setLevel(logging.WARNING)
+from  prometeus_utils import PrometheusConnector
 
-service = ChromeService(executable_path="/Users/masabathulararao/Documents/Loadtest/chromedriver")
+executable_base_path = PrometheusConnector().base_stack_config_path
+service = ChromeService(executable_path=f"{executable_base_path}/chromedriver")
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')

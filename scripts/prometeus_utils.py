@@ -8,7 +8,7 @@ class PrometheusConnector:
 
         self.ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-        self.base_stack_config_path = f"{self.ROOT_PATH}/stack_config_files"
+        self.base_stack_config_path = f"{self.ROOT_PATH}/config"
 
         if nodes_file_name:
             self.nodes_file_path = f"{self.base_stack_config_path}/{nodes_file_name}"
