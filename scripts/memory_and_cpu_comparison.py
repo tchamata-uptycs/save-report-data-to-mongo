@@ -104,6 +104,8 @@ class MC_comparisions:
             result = response.json()['data']['result']
             for res in result:
                 hostname = res['metric']['host_name']
+                if str(hostname).endswith('v') and len(hostname)>1:
+                    hostname = str(hostname)[:-1]
                 values = [float(i[1]) for i in res['values']]   
                 avg = sum(values) / len(values)
                 final[query][hostname] = {"percentage":avg}
@@ -412,7 +414,6 @@ class MC_comparisions:
     def make_comparisions(self):
         past_file_exists=False
         if os.path.exists(self.fetch_prev_build_data_path):
-            
             with open(self.fetch_prev_build_data_path, 'r') as file:
                 previous_build_data = json.load(file)
             past_file_exists=True

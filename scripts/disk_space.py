@@ -7,12 +7,6 @@ import json
 from helper import add_table,excel_update
 import paramiko
 
-# get_total_space="sort(sum(uptycs_hdfs_node_config_capacity{cluster_id=~\"$cluster_id\", hdfsdatanode=~\"$data_node\"}) by (hdfsdatanode))"
-get_total_space_query="sort(sum(uptycs_hdfs_node_config_capacity{cluster_id=~'clst1', hdfsdatanode=~'(s1c1dn1|s1c1dn2|s1c1dn3|s1c1dn4|s1c1dn6|s1c2dn1|s1c2dn2|s1c2dn4|s1c2dn6)'}) by (hdfsdatanode))"
-# remaining_space="sort(uptycs_hdfs_node_remaining_capacity{cluster_id=~\"$cluster_id\", hdfsdatanode=~\"$data_node\"})"
-remaining_space_query="sort(uptycs_hdfs_node_remaining_capacity{cluster_id=~'clst1', hdfsdatanode=~'(s1c1dn1|s1c1dn2|s1c1dn3|s1c1dn4|s1c1dn6|s1c2dn1|s1c2dn2|s1c2dn4|s1c2dn6)'})"
-kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
-
 class DISK:
     def __init__(self,sprint,build,load_type,doc,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,report_docx_path,previous_excel_file_path,current_excel_file_path,prom_con_obj):
         self.doc = doc
@@ -30,13 +24,31 @@ class DISK:
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_point_api_path
 
+        with open(self.nodes_file_path, 'r') as file:
+            self.nodes_data = json.load(file)
+
+        dnode_pattern=''
+        for dnode in self.nodes_data['dnodes']:
+            dnode_pattern+=dnode+'|'
+        dnode_pattern=dnode_pattern[:-1]
+        self.kafka_total_space = {}
+        for pnode in self.nodes_data['pnodes']:
+            capacity = self.nodes_data[pnode]['storage']['kafka']
+            if str(capacity).endswith('T'):
+                self.kafka_total_space[pnode] = float(str(capacity)[:-1]) * 1e+12
+                self.kafka_total_space[pnode+'v'] = float(str(capacity)[:-1]) * 1e+12
+            elif str(capacity).endswith('G'):
+                self.kafka_total_space[pnode] = float(str(capacity)[:-1]) * 1e+9
+                self.kafka_total_space[pnode+'v'] = float(str(capacity)[:-1]) * 1e+9
+
+        self.get_total_space_query=f"sort(sum(uptycs_hdfs_node_config_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}}) by (hdfsdatanode))"
+        self.remaining_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}})"
+        self.kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
 
 
         self.previous_excel_file_path=previous_excel_file_path
         self.current_excel_file_path=current_excel_file_path
 
-        with open(self.nodes_file_path, 'r') as file:
-            self.nodes_data = json.load(file)
 
     def extract_data(self,query,time , TAG):
         final=dict()
@@ -58,17 +70,18 @@ class DISK:
         return final 
     
     def calculate_disk_usage(self,TYPE):
-
         if TYPE == 'HDFS':
-            total_space = self.extract_data(get_total_space_query,self.curr_ist_start_time,'hdfsdatanode')
-            remaining_space_before_load = self.extract_data(remaining_space_query,self.curr_ist_start_time,'hdfsdatanode')
-            remaining_space_after_load = self.extract_data(remaining_space_query,self.curr_ist_end_time,'hdfsdatanode')
+            total_space = self.extract_data(self.get_total_space_query,self.curr_ist_start_time,'hdfsdatanode')
+            remaining_space_before_load = self.extract_data(self.remaining_space_query,self.curr_ist_start_time,'hdfsdatanode')
+            remaining_space_after_load = self.extract_data(self.remaining_space_query,self.curr_ist_end_time,'hdfsdatanode')
             nodes = [node for node in remaining_space_before_load]
         elif TYPE=="KAFKA":
-            total_space = defaultdict(lambda : 3.6*1e+12)
-            used_space_before_load = self.extract_data(kafka_disk_used_percentage,self.curr_ist_start_time,'host_name')
-            used_space_after_load = self.extract_data(kafka_disk_used_percentage,self.curr_ist_end_time,'host_name')
+            # total_space = defaultdict(lambda : 3.6*1e+12)
+            total_space=self.kafka_total_space
+            used_space_before_load = self.extract_data(self.kafka_disk_used_percentage,self.curr_ist_start_time,'host_name')
+            used_space_after_load = self.extract_data(self.kafka_disk_used_percentage,self.curr_ist_end_time,'host_name')
             nodes = [node for node in used_space_before_load]
+
 
         data_dict={}
         data_dict['title'] = f"{TYPE} disk space usage"

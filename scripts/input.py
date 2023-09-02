@@ -14,14 +14,14 @@ all_stack_config_paths = [filename for filename in config_path if filename.endsw
 config = configparser.ConfigParser()
 config.read(previous_input_path)
 
-load_type_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad']
+load_type_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_multicustomer']
 
 prom_con_obj=None
 details = {
         "nodes_file_name":[str , 's1_nodes.json'],
         "load_type": [str , "SingleCustomer"],
         "start_time_str": [str , "2023-08-12 23:08"],
-        "load_time_in_hrs": [int , 10],
+        "load_duration_in_hrs": [int , 10],
         "sprint": [str , 138],
         "build": [str , 138000],
         "prev_sprint": [str , 137],
@@ -32,6 +32,7 @@ details = {
         "add_screenshots":[bool , True],
         "add_kafka_topics":[bool , True],
         "make_cpu_mem_comparisions":[bool , True],
+        "fetch_node_parameters_before_generating_report" : [bool , False]
         }
 
 def create_input_form():
@@ -52,13 +53,14 @@ def create_input_form():
 
     def save_data(details):
         global prom_con_obj
-        prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'])
+        prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
         config["DEFAULT"] = details
         with open(previous_input_path, "w") as configfile:
             config.write(configfile)
         return prom_con_obj
     def submit():
         global prom_con_obj,details
+        
         for (key,val) in details.items():
             Type , default , var = val
             details[key] = Type(var.get())
@@ -66,12 +68,11 @@ def create_input_form():
         # config["DEFAULT"] = details
         # with open(previous_input_path, "w") as configfile:
         #     config.write(configfile)
-        prom_con_obj = save_data(details)
+                            
         stack = details['nodes_file_name'].split('_')[0]
-
-        confirm = messagebox.askokcancel("Confirmation", f"Are you sure that the details mentioned are correct for generating a report for stack {stack} ?")
-
+        confirm = messagebox.askokcancel("Confirmation", f"Are you sure that the details mentioned are correct for generating a report for stack {str(stack).upper()} ?")
         if confirm:
+            prom_con_obj = save_data(details)
             root.quit()
     try: 
         root = tk.Tk()
@@ -80,7 +81,7 @@ def create_input_form():
 
         for id , (key,val) in enumerate(details.items()):
             Type , default = val
-            label = ttk.Label(root, text=key)
+            label = ttk.Label(root, text=(' '.join(key.split('_'))).title() )
             label.grid(row=id, column=0)
 
             if Type == bool:
@@ -125,12 +126,12 @@ def create_input_form():
 
     except Exception as e:
         print(str(e))
-        print("Looks like tkinter canvas is having an issue, do you want to continue with these details?")
+        print("Looks like tkinter canvas is having an issue, do you want to continue with these previous details?")
 
         for key,val in details.items():
             print(f"{key} : {val[1]}")
         
-        user_input = input("Select yes to continue, select no to enter new details ... ").strip().lower()
+        user_input = input("Enter 'yes' to continue, select 'no' to enter new details ... ").strip().lower()
 
         if user_input in ['yes' , 'no']:
             if user_input == "yes":
@@ -139,6 +140,7 @@ def create_input_form():
                     details[key] = val[1]
 
             elif user_input == "no":
+
                 print("Please enter your details manually to proceed...(use above details as reference)")
                 for key,val in details.items():
                     details[key] = val[0](input(f"Enter {key} :").strip())
@@ -147,12 +149,12 @@ def create_input_form():
             # config["DEFAULT"] = details
             # with open(previous_input_path, "w") as configfile:
             #     config.write(configfile)
-            prom_con_obj = save_data(details)
 
+            prom_con_obj = save_data(details)
             return details,prom_con_obj
         
         else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
+            print("Invalid input. Please enter either 'yes' or 'no'.")
             return None
 
 

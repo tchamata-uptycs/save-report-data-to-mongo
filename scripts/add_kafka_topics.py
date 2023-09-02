@@ -4,10 +4,10 @@ import os
 from docx.shared import RGBColor
 from helper import add_table,excel_update
 
-host = '192.168.135.11'  # Replace with the actual remote host or IP address (s1c1pn1)
-port = 22  # SSH port (default is 22)
-username = 'abacus'  # Replace with your SSH username
-password = 'abacus'  # Replace with your SSH password
+host = '192.168.135.11' # (s1c1pn1)
+# port = 22  # SSH port (default is 22)
+# username = 'abacus'  # Replace with your SSH username
+# password = 'abacus'  # Replace with your SSH password
 
 remote_directory = '/home/abacus'
 
@@ -21,6 +21,10 @@ class kafka_topics:
         self.previous_excel_file_path=previous_excel_file_path
         self.current_excel_file_path=current_excel_file_path
         self.local_script_path = f'{root_path}/kafka_topics.py'
+
+        self.port=prom_con_obj.ssh_port
+        self.username = prom_con_obj.abacus_username
+        self.password  = prom_con_obj.abacus_password
 
     def get_data_dict(self,curr_list,prev_list):
         data_dict=dict()
@@ -63,7 +67,7 @@ class kafka_topics:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
-            ssh.connect(host, port, username, password)
+            ssh.connect(host, self.port, self.username, self.password)
             sftp = ssh.open_sftp()
             remote_script_path = f'{remote_directory}/kafka_new_topic.py'
             try:

@@ -16,7 +16,7 @@ from input import create_input_form
 #remaining tasks : trino queries(to do) , stack details(simple manually), load specific details(simple manually), accuracies(done), observations(manual)
 
 if __name__ == "__main__":
-
+    s_at = time.perf_counter()
     variables , prom_con_obj =create_input_form()
     print("Details :")
     print(prom_con_obj)
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     #-------------------------------------------------------------------------------------------------
 
     start_time = datetime.strptime(variables["start_time_str"], "%Y-%m-%d %H:%M")
-    end_time = start_time + timedelta(hours=variables["load_time_in_hrs"]) # Add the load time in hours
+    end_time = start_time + timedelta(hours=variables["load_duration_in_hrs"]) # Add the load time in hours
     end_time_str = end_time.strftime("%Y-%m-%d %H:%M")# Convert the result back to a string
 
     with open(nodes_file_path , 'r') as file:
@@ -43,7 +43,7 @@ if __name__ == "__main__":
                 "sprint": f"{variables['sprint']}",
                 "build": f"{variables['build']}",
                 "load_type":f"{variables['load_type']}",
-                "load_time":f"{variables['load_time_in_hrs']} hrs",
+                "load_duration_in_hrs":f"{variables['load_duration_in_hrs']} hrs",
                 "load_start_time_ist" : f"{variables['start_time_str']}",
                 "load_end_time_ist" : f"{end_time_str}"
                 }
@@ -106,7 +106,7 @@ if __name__ == "__main__":
             json.dump(current_build_data, file, indent=4)  # indent for pretty formatting
         print("Created new json file : ",save_current_build_data_path)
         
-        s_at = time.perf_counter()
+        
         doc = Document()
         doc.add_heading('Load Test Report', level=0)
         #------------------------load details--------------------------
