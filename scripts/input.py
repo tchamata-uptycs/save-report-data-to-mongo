@@ -3,7 +3,6 @@ from prometeus_utils import PrometheusConnector
 import os
 
 load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_multicustomer']
-load_type_values = ['EPLoad', 'CloudLoad', 'KubeLoad']
 
 def save_data(details,config,previous_input_path):
     prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
@@ -34,7 +33,6 @@ def create_input_form():
     details = {
             "nodes_file_name":'s1_nodes.json',
             "load_name": "SingleCustomer",
-            "load_type": "EPLoad",
             "start_time_str":  "2023-08-12 23:08",
             "load_duration_in_hrs": 10,
             "sprint": '138',
@@ -62,7 +60,6 @@ def create_input_form():
             print("Please enter the load details ...(use the above details as reference)")
             print('NOTE : ')
             print("load name should be one of these following : " , load_name_values)
-            print("load type should be one of these following : " , load_type_values)
             details=update_details(details,take_input=True)
         prom_con_obj = save_data(details,config,previous_input_path)
         return details,prom_con_obj

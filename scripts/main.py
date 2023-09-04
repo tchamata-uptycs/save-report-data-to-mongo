@@ -45,7 +45,6 @@ if __name__ == "__main__":
                 "sprint": f"{variables['sprint']}",
                 "build": f"{variables['build']}",
                 "load_name":f"{variables['load_name']}",
-                "load_type":f"{variables['load_type']}",
                 "load_duration_in_hrs":f"{variables['load_duration_in_hrs']} hrs",
                 "load_start_time_ist" : f"{variables['start_time_str']}",
                 "load_end_time_ist" : f"{end_time_str}"
