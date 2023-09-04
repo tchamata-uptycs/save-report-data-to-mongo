@@ -1,9 +1,7 @@
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 from docx import Document
-from docx.shared import RGBColor
-from pathlib import Path
 import os
 from collections import defaultdict
 from helper import add_table,excel_update
@@ -35,16 +33,11 @@ cpu_queries = {f"{HOST}" : 'avg(100-uptycs_idle_cpu) by (host_name)',
            "Logger" : "sum(uptycs_app_cpu{app_name=~'.*osqLogger-1.*'}) by (host_name)"
            }
 
+container_memory_queries = {'Container' : "sum(uptycs_docker_mem_used{}/(1000*1000*1000)) by (container_name)",}
+container_cpu_queries = {'Container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",}
 
-container_memory_queries = {
-           'Container' : "sum(uptycs_docker_mem_used{}/(1000*1000*1000)) by (container_name)",
-          }
-
-container_cpu_queries = {
-           'Container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",
-           }
 class MC_comparisions:
-    def __init__(self,sprint,prom_con_obj,build,load_type,doc,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,fetch_prev_build_data_path,overall_comparisions_docx_path,previous_excel_file_path,current_excel_file_path,show_gb_cores=True):
+    def __init__(self,sprint,prom_con_obj,build,doc,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,fetch_prev_build_data_path,overall_comparisions_docx_path,previous_excel_file_path,current_excel_file_path,show_gb_cores=True):
         self.doc = doc
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
@@ -59,7 +52,6 @@ class MC_comparisions:
         self.nodes_file_path=prom_con_obj.nodes_file_path
         self.sprint=sprint
         self.build = build
-        self.load_type = load_type
         self.prev_build = '-'
         self.overall_comparisions_docx_path=overall_comparisions_docx_path
         self.previous_excel_file_path=previous_excel_file_path
@@ -110,16 +102,18 @@ class MC_comparisions:
                 avg = sum(values) / len(values)
                 final[query][hostname] = {"percentage":avg}
                 if tag == memory_tag:
-                    if hostname in self.nodes_data:
-                        final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['ram']) / 100
-                    else:
-                        final[query][hostname][unit] = None
+                    final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['ram']) / 100
+                    # if hostname in self.nodes_data:
+                    #     final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['ram']) / 100
+                    # else:
+                    #     final[query][hostname][unit] = None
                 else:
                     if query == HOST:
-                        if hostname in self.nodes_data:
-                            final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['cores']) / 100
-                        else:
-                            final[query][hostname][unit] = None
+                        final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['cores']) / 100
+                        # if hostname in self.nodes_data:
+                        #     final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['cores']) / 100
+                        # else:
+                        #     final[query][hostname][unit] = None
                     else:
                         final[query][hostname][unit] = avg/100
 
@@ -167,7 +161,6 @@ class MC_comparisions:
         return final 
     
     def get_complete_container_utilization(self,data):
-
         data_dict=dict()
         old_data = data['previous']
         new_data = data['current']
@@ -179,7 +172,6 @@ class MC_comparisions:
             curr_list=[]
             curr_list.append((f"Complete {tag} usage",'-'))
             try:
-                
                 curr_list.append((f"{old_data[tag]:.2f}" , round(old_data[tag], 2)))
             except:
                 curr_list.append(('-' , '-'))            
@@ -239,22 +231,16 @@ class MC_comparisions:
                 if diff<0:
                     curr_list.append((difference_text + " ⬆️" ,round(abs(diff),2), "red"))
                     curr_list.append((relative_text + " ⬆️" ,round(abs(relative),2), "red"))
-                    # run.font.color.rgb = RGBColor(255, 0, 0)  # Red color
-                    # run2.font.color.rgb = RGBColor(255, 0, 0)  # Red color
                     self.summary[tag]["increased_or_decreased"]["increased"]["TOTAL"][0] -= abs(diff)
-
                     if abs(diff)>1 or abs(relative) > 10:
                         self.summary[tag]["increased_or_decreased"]["increased"][text] = [abs(diff),abs(relative)]
 
                 elif diff >0:
                     curr_list.append((difference_text + " ⬇️" ,round(abs(diff),2), "green"))
                     curr_list.append((relative_text + " ⬇️" ,round(abs(relative),2), "green"))
-                    # run.font.color.rgb = RGBColor(0, 128, 0)  # Green color
-                    # run2.font.color.rgb = RGBColor(0, 128, 0)  # Green color
                     self.summary[tag]["increased_or_decreased"]["decreased"]["TOTAL"][0] -= abs(diff)
                     if abs(diff)>1 or abs(relative) > 10:
                         self.summary[tag]["increased_or_decreased"]["decreased"][text] = [abs(diff) , abs(relative)]
-
                 else:
                     curr_list.append((difference_text , round(abs(diff),2)))
                     curr_list.append((relative_text , round(abs(relative),2)))
@@ -304,14 +290,10 @@ class MC_comparisions:
                 else:
                     curr_list.append((f"{tag} used by {query} {host_name}" , '-'))
                 try : 
-                    if old_data[query][host_name][unit] :
-                        _=f"{old_data[query][host_name]['percentage']:.2f}% ({old_data[query][host_name][unit]:.2f} {unit})"
-                    else:
-                        _ = f"{old_data[query][host_name]['percentage']:.2f}%"
+                    _=f"{old_data[query][host_name]['percentage']:.2f}% ({old_data[query][host_name][unit]:.2f} {unit})"
                     
-                    if old_data[query][host_name][unit] and self.show_gb_cores:
-                        a=f" {old_data[query][host_name]['percentage']:.2f}% ({old_data[query][host_name][unit]:.2f} {unit})"
-                        curr_list.append((a,a))
+                    if self.show_gb_cores:
+                        curr_list.append((_,_))
                     else:
                         b=f"{old_data[query][host_name]['percentage']:.2f}%"
                         curr_list.append((b,_))
@@ -320,15 +302,10 @@ class MC_comparisions:
                     curr_list.append(('-' , '-'))
                     print("Error:", type(e).__name__, "-", str(e))
 
-                if new_data[query][host_name][unit]:
-                    __=f"{new_data[query][host_name]['percentage']:.2f}% ({new_data[query][host_name][unit]:.2f} {unit})"
-                else:
-                    __=f"{new_data[query][host_name]['percentage']:.2f}%"
+                __=f"{new_data[query][host_name]['percentage']:.2f}% ({new_data[query][host_name][unit]:.2f} {unit})"
 
-                if new_data[query][host_name][unit] and self.show_gb_cores:
-                    c=f"{new_data[query][host_name]['percentage']:.2f}% ({new_data[query][host_name][unit]:.2f} {unit})"
-                    curr_list.append((c,c))
-                
+                if self.show_gb_cores:
+                    curr_list.append((__,__))
                 else:
                     d=f"{new_data[query][host_name]['percentage']:.2f}%"
                     curr_list.append((d,__))
@@ -336,23 +313,23 @@ class MC_comparisions:
                 try : 
                     sign = None
                     percent_diff = float(old_data[query][host_name]['percentage']) - float(new_data[query][host_name]['percentage'])
-                    if old_data[query][host_name][unit] and new_data[query][host_name][unit]:
-                        diff = float(old_data[query][host_name][unit]) - float(new_data[query][host_name][unit])
-                        row4_text = f"{abs(diff) *100  / (float(old_data[query][host_name][unit])) :.2f} %"
 
-                        __diff = f"{abs(diff):.2f} {unit} ({abs(percent_diff):.2f}%)"
+                    diff = float(old_data[query][host_name][unit]) - float(new_data[query][host_name][unit])
+                    row4_text = f"{abs(diff) *100  / (float(old_data[query][host_name][unit])) :.2f}%"
 
-                        if self.show_gb_cores:
-                            difference_text = f"{abs(diff):.2f} {unit} ({abs(percent_diff):.2f}%)"
-                        else:
-                            difference_text = f"{abs(percent_diff):.2f}%"
-                        sign = diff
+                    __diff = f"{abs(percent_diff):.2f}% ({abs(diff):.2f} {unit})"
+
+                    if self.show_gb_cores:
+                        difference_text = __diff
                     else:
-                        row4_text = f"{abs(percent_diff) *100  / (float(old_data[query][host_name]['percentage'])) :.2f} %"
                         difference_text = f"{abs(percent_diff):.2f}%"
-                        sign = percent_diff
-                        __diff = difference_text
-                        __diff = float(__diff[:-1])
+                    sign = diff
+                    # else:
+                    #     row4_text = f"{abs(percent_diff) *100  / (float(old_data[query][host_name]['percentage'])) :.2f} %"
+                    #     difference_text = f"{abs(percent_diff):.2f}%"
+                    #     sign = percent_diff
+                    #     __diff = difference_text
+                    #     __diff = float(__diff[:-1])
 
                     __rel = float(row4_text[:-1])
                     
@@ -367,7 +344,6 @@ class MC_comparisions:
                         curr_list.append((row4_text,__rel))
 
                 except Exception as e:
-                    print(" --- WHAT IS THE ERROR ----")
                     print("Error:", type(e).__name__, "-", str(e))
                     curr_list.append(('-' , '-'))
                     curr_list.append(('-' , '-'))

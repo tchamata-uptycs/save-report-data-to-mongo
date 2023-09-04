@@ -7,8 +7,8 @@ class PrometheusConnector:
         self.prom_api_path = "/api/v1/query_range"
         self.prom_point_api_path = "/api/v1/query"
         self.ssh_port = 22  # SSH port (default is 22)
-        self.abacus_username = 'abacus'  # Replace with your SSH username
-        self.abacus_password = 'abacus'  # Replace with your SSH password
+        self.abacus_username = 'abacus'  
+        self.abacus_password = 'abacus' 
 
         self.ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,timedelta
 import os
 import time
 from seleniumwire import webdriver
@@ -45,10 +45,12 @@ class take_screenshots:
 		self.monitoring_ip=prom_con_obj.monitoring_ip
 		self.dash_board_url = "http://"+self.monitoring_ip+":"+self.db.GRAFANA_PORT+dash_board_path
 
-		
-		
-		start_time_elk = start_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-		end_time_elk = end_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+		ist_timezone_offset = timedelta(hours=5, minutes=30)
+		utc_starttime = start_time - ist_timezone_offset
+		utc_endtime = end_time - ist_timezone_offset
+
+		start_time_elk = utc_starttime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+		end_time_elk = utc_endtime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 		self.compaction_status_url= f"http://{self.elk_url}:5601/app/dashboards#/view/Uptycs%20Data%20Pipeline?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'{start_time_elk}',to:'{end_time_elk}'))"
 
 	def generate_grafana_trends(self,l):
@@ -112,7 +114,7 @@ class take_screenshots:
 		driver = webdriver.Chrome(service=service,options=chrome_options)
 		driver.get(self.compaction_status_url)
 		print(f"Connecting to : {self.compaction_status_url}")
-		time.sleep(27)
+		time.sleep(60)
 		unique_number = int(time.time() * 1000)
 		title="Compaction Status"
 		print(f"{title} : {unique_number}")
@@ -151,18 +153,17 @@ class take_screenshots:
 
 	def capture_screenshots_add_get_ids(self):
 		grafana_ids = self.get_grafana_ids()
-		print("Grafana dashboard ids : " , grafana_ids )
-		print("Total number of panels : " , len(grafana_ids))
-		print("---------------------------------------------")
-		
 		temp_grafana_ids = grafana_ids[:]
 		for tab in self.table_ids:
 			if tab in temp_grafana_ids:temp_grafana_ids.remove(tab)
 		FINAL = [temp_grafana_ids[i:i+self.thread_len] for i in range(0, len(temp_grafana_ids), self.thread_len)]
-		for tab in self.table_ids:FINAL.append([tab])
 
-		print('FINAL : ', FINAL)
-
+		for tab in self.table_ids:
+			if tab in grafana_ids:
+				FINAL.append([tab])
+		print("Total number of grafana panels : " , len(grafana_ids))
+		print('Grafana ids : ', FINAL)
+		
 		with concurrent.futures.ProcessPoolExecutor() as executor:
 			executor.map(self.generate_grafana_trends, FINAL) 
 

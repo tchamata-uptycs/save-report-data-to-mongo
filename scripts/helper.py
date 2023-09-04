@@ -6,7 +6,7 @@ import json
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import PatternFill, Font
 from collections import defaultdict
-import shutil,socket,paramiko,re
+import shutil,socket,paramiko
 import concurrent.futures
 
 def add_screenshots_to_docx(doc,directory_path, grafana_ids, table_ids):
@@ -52,7 +52,6 @@ def add_table(doc,data_dict):
     doc.add_heading(title, level=3)
     cols = len(header)
     rows = len(body)
-
     table =doc.add_table(rows=1, cols=cols)
     table.style = 'Table Grid'
     table.autofit = True
@@ -86,11 +85,8 @@ def update_col_width(sheet,value_width,col):
         if value_width > current_width:
             sheet.column_dimensions[col_letter].width = value_width
 
-
-
 def add_row(sheet,value,row_num,temp_col,found):
     for val in value:
-        
         color=None
         try:
             text,num,color = val
@@ -114,7 +110,6 @@ def add_row(sheet,value,row_num,temp_col,found):
 
     return sheet
 
-
 def add_columns(sheet_name,data_dict,workbook,build):
     sheet = workbook[sheet_name]
     col = sheet.max_column +1 
@@ -131,9 +126,7 @@ def add_columns(sheet_name,data_dict,workbook,build):
     for lst in data_dict["body"]:
         key = lst[0][0]
         value = lst[2:]
-
         found=False
-
         row = sheet.max_row +1
 
         for row_num in range(2, row):
@@ -146,14 +139,9 @@ def add_columns(sheet_name,data_dict,workbook,build):
             sheet.cell(row=row, column=1, value=key.lower())
             sheet = add_row(sheet,value,row,col,found)
 
-
-
     update_col_width(sheet,len(build)+1 , col)
     update_col_width(sheet,len(build)+1 , col-1)
     update_col_width(sheet,58 , 1)
-
-
-
 
 def excel_update(sheets , prev_path, curr_path,build):
     if os.path.exists(curr_path):
@@ -187,12 +175,10 @@ def excel_update(sheets , prev_path, curr_path,build):
     print("Updated Excel sheet succcessfully")
 
 
-
-
 def add_load_details(doc,details):
     doc.add_heading("Load Details", level=2)
     for key, value in details.items():
-        doc.add_paragraph(f"{key}: {value}")
+        doc.add_paragraph(f"{' '.join(str(key).split('_')).title()}: {value}")
     return doc
 
 def extract_node_detail(data,node_type,prom_con_obj):
@@ -231,6 +217,7 @@ def extract_node_detail(data,node_type,prom_con_obj):
                                     'dn3' : "df -h | awk '$6 == \"/data/dn3\" {print $2}'",
                                     'pg' : "df -h | awk '$6 == \"/pg\" {print $2}'",
                                     'data' : "df -h | awk '$6 == \"/data\" {print $2}'",
+                                    'data_prometheus' : "df -h | awk '$6 == \"/data/prometheus\" {print $2}'",
                                     }
 
                 for label,command in storage_commands.items():
@@ -267,17 +254,48 @@ def extract_stack_details(nodes_file_path,prom_con_obj):
         future2 = executor.submit(extract_node_detail_wrapper, data, 'dnodes', prom_con_obj)
         future3 = executor.submit(extract_node_detail_wrapper, data, 'pgnodes', prom_con_obj)
         future4 = executor.submit(extract_node_detail_wrapper, data, 'monitoring_node', prom_con_obj)
-        completed_futures, _ = concurrent.futures.wait([future1, future2, future3, future4])
+        future5 = executor.submit(extract_node_detail_wrapper, data, 'other_nodes', prom_con_obj)
+
+        completed_futures, _ = concurrent.futures.wait([future1, future2, future3, future4 , future5])
 
     pnodes = future1.result()
     dnodes = future2.result()
     pgnodes = future3.result()
     monitoring_node = future4.result()
+    other_nodes = future5.result()
 
     data.update(pnodes)
     data.update(dnodes)
     data.update(pgnodes)
     data.update(monitoring_node)
+    data.update(other_nodes)
 
     with open(nodes_file_path,'w') as file:
         json.dump(data,file,indent=4)
+
+def add_test_env_details(nodes_file_path,doc):
+    with open(nodes_file_path,'r') as file:
+        data = json.load(file)
+    table_dict={}
+    table_dict={}
+    table_dict['title'] = f"Test Environment details"
+    table_dict['header'] =["node" ,'cluster', 'cores' , 'ram' , 'storage']
+    table_dict['body']=[] 
+
+    for node_type in ['pnodes' ,'dnodes', 'pgnodes' , 'monitoring_node']:
+        for node in data[node_type]:
+            curr_list=[]
+            curr_list.append((node,0))
+            curr_list.append((data[node]['clst'],0))
+            curr_list.append((data[node]['cores'],0))
+            curr_list.append((data[node]['ram'],0))
+            storage_data=''
+            for storage_type in data[node]['storage']:
+                storage_data += storage_type + ':'
+                storage_data += data[node]['storage'][storage_type]
+                storage_data += ', '
+            curr_list.append((storage_data,0))
+            table_dict['body'].append(curr_list)
+    
+    doc = add_table(doc,table_dict)
+    return doc

@@ -1,13 +1,9 @@
 import paramiko
 import json
 import os
-from docx.shared import RGBColor
 from helper import add_table,excel_update
 
 host = '192.168.135.11' # (s1c1pn1)
-# port = 22  # SSH port (default is 22)
-# username = 'abacus'  # Replace with your SSH username
-# password = 'abacus'  # Replace with your SSH password
 
 remote_directory = '/home/abacus'
 
@@ -45,22 +41,21 @@ class kafka_topics:
 
         if new_topics_created:
             text += "New topics found"
-            data_dict["body"].append([( text, text ,"red")])
+            data_dict["body"].append([( text, 0 ,"red")])
         else:
             text += "No new topics added"
-            data_dict["body"].append([( text, text ,"green")])
+            data_dict["body"].append([( text, 0 ,"green")])
 
-        data_dict["body"].append([( not_matched, not_matched ,"red")])
-        data_dict["body"].append([( matched, matched )])
+        data_dict["body"].append([( not_matched, 0 ,"red")])
+        data_dict["body"].append([( matched, 0 )])
 
-        
         return data_dict
     
     def get_kafka_excel_dict(self,lst):
         data_dict=dict()
         data_dict["body"]=[]
         for topic in lst:
-            data_dict["body"].append([(topic,topic) , () , (topic,topic)])
+            data_dict["body"].append([(topic,topic) , () , (0,topic)])
         return data_dict
         
     def add_topics_to_report(self):
@@ -94,14 +89,7 @@ class kafka_topics:
             else:
                 prev_list=[]
 
-
-            
-            # self.create_table(output_list,prev_list)
-
-            
-
             self.doc = add_table(self.doc,self.get_data_dict(output_list,prev_list))
-
 
             with open(self.save_path, 'r') as file:
                 current_build_data = json.load(file)
@@ -115,8 +103,6 @@ class kafka_topics:
             }
 
             excel_update(sheets , self.previous_excel_file_path, self.current_excel_file_path , self.build)
-
-
 
         finally:
             # Close the SSH connection

@@ -44,6 +44,11 @@
     "monitoring_node": [
         "s4mon"
     ],
+    "other_nodes": [
+        "s4stsnode1",
+        "s4stsnode2",
+        "mlbank1a"
+    ],
     "s4c1pn1": {
         "storage": {
             "root_partition": "731G",
@@ -350,6 +355,35 @@
         "lan_ip": "192.168.136.69",
         "ram": "78",
         "cores": "16",
+        "clst": "1"
+    },
+    "s4stsnode1": {
+        "storage": {
+            "root_partition": "196G",
+            "spark": "3.6T"
+        },
+        "lan_ip": "192.168.141.61",
+        "ram": "78",
+        "cores": "16",
+        "clst": "1"
+    },
+    "s4stsnode2": {
+        "storage": {
+            "root_partition": "196G",
+            "spark": "3.6T"
+        },
+        "lan_ip": "192.168.141.62",
+        "ram": "78",
+        "cores": "16",
+        "clst": "1"
+    },
+    "mlbank1a": {
+        "storage": {
+            "root_partition": "196G"
+        },
+        "lan_ip": "192.168.140.77",
+        "ram": "47",
+        "cores": "8",
         "clst": "1"
     }
 }

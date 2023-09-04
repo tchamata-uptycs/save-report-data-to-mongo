@@ -1,4 +1,4 @@
-import os
+import os,sys
 from pathlib import Path
 import time
 from datetime import datetime
@@ -10,16 +10,18 @@ import shutil
 from datetime import datetime, timedelta
 import json
 from disk_space import DISK
-from helper import add_screenshots_to_docx,add_load_details
+from helper import add_screenshots_to_docx,add_load_details,add_test_env_details
 from input import create_input_form
 
-#remaining tasks : trino queries(to do) , stack details(simple manually), load specific details(simple manually), accuracies(done), observations(manual)
+#remaining tasks : trino queries(to do), accuracies(done)
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
     variables , prom_con_obj =create_input_form()
+    if not variables or not prom_con_obj : 
+        print("Received NoneType objects, terminating the program ...")
+        sys.exit()
     print("Details :")
-    print(prom_con_obj)
     for key,val in variables.items():
         print(f"{key} : {val}")
 
@@ -42,12 +44,18 @@ if __name__ == "__main__":
                 'stack_url':stack_details["stack_url"],
                 "sprint": f"{variables['sprint']}",
                 "build": f"{variables['build']}",
+                "load_name":f"{variables['load_name']}",
                 "load_type":f"{variables['load_type']}",
                 "load_duration_in_hrs":f"{variables['load_duration_in_hrs']} hrs",
                 "load_start_time_ist" : f"{variables['start_time_str']}",
                 "load_end_time_ist" : f"{end_time_str}"
                 }
     
+    #------------------------- Load specific details -------------------
+    with open(f"{prom_con_obj.base_stack_config_path}/load_specific_details.json" , 'r') as file:
+        load_specific_details = json.load(file)
+    details_for_report.update(load_specific_details[details_for_report["load_name"]])
+    #-------------------------------------------------------------------
     current_build_data = {
         "details":details_for_report
     }
@@ -57,11 +65,11 @@ if __name__ == "__main__":
     ROOT_PATH = prom_con_obj.ROOT_PATH
 
     SCREENSHOT_DIR= ROOT_PATH+"/grafana_screenshots"
-    CURRENT_BASE = f'{ROOT_PATH}/generated_reports/{variables["sprint"]}/{variables["load_type"]}'
-    PREVIOUS_BASE = f'{ROOT_PATH}/generated_reports/{variables["prev_sprint"]}/{variables["load_type"]}' 
+    CURRENT_BASE = f'{ROOT_PATH}/generated_reports/{variables["sprint"]}/{variables["load_name"]}'
+    PREVIOUS_BASE = f'{ROOT_PATH}/generated_reports/{variables["prev_sprint"]}/{variables["load_name"]}' 
     
-    report_docx_path = Path(f'{CURRENT_BASE}/{variables["build"]}_{variables["start_time_str"]}_{variables["load_type"]}_complete_report.docx')
-    overall_comparisions_docx_path = Path(f'{CURRENT_BASE}/{variables["build"]}_{variables["start_time_str"]}_{variables["load_type"]}_overall_container_comparisions.docx')
+    report_docx_path = Path(f'{CURRENT_BASE}/{variables["build"]}_{variables["start_time_str"]}_{variables["load_name"]}_complete_report.docx')
+    overall_comparisions_docx_path = Path(f'{CURRENT_BASE}/{variables["build"]}_{variables["start_time_str"]}_{variables["load_name"]}_overall_container_comparisions.docx')
     
     save_current_build_data_path = Path(f'{CURRENT_BASE}/mem_cpu_comparision_data.json')
     fetch_prev_build_data_path = Path(f'{PREVIOUS_BASE}/mem_cpu_comparision_data.json')
@@ -109,15 +117,16 @@ if __name__ == "__main__":
         
         doc = Document()
         doc.add_heading('Load Test Report', level=0)
-        #------------------------load details--------------------------
+        #------------------------load and test env details--------------------------
 
         doc = add_load_details(doc,details_for_report)
 
+        doc = add_test_env_details(nodes_file_path=nodes_file_path,doc=doc)
         #-------------------------disk space--------------------------
 
-        if variables["add_disk_space_usage"] and variables["load_type"] != "ControlPlane":
+        if variables["add_disk_space_usage"] and variables["load_name"] != "ControlPlane":
             print("Performing disk space calculations ...")
-            calc = DISK(doc=doc,sprint=variables["sprint"],load_type=variables["load_type"],build=variables["build"],curr_ist_start_time=variables["start_time_str"],
+            calc = DISK(doc=doc,sprint=variables["sprint"],build=variables["build"],curr_ist_start_time=variables["start_time_str"],
                                 curr_ist_end_time=end_time_str,
                                 save_current_build_data_path=save_current_build_data_path,
                                 report_docx_path=report_docx_path,
@@ -144,7 +153,7 @@ if __name__ == "__main__":
             dash_board_path= f'/d/{stack_details["dashboard_uid"]}/{stack_details["dashboard_name"]}'
 
             ss_object = take_screenshots(doc=doc,start_time_str=variables["start_time_str"],end_time_str=end_time_str,
-                                SCREENSHOT_DIR=SCREENSHOT_DIR,table_ids=stack_details["grafana_table_ids"],start_margin=variables["start_margin"],end_margin=variables["end_margin"],
+                                SCREENSHOT_DIR=SCREENSHOT_DIR,table_ids=stack_details["grafana_table_ids"],start_margin=variables["start_margin_for_charts"],end_margin=variables["end_margin_for_charts"],
                                 panel_loading_time_threshold_sec=panel_loading_time_threshold_sec,
                                 thread_len=thread_len,
                                 elk_url = stack_details["elk_url"],
@@ -154,20 +163,20 @@ if __name__ == "__main__":
             grafana_ids=ss_object.capture_screenshots_add_get_ids()
             doc = add_screenshots_to_docx(doc,SCREENSHOT_DIR, grafana_ids,stack_details["grafana_table_ids"])
             f_at = time.perf_counter()
-            print(f"Adding the Screenshots took : {round(f_at - s_at,2)} seconds in total")		
+            print(f"Adding the Screenshots took : {round(f_at - s_at,2)} seconds in total")     
 
         #--------------------------------cpu and mem node-wise---------------------------------------
         if variables["make_cpu_mem_comparisions"]:
 
             print("Performing node-wise comparisions ...")
-            comp = MC_comparisions(doc=doc,sprint=variables["sprint"],load_type=variables["load_type"],build=variables["build"],curr_ist_start_time=variables["start_time_str"],
+            comp = MC_comparisions(doc=doc,sprint=variables["sprint"],build=variables["build"],curr_ist_start_time=variables["start_time_str"],
                                 curr_ist_end_time=end_time_str,
                                 save_current_build_data_path=save_current_build_data_path,
                                 fetch_prev_build_data_path=fetch_prev_build_data_path,
                                 overall_comparisions_docx_path=overall_comparisions_docx_path,
                                 previous_excel_file_path=previous_excel_file_path,
                                 current_excel_file_path=current_excel_file_path,
-                                show_gb_cores=variables["show_gb_cores"],
+                                show_gb_cores=False,
                                 prom_con_obj=prom_con_obj)
             doc = comp.make_comparisions()
 

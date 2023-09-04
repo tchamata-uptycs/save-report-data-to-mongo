@@ -1,5 +1,3 @@
-from collections import defaultdict
-from collections import defaultdict
 from helper import add_table,excel_update
 import requests
 from datetime import datetime
@@ -8,7 +6,7 @@ from helper import add_table,excel_update
 import paramiko
 
 class DISK:
-    def __init__(self,sprint,build,load_type,doc,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,report_docx_path,previous_excel_file_path,current_excel_file_path,prom_con_obj):
+    def __init__(self,sprint,build,doc,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,report_docx_path,previous_excel_file_path,current_excel_file_path,prom_con_obj):
         self.doc = doc
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
@@ -16,7 +14,6 @@ class DISK:
         self.nodes_file_path=prom_con_obj.nodes_file_path
         self.sprint=sprint
         self.build = build
-        self.load_type = load_type
         self.prev_build = '-'
         self.report_docx_path=report_docx_path
 
@@ -44,7 +41,6 @@ class DISK:
         self.get_total_space_query=f"sort(sum(uptycs_hdfs_node_config_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}}) by (hdfsdatanode))"
         self.remaining_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}})"
         self.kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
-
 
         self.previous_excel_file_path=previous_excel_file_path
         self.current_excel_file_path=current_excel_file_path
@@ -107,17 +103,17 @@ class DISK:
 
             used_space=(percentage_used_after_load-percentage_used_before_load)*total*(1024/100)
 
-            curr_list.append((node,'-'))
-            curr_list.append((round(total,2),'-'))
-            curr_list.append((round(percentage_used_before_load,2),'-'))
-            curr_list.append((round(percentage_used_after_load,2),'-'))
-            curr_list.append((round((used_space),2) ,'-'))
+            curr_list.append((node,0))
+            curr_list.append((round(total,2),0))
+            curr_list.append((round(percentage_used_before_load,2),0))
+            curr_list.append((round(percentage_used_after_load,2),0))
+            curr_list.append((round((used_space),2) ,0))
 
             excel_list.append((node,node))
-            excel_list.append(('-','-'))
-            excel_list.append(('-',round((used_space),2)))
+            excel_list.append(())
+            excel_list.append((0,round((used_space),2)))
 
-            save_dict[node] = used_space
+            save_dict[node] = {f"{TYPE} total space configured(TB)" : total , f"{TYPE} disk used % before load" :percentage_used_before_load,f"{TYPE} disk used % after load":percentage_used_after_load,f"{TYPE} used space during load (GB)":used_space}
 
             data_dict['body'].append(curr_list)
             excel_dict['body'].append(excel_list)
@@ -125,7 +121,6 @@ class DISK:
 
    
     def pg_disk_calc(self):
-        
         port = 22  # SSH port (default is 22)
         username = 'abacus'  # Replace with your SSH username
         password = 'abacus'  # Replace with your SSH password
@@ -134,7 +129,6 @@ class DISK:
         table_dict['title'] = f"PG disk space usage"
         table_dict['header'] =["partition" ,'master configdb node', 'standby configdb node']
         table_dict['body']=[] 
-        excel_dict={"body":[]}
         save_dict={}
         commands = {'/pg' : "sudo du -sh /pg"  , '/data':"sudo du -sh /data"}
 

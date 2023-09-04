@@ -1,0 +1,22 @@
+{
+    "details": {
+        "stack": "S4",
+        "stack_url": "https://mercury.uptycs.net/",
+        "sprint": "139",
+        "build": "139005",
+        "load_name": "MultiCustomer",
+        "load_type": "CloudLoad",
+        "load_duration_in_hrs": "12 hrs",
+        "load_start_time_ist": "2023-08-24 00:33",
+        "load_end_time_ist": "2023-08-24 12:33",
+        "Customers": "120",
+        "Number of Customers with Auto Exception enabled": "0",
+        "Test type": "Rule Engine Load and Control Plane Load",
+        "Customer": "Multiple",
+        "Total assets": "80K Control Plane +15K Multi customer",
+        "Records sent per hour per customer": "8164800",
+        "Records sent per hour": "979776000 (979 million)",
+        "Input File": "rhel7-6tab_12rec.log",
+        "Events table name": "dns_lookup_events, socket_events, process_events, process_file_events"
+    }
+}
