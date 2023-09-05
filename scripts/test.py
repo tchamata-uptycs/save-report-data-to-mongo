@@ -1,3 +1,12 @@
-print(bool('0'))
+a = (2,3)
 
-print(bool(7))
+try:
+    b,c = a
+    print(b,c)
+    print(type(c))
+    print(type(b))
+except:
+    b=a
+    print(type(a))
+    print(type(b))
+

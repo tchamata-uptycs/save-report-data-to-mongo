@@ -167,38 +167,53 @@ class MC_comparisions:
         data_dict["title"] = f"Complete resource usage(GB/cores)"
         data_dict["header"] = [ "Metric",self.prev_build,self.build, "Absolute(%)" , "Relative(%)" ]
         data_dict["body"] = []
+        excel_dict=[]
 
         for tag in new_data:
             curr_list=[]
-            curr_list.append((f"Complete {tag} usage",'-'))
+            excel_list=[]
+            curr_list.append((f"Complete {tag} usage"))
+            excel_list.append((f"Complete {tag} usage"))
             try:
-                curr_list.append((f"{old_data[tag]:.2f}" , round(old_data[tag], 2)))
+                curr_list.append((f"{old_data[tag]:.2f}"))
             except:
-                curr_list.append(('-' , '-'))            
-            curr_list.append((f"{new_data[tag]:.2f}" , round(new_data[tag], 2)))
+                curr_list.append(('-'))
+            curr_list.append((f"{new_data[tag]:.2f}"))
+            excel_list.append((round(new_data[tag], 2)))    
             try:
                 diff = round(old_data[tag]-new_data[tag] , 2)
                 relative = round((old_data[tag]-new_data[tag]) / old_data[tag] , 2)
                 if diff >0:
-                    curr_list.append((str(abs(diff)) + " ⬇️" , abs(diff), "green"))
-                    curr_list.append((str(abs(relative)) + " ⬇️" ,abs(relative), "green"))
+                    curr_list.append((str(abs(diff)) + " ⬇️" , "green"))
+                    excel_list.append((abs(diff) , "green"))
+                    curr_list.append((str(abs(relative)) + " ⬇️" , "green"))
+                    excel_list.append((abs(relative) , "green"))
                 elif diff < 0 :
-                    curr_list.append((str(abs(diff)) + " ⬆️" ,abs(diff), "red"))
+                    curr_list.append((str(abs(diff)) + " ⬆️" , "red"))
+                    excel_list.append((abs(diff) , "red"))
                     curr_list.append((str(abs(relative)) + " ⬆️" ,abs(relative), "red"))
+                    excel_list.append((abs(relative) , "red"))
                 else:
-                    curr_list.append((str(abs(diff)) , abs(diff)))
-                    curr_list.append((str(abs(relative)) , abs(relative)))
+                    curr_list.append((str(abs(diff))))
+                    excel_list.append((abs(diff)))
+                    curr_list.append((str(abs(relative))))
+                    excel_list.append((abs(relative)))
 
             except:
-                curr_list.append(('-','-'))
-                curr_list.append(('-','-'))
+                curr_list.append(('-'))
+                excel_list.append(('-'))
+                curr_list.append(('-'))
+                excel_list.append(('-'))
+
 
             data_dict['body'].append(curr_list)
-        return data_dict
+            excel_dict.append(excel_list)
+        return data_dict,excel_dict
 
 
 
     def get_container_utilization(self,data):
+        excel_dict=[]
         data_dict=dict()
         data_dict["header"] = [ "Metric",self.prev_build,self.build, "Absolute(%)" , "Relative(%)" ]
         data_dict["body"] = []
@@ -210,42 +225,59 @@ class MC_comparisions:
         for query in new_data:
             for host_name in new_data[query]:
                 curr_list = []
-                curr_list.append((f"{tag} used by container {host_name}",'-'))
+                excel_list=[]
+                curr_list.append((f"{tag} used by container {host_name}"))
+                excel_list.append((f"{tag} used by container {host_name}"))
                 text = f"{tag} by {host_name}"
                 try : 
-                    curr_list.append((f"{old_data[query][host_name][unit]:.2f} {unit}" ,round(old_data[query][host_name][unit],2) ))
-                    diff = float(old_data[query][host_name][unit]) - float(new_data[query][host_name][unit])
-                    relative = float(((old_data[query][host_name][unit]) - float(new_data[query][host_name][unit]))*100 / old_data[query][host_name][unit])
+                    curr_list.append((f"{old_data[query][host_name][unit]:.2f} {unit}"))
                 except Exception as e:
                     print("Error:", type(e).__name__, "-", str(e))
-                    curr_list.append(('-' , '-'))
-                    diff = - float(new_data[query][host_name][unit])
-                    relative=0
+                    curr_list.append(('-'))
                     
-                curr_list.append((f"{new_data[query][host_name][unit]:.2f} {unit}" , round(new_data[query][host_name][unit],2)))
+                try:
+                    diff = float(old_data[query][host_name][unit]) - float(new_data[query][host_name][unit])
+                except:
+                    diff = - float(new_data[query][host_name][unit])
+                try:
+                    relative = float(((old_data[query][host_name][unit]) - float(new_data[query][host_name][unit]))*100 / old_data[query][host_name][unit])
+                except:
+                    relative=0
+
+                    
+                curr_list.append((f"{new_data[query][host_name][unit]:.2f} {unit}"))
+                excel_list.append((round(new_data[query][host_name][unit],2)))
 
                 difference_text = f"{abs(diff):.2f} {unit}"
                 relative_text = f"{abs(relative):.2f} %"
 
 
                 if diff<0:
-                    curr_list.append((difference_text + " ⬆️" ,round(abs(diff),2), "red"))
-                    curr_list.append((relative_text + " ⬆️" ,round(abs(relative),2), "red"))
+                    curr_list.append((difference_text + " ⬆️" , "red"))
+                    excel_list.append((round(abs(diff),2), "red"))
+                    curr_list.append((relative_text + " ⬆️" , "red"))
+                    excel_list.append((round(abs(relative),2), "red"))
                     self.summary[tag]["increased_or_decreased"]["increased"]["TOTAL"][0] -= abs(diff)
                     if abs(diff)>1 or abs(relative) > 10:
                         self.summary[tag]["increased_or_decreased"]["increased"][text] = [abs(diff),abs(relative)]
 
                 elif diff >0:
-                    curr_list.append((difference_text + " ⬇️" ,round(abs(diff),2), "green"))
-                    curr_list.append((relative_text + " ⬇️" ,round(abs(relative),2), "green"))
+                    curr_list.append((difference_text + " ⬇️" , "green"))
+                    excel_list.append((round(abs(diff),2), "green"))
+                    curr_list.append((relative_text + " ⬇️" , "green"))
+                    excel_list.append((round(abs(relative),2), "green"))
+
                     self.summary[tag]["increased_or_decreased"]["decreased"]["TOTAL"][0] -= abs(diff)
                     if abs(diff)>1 or abs(relative) > 10:
                         self.summary[tag]["increased_or_decreased"]["decreased"][text] = [abs(diff) , abs(relative)]
                 else:
-                    curr_list.append((difference_text , round(abs(diff),2)))
-                    curr_list.append((relative_text , round(abs(relative),2)))
+                    curr_list.append((difference_text))
+                    excel_list.append((round(abs(diff),2)))
+                    curr_list.append((relative_text))
+                    excel_list.append((round(abs(relative),2)))
                 data_dict["body"].append(curr_list)
-        return data_dict
+                excel_dict.append(excel_list)
+        return data_dict,excel_dict
 
     def get_summary_dict(self):
         final=[]
@@ -261,19 +293,20 @@ class MC_comparisions:
                     curr_list=[]
                     if metric == "TOTAL":
                         individual_summary[metric][0]=abs(individual_summary[metric][0])
-                    curr_list.append((metric,metric))
+                    curr_list.append((metric))
                     if inc_or_dec == "increased":
-                        curr_list.append((f"{individual_summary[metric][0]:.2f}" , round(individual_summary[metric][0],2) , "red"))
-                        curr_list.append((f"{individual_summary[metric][1]:.2f}" , round(individual_summary[metric][1],2) , "red"))
+                        curr_list.append((f"{individual_summary[metric][0]:.2f}", "red"))
+                        curr_list.append((f"{individual_summary[metric][1]:.2f}" , "red"))
                     else:
-                        curr_list.append((f"{individual_summary[metric][0]:.2f}" , round(individual_summary[metric][0],2) ,  "green"))
-                        curr_list.append((f"{individual_summary[metric][1]:.2f}" ,  round(individual_summary[metric][1],2) , "green"))
+                        curr_list.append((f"{individual_summary[metric][0]:.2f}" ,  "green"))
+                        curr_list.append((f"{individual_summary[metric][1]:.2f}" , "green"))
                     data_dict["body"].append(curr_list)
                 final.append(data_dict)
         return final
 
     def get_average_utilization(self,data):
         data_dict=dict()
+        excel_dict=[]
         data_dict["header"] = [ "Metric",self.prev_build,self.build, "Absolute(%)" , "Relative(%)" ]
         data_dict["body"] = []
         old_data = data['previous']
@@ -285,31 +318,33 @@ class MC_comparisions:
         for query in new_data:
             for host_name in new_data[query]:
                 curr_list = []
+                excel_list=[]
                 if query==HOST:
-                    curr_list.append((f"{tag} used by {host_name}" , '-'))
+                    curr_list.append((f"{tag} used by {host_name}" ))
+                    excel_list.append((f"{tag} used by {host_name}" ))
                 else:
-                    curr_list.append((f"{tag} used by {query} {host_name}" , '-'))
+                    curr_list.append((f"{tag} used by {query} {host_name}"))
+                    excel_list.append((f"{tag} used by {query} {host_name}"))
                 try : 
                     _=f"{old_data[query][host_name]['percentage']:.2f}% ({old_data[query][host_name][unit]:.2f} {unit})"
                     
                     if self.show_gb_cores:
-                        curr_list.append((_,_))
+                        curr_list.append((_))
                     else:
                         b=f"{old_data[query][host_name]['percentage']:.2f}%"
-                        curr_list.append((b,_))
-                    
+                        curr_list.append((b))
                 except Exception as e:
-                    curr_list.append(('-' , '-'))
+                    curr_list.append(('-'))
                     print("Error:", type(e).__name__, "-", str(e))
 
                 __=f"{new_data[query][host_name]['percentage']:.2f}% ({new_data[query][host_name][unit]:.2f} {unit})"
 
                 if self.show_gb_cores:
-                    curr_list.append((__,__))
+                    curr_list.append((__))
                 else:
                     d=f"{new_data[query][host_name]['percentage']:.2f}%"
-                    curr_list.append((d,__))
-
+                    curr_list.append((d))
+                excel_list.append((__))
                 try : 
                     sign = None
                     percent_diff = float(old_data[query][host_name]['percentage']) - float(new_data[query][host_name]['percentage'])
@@ -334,27 +369,37 @@ class MC_comparisions:
                     __rel = float(row4_text[:-1])
                     
                     if sign<0:
-                        curr_list.append((difference_text + " ⬆️" ,__diff  , "red"))
-                        curr_list.append((row4_text+ " ⬆️" ,__rel , "red"))
+                        curr_list.append((difference_text + " ⬆️" , "red"))
+                        excel_list.append((__diff  , "red"))
+                        curr_list.append((row4_text+ " ⬆️" , "red"))
+                        excel_list.append((__rel , "red"))
                     elif sign>0:
-                        curr_list.append((difference_text + " ⬇️" ,__diff ,"green"))
-                        curr_list.append((row4_text + " ⬇️",__rel , "green"))
+                        curr_list.append((difference_text + " ⬇️" ,"green"))
+                        excel_list.append((__diff ,"green"))
+                        curr_list.append((row4_text + " ⬇️", "green"))
+                        excel_list.append((__rel , "green"))
                     else:
                         curr_list.append((difference_text,__diff))
+                        excel_list.append((__diff))
                         curr_list.append((row4_text,__rel))
+                        excel_list.append((__rel))
 
                 except Exception as e:
                     print("Error:", type(e).__name__, "-", str(e))
-                    curr_list.append(('-' , '-'))
-                    curr_list.append(('-' , '-'))
+                    curr_list.append(('-'))
+                    excel_list.append(('-'))
+                    curr_list.append(('-'))
+                    excel_list.append(('-'))
 
                 data_dict["body"].append(curr_list)
+                excel_dict.append(excel_list)
 
-        return data_dict
+        return data_dict,excel_dict
 
 
     def get_overall_utilization(self,data):
         data_dict=dict()
+        excel_dict=[]
         data_dict["header"] = [ "Metric",self.prev_build,self.build, "Delta" ]
         data_dict["body"] = []
         old_data = data['overall_previous']
@@ -365,26 +410,34 @@ class MC_comparisions:
 
         for node_type in new_data:
             curr_list=[]
-            curr_list.append((f"Average {tag} used by {node_type}" , '-'))
+            excel_list=[]
+            curr_list.append((f"Average {tag} used by {node_type}" ))
+            excel_list.append((f"Average {tag} used by {node_type}" ))
             try:
-                curr_list.append((f"{old_data[node_type][unit]:.2f} {unit}" , round(old_data[node_type][unit],2)))
+                curr_list.append((f"{old_data[node_type][unit]:.2f} {unit}"))
             except:
-                curr_list.append(('-','-'))
-            curr_list.append((f"{new_data[node_type][unit]:.2f} {unit}" , round(new_data[node_type][unit],2)))
+                curr_list.append(('-'))
+            curr_list.append((f"{new_data[node_type][unit]:.2f} {unit}"))
+            excel_list.append((round(new_data[node_type][unit],2)))
             try:
                 diff = old_data[node_type][unit]-new_data[node_type][unit]
                 difference_text = f"{abs(diff *100/ old_data[node_type][unit]):.2f}% ({abs(diff):.2f} {unit})"
                 if diff<0:
-                    curr_list.append((difference_text + " ⬆️" ,difference_text, "red"))
+                    curr_list.append((difference_text + " ⬆️" , "red"))
+                    excel_list.append((difference_text, "red"))
                 elif diff>0:
-                    curr_list.append((difference_text + " ⬇️" , difference_text,"green"))
+                    curr_list.append((difference_text + " ⬇️" ,"green"))
+                    excel_list.append((difference_text,"green"))
                 else:
-                    curr_list.append((difference_text,difference_text))
+                    curr_list.append((difference_text))
+                    excel_list.append((difference_text))
             except Exception as e:
                 print("Error:", type(e).__name__, "-", str(e))
-                curr_list.append(('-','-'))
+                curr_list.append(('-'))
+                excel_list.append(('-'))
             data_dict["body"].append(curr_list)
-        return data_dict
+            excel_dict.append(excel_list)
+        return data_dict,excel_dict
 
         
     def make_comparisions(self):
@@ -440,6 +493,7 @@ class MC_comparisions:
         with open(self.save_current_build_data_path, 'w') as file:
             json.dump(current_build_data, file, indent=4)  # indent for pretty formatting
 
+        
 
         sheets = {
                 "memory trend":self.get_average_utilization(memory_data),
@@ -450,30 +504,37 @@ class MC_comparisions:
                   "overall cpu":self.get_overall_utilization(cpu_data),
                   "complete usage":self.get_complete_container_utilization(container_complete_usage),
                   }
+        excel_sheets={}
+        table_sheets={}
+        for key,val in sheets.items():
+            table_data,excel_data=val
+            excel_sheets[key] = excel_data
+            table_sheets[key] = table_data
+
         
         self.doc.add_heading('Average Resource Utilization', level=2)
-        self.doc=add_table(self.doc,    sheets["memory trend"])
-        self.doc=add_table(self.doc,    sheets["cpu trend"])
+        self.doc=add_table(self.doc,    table_sheets["memory trend"])
+        self.doc=add_table(self.doc,    table_sheets["cpu trend"])
 
         self.doc.add_heading('Overall Usages', level=2)
-        self.doc=add_table(self.doc,    sheets["overall mem"])
-        self.doc=add_table(self.doc,    sheets["overall cpu"])
+        self.doc=add_table(self.doc,    table_sheets["overall mem"])
+        self.doc=add_table(self.doc,    table_sheets["overall cpu"])
 
         #---- container wise -----------
         self.container_doc = Document()
         self.container_doc.add_heading('Container-wise Resource Usage Report', level=0)
 
-        self.container_doc = add_table(self.container_doc , sheets["container-wise memory trend"])
-        self.container_doc = add_table(self.container_doc , sheets["container-wise memory trend"])
+        self.container_doc = add_table(self.container_doc , table_sheets["container-wise memory trend"])
+        self.container_doc = add_table(self.container_doc , table_sheets["container-wise cpu trend"])
         if past_file_exists:
             self.container_doc.add_heading(f'Usage Increase/decrease Summary', level=2)
             for table in self.get_summary_dict():
                 self.container_doc = add_table(self.container_doc , table)
 
-        self.container_doc = add_table(self.container_doc , sheets["complete usage"])
+        self.container_doc = add_table(self.container_doc , table_sheets["complete usage"])
         self.container_doc.save(self.overall_comparisions_docx_path)
         #-------------------------------
 
         #update excel
-        excel_update(sheets , self.previous_excel_file_path ,self.current_excel_file_path , build = self.build)
+        excel_update(excel_sheets , self.previous_excel_file_path ,self.current_excel_file_path , build = self.build)
         return self.doc

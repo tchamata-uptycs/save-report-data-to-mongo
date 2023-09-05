@@ -83,7 +83,7 @@ class DISK:
         data_dict['title'] = f"{TYPE} disk space usage"
         data_dict['header'] =["Node" ,f"{TYPE} total space configured(TB)", f"{TYPE} disk used % before load" , f"{TYPE} disk used % after load" , f"{TYPE} used space during load (GB)"]
         data_dict['body']=[] 
-        excel_dict={"body":[]}
+        excel_dict=[]
         save_dict={}
         bytes_in_a_tb=1e+12
 
@@ -103,20 +103,19 @@ class DISK:
 
             used_space=(percentage_used_after_load-percentage_used_before_load)*total*(1024/100)
 
-            curr_list.append((node,0))
-            curr_list.append((round(total,2),0))
-            curr_list.append((round(percentage_used_before_load,2),0))
-            curr_list.append((round(percentage_used_after_load,2),0))
-            curr_list.append((round((used_space),2) ,0))
+            curr_list.append((node))
+            curr_list.append((round(total,2)))
+            curr_list.append((round(percentage_used_before_load,2)))
+            curr_list.append((round(percentage_used_after_load,2)))
+            curr_list.append((round((used_space),2)))
 
-            excel_list.append((node,node))
-            excel_list.append(())
-            excel_list.append((0,round((used_space),2)))
+            excel_list.append((node))
+            excel_list.append((round((used_space),2)))
 
             save_dict[node] = {f"{TYPE} total space configured(TB)" : total , f"{TYPE} disk used % before load" :percentage_used_before_load,f"{TYPE} disk used % after load":percentage_used_after_load,f"{TYPE} used space during load (GB)":used_space}
 
             data_dict['body'].append(curr_list)
-            excel_dict['body'].append(excel_list)
+            excel_dict.append(excel_list)
         return TYPE,data_dict,excel_dict,save_dict
 
    

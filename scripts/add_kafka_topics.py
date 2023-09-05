@@ -41,21 +41,20 @@ class kafka_topics:
 
         if new_topics_created:
             text += "New topics found"
-            data_dict["body"].append([( text, 0 ,"red")])
+            data_dict["body"].append([( text ,"red")])
         else:
             text += "No new topics added"
-            data_dict["body"].append([( text, 0 ,"green")])
+            data_dict["body"].append([( text,"green")])
 
-        data_dict["body"].append([( not_matched, 0 ,"red")])
-        data_dict["body"].append([( matched, 0 )])
+        data_dict["body"].append([( not_matched ,"red")])
+        data_dict["body"].append([( matched )])
 
         return data_dict
     
     def get_kafka_excel_dict(self,lst):
-        data_dict=dict()
-        data_dict["body"]=[]
+        data_dict=[]
         for topic in lst:
-            data_dict["body"].append([(topic,topic) , () , (0,topic)])
+            data_dict.append([(topic) , (topic)])
         return data_dict
         
     def add_topics_to_report(self):

@@ -55,10 +55,7 @@ if __name__ == "__main__":
         load_specific_details = json.load(file)
     details_for_report.update(load_specific_details[details_for_report["load_name"]])
     #-------------------------------------------------------------------
-    current_build_data = {
-        "details":details_for_report
-    }
-
+    current_build_data = {"details":details_for_report}
     #-------------------------------------------------------------------------------------------------
 
     ROOT_PATH = prom_con_obj.ROOT_PATH
@@ -145,7 +142,6 @@ if __name__ == "__main__":
                                     prom_con_obj=prom_con_obj,
                                     root_path=ROOT_PATH)
             doc=kafka_obj.add_topics_to_report()
-
 
         #------------------take screenshots and add to report---------------------------------------
         if variables["add_screenshots"]:

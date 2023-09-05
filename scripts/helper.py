@@ -63,9 +63,9 @@ def add_table(doc,data_dict):
         row = table.add_row().cells
         for col_num in range(len(body[row_num])):
             try:
-                text,value,color = body[row_num][col_num]
+                text,color = body[row_num][col_num]
             except:
-                text,value = body[row_num][col_num]
+                text = body[row_num][col_num]
                 color="none"
 
             run = row[col_num].paragraphs[0].add_run(str(text))
@@ -89,9 +89,9 @@ def add_row(sheet,value,row_num,temp_col,found):
     for val in value:
         color=None
         try:
-            text,num,color = val
+            num,color = val
         except:
-            text,num=val
+            num=val
         try:
             num=float(num)
         except:pass
@@ -123,9 +123,9 @@ def add_columns(sheet_name,data_dict,workbook,build):
     metric_cell.font = Font(bold=True)
     sheet.freeze_panes = sheet.cell(row=2, column=2)
 
-    for lst in data_dict["body"]:
-        key = lst[0][0]
-        value = lst[2:]
+    for lst in data_dict:
+        key = lst[0]
+        value = lst[1:]
         found=False
         row = sheet.max_row +1
 
