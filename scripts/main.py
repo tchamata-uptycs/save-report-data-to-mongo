@@ -179,8 +179,7 @@ if __name__ == "__main__":
         doc.save(report_docx_path)
         print("Saved the report")
         #----------------Saving the json data to mongo--------------------
-        inserted_id=push_data_to_mongo(variables['load_name'],save_current_build_data_path,prom_con_obj)
-        print(f"Document pushed to mongo successfully into database {variables['load_name']} with id {inserted_id}")
+        # push_data_to_mongo(variables['load_name'],save_current_build_data_path,prom_con_obj)
         #-----------------------------------------------------------------
         f3_at = time.perf_counter()
         print(f"Preparing the report took : {round(f3_at - s_at,2)} seconds in total")

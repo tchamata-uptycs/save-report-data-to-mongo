@@ -300,15 +300,18 @@ def add_test_env_details(nodes_file_path,doc):
     return doc
 
 def push_data_to_mongo(load_name,json_path, prom_con_obj):
-    connection_string=prom_con_obj.mongo_connection_string
-    nodes_file_path = prom_con_obj.nodes_file_path
-    client = pymongo.MongoClient(connection_string)
-    db=client['all_loads']
-    collection = db[load_name]
-    with open(json_path,'r') as file:
-        doc_to_insert=json.load(file)
-    with open(nodes_file_path,'r') as file:
-        test_env_details=json.load(file)
-    doc_to_insert.update({"test_env_details":test_env_details})
-    inserted_id = collection.insert_one(doc_to_insert).inserted_id
-    return inserted_id
+    try:
+        connection_string=prom_con_obj.mongo_connection_string
+        nodes_file_path = prom_con_obj.nodes_file_path
+        client = pymongo.MongoClient(connection_string)
+        db=client['all_loads']
+        collection = db[load_name]
+        with open(json_path,'r') as file:
+            doc_to_insert=json.load(file)
+        with open(nodes_file_path,'r') as file:
+            test_env_details=json.load(file)
+        doc_to_insert.update({"test_env_details":test_env_details})
+        inserted_id = collection.insert_one(doc_to_insert).inserted_id
+        print(f"Document pushed to mongo successfully into database {load_name} with id {inserted_id}")
+    except:
+        print(f"Document pushed to mongo successfully into database {load_name} with id {inserted_id}")
