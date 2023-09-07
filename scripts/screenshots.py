@@ -9,6 +9,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 import concurrent.futures
+from PIL import Image
+import numpy as np
+import io
 import logging
 logging.getLogger('seleniumwire').setLevel(logging.WARNING)
 from  prometeus_utils import PrometheusConnector
@@ -80,8 +83,13 @@ class take_screenshots:
 			wait = WebDriverWait(driver, self.panel_loading_time_threshold_sec)  #waits for _ seconds
 			try:
 				title= wait.until(EC.visibility_of_element_located((By.XPATH, "//*/div[1]/header/div/h2"))).text
+				screenshot = driver.get_screenshot_as_png()
+				screenshot_image = Image.open(io.BytesIO(screenshot))
+				average_pixel_value = np.mean(np.array(screenshot_image))
+				if average_pixel_value < 84:
+					title = f"LOADING FAILED : panel {t_id} not loaded in given time"
 			except Exception as e:
-				title = f"panel {t_id} not loaded in given time"
+				title = f"LOADING FAILED : panel {t_id} not loaded in given time"
 			print(f"{title} : {t_id}")
 			driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_1_{title}.png')
 			page_number = 2

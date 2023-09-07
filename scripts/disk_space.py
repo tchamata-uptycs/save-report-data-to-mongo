@@ -137,11 +137,9 @@ class DISK:
             save_dict[partition]={}
             curr_list=[]
             curr_list.append((partition,'-'))
-            for config_node in self.nodes_data['pgnodes']:
-                hostname = self.nodes_data[config_node]['lan_ip']
-                
+            for config_node in self.nodes_data['pgnodes']:                
                 try:
-                    ssh_client.connect(hostname, port, username, password)
+                    ssh_client.connect(config_node, port, username, password)
                     stdin, stdout, stderr = ssh_client.exec_command(command)
                     output = stdout.read().decode('utf-8')
                     output = output.split()[0]

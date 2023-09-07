@@ -13,7 +13,7 @@ class PrometheusConnector:
         self.ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
         self.base_stack_config_path = f"{self.ROOT_PATH}/config"
-
+        self.mongo_connection_string = "mongodb://localhost:27017"
         if nodes_file_name:
             self.nodes_file_path = f"{self.base_stack_config_path}/{nodes_file_name}"
             #extract all the stack details
@@ -22,8 +22,9 @@ class PrometheusConnector:
             with open(self.nodes_file_path , 'r') as file:
                 stack_details = json.load(file)
                 
-            self.monitoring_ip=  stack_details[stack_details["monitoring_node"][0]]["lan_ip"]
+            self.monitoring_ip=  stack_details["monitoring_node"][0]
             self.prometheus_path = f"http://{self.monitoring_ip}:{self.prometheus_port}"
+            self.execute_kafka_topics_script_in = stack_details['pnodes'][0]
 
         self.GRAFANA_USERNAME="admin"
         self.GRAFANA_PASSWORD="admin123"

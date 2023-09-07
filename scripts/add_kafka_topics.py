@@ -3,10 +3,6 @@ import json
 import os
 from helper import add_table,excel_update
 
-host = '192.168.135.11' # (s1c1pn1)
-
-remote_directory = '/home/abacus'
-
 class kafka_topics:
     # Create an SSH client
     def __init__(self,save_path , doc,build,prev_path,previous_excel_file_path,current_excel_file_path,root_path,prom_con_obj):
@@ -17,10 +13,11 @@ class kafka_topics:
         self.previous_excel_file_path=previous_excel_file_path
         self.current_excel_file_path=current_excel_file_path
         self.local_script_path = f'{root_path}/kafka_topics.py'
-
+        self.host = prom_con_obj.execute_kafka_topics_script_in
         self.port=prom_con_obj.ssh_port
         self.username = prom_con_obj.abacus_username
         self.password  = prom_con_obj.abacus_password
+        self.remote_directory = f'/home/{self.username}'
 
     def get_data_dict(self,curr_list,prev_list):
         data_dict=dict()
@@ -61,15 +58,12 @@ class kafka_topics:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
-            ssh.connect(host, self.port, self.username, self.password)
+            print(f"Executing kafka topics script in {self.host}")
+            ssh.connect(self.host, self.port, self.username, self.password)
             sftp = ssh.open_sftp()
-            remote_script_path = f'{remote_directory}/kafka_new_topic.py'
-            try:
-                sftp.stat(remote_script_path)  # Check if the file exists
-                print(f"The script '{remote_script_path}' already exists on the remote server. Skipping upload.")
-            except FileNotFoundError:
-                sftp.put(self.local_script_path, remote_script_path)
-                print(f"The script '{remote_script_path}' has been uploaded to the remote server.")
+            remote_script_path = f'{self.remote_directory}/kafka_new_topic.py'
+            sftp.put(self.local_script_path, remote_script_path)
+            print(f"The script '{remote_script_path}' has been uploaded to the remote server.")
 
             remote_command = f'python3 {remote_script_path}'
             stdin, stdout, stderr = ssh.exec_command(remote_command)

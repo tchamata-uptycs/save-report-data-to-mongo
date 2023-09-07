@@ -10,7 +10,7 @@ import shutil
 from datetime import datetime, timedelta
 import json
 from disk_space import DISK
-from helper import add_screenshots_to_docx,add_load_details,add_test_env_details
+from helper import add_screenshots_to_docx,add_load_details,add_test_env_details,push_data_to_mongo
 from input import create_input_form
 
 #remaining tasks : trino queries(to do), accuracies(done)
@@ -178,7 +178,10 @@ if __name__ == "__main__":
         #-----------------------save main report--------------------------
         doc.save(report_docx_path)
         print("Saved the report")
-        #-------------------------------------------------------------
+        #----------------Saving the json data to mongo--------------------
+        inserted_id=push_data_to_mongo(variables['load_name'],save_current_build_data_path,prom_con_obj)
+        print(f"Document pushed to mongo successfully into database {variables['load_name']} with id {inserted_id}")
+        #-----------------------------------------------------------------
         f3_at = time.perf_counter()
         print(f"Preparing the report took : {round(f3_at - s_at,2)} seconds in total")
     else:

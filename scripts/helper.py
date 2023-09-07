@@ -8,6 +8,7 @@ from openpyxl.styles import PatternFill, Font
 from collections import defaultdict
 import shutil,socket,paramiko
 import concurrent.futures
+import pymongo
 
 def add_screenshots_to_docx(doc,directory_path, grafana_ids, table_ids):
     doc.add_heading("Charts", level=2)
@@ -190,21 +191,20 @@ def extract_node_detail(data,node_type,prom_con_obj):
         return_dict[hostname] = {}
         return_dict[hostname]['storage'] = {}
         try:
-            ip_address = socket.gethostbyname(hostname)
-            return_dict[hostname]['lan_ip'] = ip_address
-            print(f"The IP address of {hostname} is {ip_address}")
+            # ip_address = socket.gethostbyname(hostname)
+            # return_dict[hostname]['lan_ip'] = ip_address
+            # print(f"The IP address of {hostname} is {ip_address}")
             client = paramiko.SSHClient()
             client.load_system_host_keys() 
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             try:
-                client.connect(ip_address, port, username, password)
+                client.connect(hostname, port, username, password)
                 commands = {"ram" : "free -g | awk '/Mem:/ {print $2}'" , "cores":"lscpu | awk '/^CPU\(s\):/ {print $2}'"}
 
                 for label,command in commands.items():
                     stdin, stdout, stderr = client.exec_command(command)
                     out = stdout.read().decode('utf-8').strip()
                     if out and out!='':
-                        print(f"{label} {out}")
                         return_dict[hostname][label] = out
                     else:
                         print(f"Unable to determine {label} value for {hostname}")
@@ -224,7 +224,6 @@ def extract_node_detail(data,node_type,prom_con_obj):
                     stdin, stdout, stderr = client.exec_command(command)
                     out = stdout.read().decode('utf-8').strip()
                     if out and out!='':
-                        print(f"{label} {out}")
                         return_dict[hostname]['storage'][label] = out
                     else:
                         print(f"Unable to determine {label} value for {hostname}")
@@ -299,3 +298,17 @@ def add_test_env_details(nodes_file_path,doc):
     
     doc = add_table(doc,table_dict)
     return doc
+
+def push_data_to_mongo(load_name,json_path, prom_con_obj):
+    connection_string=prom_con_obj.mongo_connection_string
+    nodes_file_path = prom_con_obj.nodes_file_path
+    client = pymongo.MongoClient(connection_string)
+    db=client['all_loads']
+    collection = db[load_name]
+    with open(json_path,'r') as file:
+        doc_to_insert=json.load(file)
+    with open(nodes_file_path,'r') as file:
+        test_env_details=json.load(file)
+    doc_to_insert.update({"test_env_details":test_env_details})
+    inserted_id = collection.insert_one(doc_to_insert).inserted_id
+    return inserted_id
