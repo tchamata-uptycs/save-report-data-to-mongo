@@ -61,3 +61,4 @@ for t_id in l:
         title = f"panel {t_id} not loaded in given time"
     print(f"{title} : {t_id}")
    
+   
