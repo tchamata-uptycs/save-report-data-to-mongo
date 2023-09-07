@@ -15,11 +15,11 @@ class PrometheusConnector:
         self.base_stack_config_path = f"{self.ROOT_PATH}/config"
         self.mongo_connection_string = "mongodb://localhost:27017"
         if nodes_file_name:
-            self.nodes_file_path = f"{self.base_stack_config_path}/{nodes_file_name}"
+            self.test_env_file_path = f"{self.base_stack_config_path}/{nodes_file_name}"
             #extract all the stack details
             if fetch_node_parameters_before_generating_report:
                 extract_stack_details(self.nodes_file_path,self)
-            with open(self.nodes_file_path , 'r') as file:
+            with open(self.test_env_file_path , 'r') as file:
                 stack_details = json.load(file)
                 
             self.monitoring_ip=  stack_details["monitoring_node"][0]

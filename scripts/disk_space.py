@@ -1,27 +1,21 @@
-from helper import add_table,excel_update
 import requests
 from datetime import datetime
 import json
-from helper import add_table,excel_update
 import paramiko
 
 class DISK:
-    def __init__(self,sprint,build,doc,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,report_docx_path,previous_excel_file_path,current_excel_file_path,prom_con_obj):
-        self.doc = doc
+    def __init__(self,sprint,build,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,prom_con_obj):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
         self.save_current_build_data_path=save_current_build_data_path
-        self.nodes_file_path=prom_con_obj.nodes_file_path
+        self.test_env_file_path=prom_con_obj.test_env_file_path
         self.sprint=sprint
         self.build = build
-        self.prev_build = '-'
-        self.report_docx_path=report_docx_path
-
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_point_api_path
 
-        with open(self.nodes_file_path, 'r') as file:
+        with open(self.test_env_file_path, 'r') as file:
             self.nodes_data = json.load(file)
 
         dnode_pattern=''
@@ -42,8 +36,6 @@ class DISK:
         self.remaining_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}})"
         self.kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
 
-        self.previous_excel_file_path=previous_excel_file_path
-        self.current_excel_file_path=current_excel_file_path
 
 
     def extract_data(self,query,time , TAG):
@@ -79,17 +71,10 @@ class DISK:
             nodes = [node for node in used_space_before_load]
 
 
-        data_dict={}
-        data_dict['title'] = f"{TYPE} disk space usage"
-        data_dict['header'] =["Node" ,f"{TYPE} total space configured(TB)", f"{TYPE} disk used % before load" , f"{TYPE} disk used % after load" , f"{TYPE} used space during load (GB)"]
-        data_dict['body']=[] 
-        excel_dict=[]
         save_dict={}
         bytes_in_a_tb=1e+12
 
         for node in nodes:
-            curr_list=[]
-            excel_list=[]
 
             total = total_space[node]/bytes_in_a_tb
             if TYPE=='HDFS':
@@ -103,20 +88,12 @@ class DISK:
 
             used_space=(percentage_used_after_load-percentage_used_before_load)*total*(1024/100)
 
-            curr_list.append((node))
-            curr_list.append((round(total,2)))
-            curr_list.append((round(percentage_used_before_load,2)))
-            curr_list.append((round(percentage_used_after_load,2)))
-            curr_list.append((round((used_space),2)))
-
-            excel_list.append((node))
-            excel_list.append((round((used_space),2)))
+           
 
             save_dict[node] = {f"{TYPE} total space configured(TB)" : total , f"{TYPE} disk used % before load" :percentage_used_before_load,f"{TYPE} disk used % after load":percentage_used_after_load,f"{TYPE} used space during load (GB)":used_space}
 
-            data_dict['body'].append(curr_list)
-            excel_dict.append(excel_list)
-        return TYPE,data_dict,excel_dict,save_dict
+          
+        return TYPE,save_dict
 
    
     def pg_disk_calc(self):
@@ -124,10 +101,6 @@ class DISK:
         username = 'abacus'  # Replace with your SSH username
         password = 'abacus'  # Replace with your SSH password
 
-        table_dict={}
-        table_dict['title'] = f"PG disk space usage"
-        table_dict['header'] =["partition" ,'master configdb node', 'standby configdb node']
-        table_dict['body']=[] 
         save_dict={}
         commands = {'/pg' : "sudo du -sh /pg"  , '/data':"sudo du -sh /data"}
 
@@ -153,17 +126,11 @@ class DISK:
                     ssh_client.close()
                 save_dict[partition][config_node]=output
                 curr_list.append((output,'-'))
-            table_dict['body'].append(curr_list)
 
-        return 'PG', table_dict,None,save_dict
+        return 'PG',save_dict
 
     def save(self,_ ):
-        TYPE , data_dict,excel_dict,save_dict=_
-        self.doc = add_table(self.doc,data_dict=data_dict)
-        
-        if excel_dict:
-            excel_update({f"{TYPE} disk used space":excel_dict} ,self.previous_excel_file_path , self.current_excel_file_path,self.build)
-
+        TYPE ,save_dict=_
         with open(self.save_current_build_data_path, 'r') as file:
             current_build_data = json.load(file)
         with open(self.save_current_build_data_path, 'w') as file:
@@ -172,9 +139,7 @@ class DISK:
 
 
     def make_calculations(self):
-        self.doc.add_heading("Disk Usages", level=2)
         self.save(self.calculate_disk_usage('KAFKA'))
         self.save(self.calculate_disk_usage('HDFS'))
         self.save(self.pg_disk_calc())
-        return self.doc
     

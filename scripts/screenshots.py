@@ -24,7 +24,7 @@ chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--window-size=1920x1080')
 
 class take_screenshots:
-	def __init__(self,doc,start_time_str,dash_board_path ,prom_con_obj,elk_url, end_time_str,SCREENSHOT_DIR,start_margin=10,end_margin=10,panel_loading_time_threshold_sec=45,table_ids=[],thread_len = 10):
+	def __init__(self,start_time_str,dash_board_path ,prom_con_obj,elk_url, end_time_str,SCREENSHOT_DIR,start_margin=10,end_margin=10,panel_loading_time_threshold_sec=45,table_ids=[],thread_len = 10):
 		format_data = "%Y-%m-%d %H:%M"
 		start_time = datetime.strptime(start_time_str, format_data)
 		end_time = datetime.strptime(end_time_str, format_data)

@@ -1,8 +1,8 @@
 import configparser
 from prometeus_utils import PrometheusConnector
-import os
 
 load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_multicustomer']
+load_type_values = ['Osquery', 'CloudQuery', 'KubeQuery']
 
 def save_data(details,config,previous_input_path):
     prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
@@ -33,11 +33,11 @@ def create_input_form():
     details = {
             "nodes_file_name":'s1_nodes.json',
             "load_name": "SingleCustomer",
+            "load_type":"Osquery",
             "start_time_str":  "2023-08-12 23:08",
             "load_duration_in_hrs": 10,
             "sprint": '138',
             "build": '138000',
-            "prev_sprint":  '137',
             "start_margin_for_charts":  10,
             "end_margin_for_charts": 10,
             "add_disk_space_usage": True,
