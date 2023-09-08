@@ -1,4 +1,4 @@
-import sys
+import sys,os
 from pathlib import Path
 import time
 import pymongo
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         current_build_data = {"details":details_for_report , "load_specific_details":load_specific_details[variables['load_name']] ,"test_environment_details":test_env_json_details}
         ROOT_PATH = prom_con_obj.ROOT_PATH
         SCREENSHOT_DIR= f"{ROOT_PATH}/grafana_screenshots"
-        save_current_build_data_path = Path(f'{ROOT_PATH}/mem_cpu_comparision_data.json')
+        save_current_build_data_path = Path(f'{prom_con_obj.base_stack_config_path}/report_data.json')
         with open(save_current_build_data_path, 'w') as file:
             json.dump(current_build_data, file, indent=4) 
 
