@@ -35,12 +35,12 @@ if __name__ == "__main__":
     client = pymongo.MongoClient(mongo_connection_string)
     db=client[variables['load_type']+"_LoadTests"]
     collection = db[variables["load_name"]]
-    documents_with_same_load_time_and_stack = collection.find({"details.stack":test_env_json_details["stack"] , "details.build":variables['build'] , "details.sprint":variables['sprint'] , "details.load_start_time_ist":f"{variables['start_time_str']}" , "details.load_duration_in_hrs":variables['load_duration_in_hrs']})
+    documents_with_same_load_time_and_stack = collection.find({"details.sprint":variables['sprint'] ,"details.stack":test_env_json_details["stack"] , "details.load_start_time_ist":f"{variables['start_time_str']}" , "details.load_duration_in_hrs":variables['load_duration_in_hrs']})
     skip_fetching_data=False
 
     if len(list(documents_with_same_load_time_and_stack)) > 0:
-        print(f"ERROR! A document with load time ({variables['start_time_str']}) - ({end_time_str}) on {test_env_json_details['stack']} in this sprint for {variables['load_type']}-{variables['load_name']} load is already available.")
-        # skip_fetching_data=True
+        print(f"ERROR! A document with load time ({variables['start_time_str']}) - ({end_time_str}) on {test_env_json_details['stack']} for this sprint for {variables['load_type']}-{variables['load_name']} load is already available.")
+        skip_fetching_data=True
     if skip_fetching_data == False:
         run=1
         documents_with_same_sprint = list(collection.find({"details.sprint":139} , {"details.run":1}))
@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
         #-------------------------disk space--------------------------
 
-        if variables["add_disk_space_usage"] and variables["load_name"] != "ControlPlane":
+        if variables["add_disk_space_usage"] == True and variables["load_name"] != "ControlPlane":
             print("Performing disk space calculations ...")
             calc = DISK(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
                         save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
@@ -87,14 +87,14 @@ if __name__ == "__main__":
 
         #--------------------------------- add kafka topics ---------------------------------------
 
-        if variables["add_kafka_topics"]:
+        if variables["add_kafka_topics"]==True:
             print("Add kafka topics ...")
             kafka_obj = kafka_topics(save_path=save_current_build_data_path,prom_con_obj=prom_con_obj,root_path=ROOT_PATH)
             kafka_obj.add_topics_to_report()
 
         #---------------------------take screenshots and add to report------------------------------
 
-        if variables["add_screenshots"]:
+        if variables["add_screenshots"]==True:
             print("Collecting screenshots ...")
             dash_board_path= f'/d/{test_env_json_details["dashboard_uid"]}/{test_env_json_details["dashboard_name"]}'
             ss_object = take_screenshots(start_time_str=variables["start_time_str"],end_time_str=end_time_str,
@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
         #--------------------------------cpu and mem node-wise---------------------------------------
 
-        if variables["make_cpu_mem_comparisions"]:
+        if variables["make_cpu_mem_comparisions"]==True:
             print("Fetching resource usages ...")
             comp = MC_comparisions(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
                     save_current_build_data_path=save_current_build_data_path,show_gb_cores=False,prom_con_obj=prom_con_obj)

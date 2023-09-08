@@ -5,8 +5,8 @@ topics= admin_client.list_topics()
 topics.sort()
 for i in topics:
     print(i)
-print(len(topics))
-consumer_groups = admin_client.list_consumer_groups()
+# print(len(topics))
+# consumer_groups = admin_client.list_consumer_groups()
 #print(consumer_groups)
 
 #for topic in topics:

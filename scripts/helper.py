@@ -130,6 +130,6 @@ def push_data_to_mongo(load_name,load_type,json_path, connection_string):
         with open(json_path,'r') as file:
             doc_to_insert=json.load(file)
         inserted_id = collection.insert_one(doc_to_insert).inserted_id
-        print(f"Document pushed to mongo successfully into database {load_name} with id {inserted_id}")
+        print(f"Document pushed to mongo successfully into database:{load_type}, collection:{load_name} with id {inserted_id}")
     except:
-        print(f"Document pushed to mongo successfully into database {load_name} with id {inserted_id}")
+        print(f"Failed to insert document into database {load_name}, collection:{load_name}")

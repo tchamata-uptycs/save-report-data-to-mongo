@@ -14,9 +14,9 @@ import numpy as np
 import io
 import logging
 logging.getLogger('seleniumwire').setLevel(logging.WARNING)
-from  prometeus_utils import PrometheusConnector
+from  settings import configuration
 
-executable_base_path = PrometheusConnector().base_stack_config_path
+executable_base_path = configuration().base_stack_config_path
 service = ChromeService(executable_path=f"{executable_base_path}/chromedriver")
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')

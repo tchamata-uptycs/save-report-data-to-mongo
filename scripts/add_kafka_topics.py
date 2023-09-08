@@ -26,7 +26,7 @@ class kafka_topics:
             exit_status = stdout.channel.recv_exit_status()
             output = stdout.read().decode()
 
-            output_list = [line for line in output.split('\n') if line.strip()][:-1]
+            output_list = [line for line in output.split('\n') if line.strip()]
 
             with open(self.save_path, 'r') as file:
                 current_build_data = json.load(file)

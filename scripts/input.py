@@ -1,11 +1,11 @@
 import configparser
-from prometeus_utils import PrometheusConnector
+from settings import configuration
 
 load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_MultiCustomer','GCP_MultiCustomer']
 load_type_values = ['Osquery', 'CloudQuery', 'KubeQuery']
 
 def save_data(details,config,previous_input_path):
-    prom_con_obj = PrometheusConnector(nodes_file_name=details['nodes_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
+    prom_con_obj = configuration(test_env_file_name=details['test_env_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
     config["DEFAULT"] = details
     with open(previous_input_path, "w") as configfile:
         config.write(configfile)
@@ -14,7 +14,7 @@ def save_data(details,config,previous_input_path):
 def update_details(details,config=None,take_input=False):
     for key,val in details.items():
         Type =type(val)            
-        if take_input:
+        if take_input == True:
             helper_text=''
             if key == "load_name":
                 helper_text = f"(load name values must be one of the following : {str(load_name_values)})"
@@ -32,11 +32,11 @@ def update_details(details,config=None,take_input=False):
     return details
 
 def create_input_form():
-    previous_input_path = f"{PrometheusConnector().base_stack_config_path}/prev_inp.ini"
+    previous_input_path = f"{configuration().base_stack_config_path}/prev_inp.ini"
     config = configparser.ConfigParser()
     config.read(previous_input_path)
     details = {
-            "nodes_file_name":'s1_nodes.json',
+            "test_env_file_name":'s1_nodes.json',
             "load_name": "SingleCustomer",
             "load_type":"Osquery",
             "start_time_str":  "2023-08-12 23:08",

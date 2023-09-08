@@ -1,27 +1,26 @@
 {
     "MultiCustomer" : {
-        "Customers": "120",
-        "Number of Customers with Auto Exception enabled": "0",
-        "Test type": "Rule Engine Load and Control Plane Load",
-        "Customer": "Multiple",
-        "Total assets": "80K Control Plane +15K Multi customer",
-        "Records sent per hour per customer": "8164800",
-        "Records sent per hour" : "979776000 (979 million)",
-        "Input File": "rhel7-6tab_12rec.log",
-        "Events table name": "dns_lookup_events, socket_events, process_events, process_file_events"
+        "total_number_of_customers": "120",
+        "number_of_customers_with_auto_exception_enabled": "0",
+        "test_title": "Multiple Customer Rule Engine and Control Plane Load",
+        "total_assets": "80K Control Plane +15K Multi customer",
+        "records_sent_per_hour_per_customer": 8164800,
+        "records_sent_per_hour" : 979776000,
+        "input_file": "rhel7-6tab_12rec.log",
+        "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
     },
     "SingleCustomer":{
-        "Number of Customers with Auto Exception enabled": "1",
-        "Test type": "Rule Engine Load",
-        "Customer": "Single",
-        "Total assets": "24k (24576)",
-        "Records sent per hour": "1.592 B",
-        "Input File": "rhel7-6tab_12rec.log",
-        "Events table name": "dns_lookup_events, socket_events, process_events, process_file_events"
+        "total_number_of_customers": "1",
+        "number_of_customers_with_auto_exception_enabled": "1",
+        "test_title": "Single Customer Rule Engine Load",
+        "total_assets": 24576,
+        "records_sent_per_hour": "1.592 B",
+        "input_file": "rhel7-6tab_12rec.log",
+        "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
     },
     "ControlPlane":{
-        "Customer": "Single",
-        "Total assets": "200K"
+        "test_title": "Single Customer Control Plane Load",
+        "total_assets": "200K"
     },
     "CombinedLoad":{},
     "AWS_multicustomer":{}
