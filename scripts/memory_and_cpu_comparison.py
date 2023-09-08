@@ -35,7 +35,7 @@ container_memory_queries = {'Container' : "sum(uptycs_docker_mem_used{}/(1000*10
 container_cpu_queries = {'Container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",}
 
 class MC_comparisions:
-    def __init__(self,sprint,prom_con_obj,build,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,show_gb_cores=True):
+    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,show_gb_cores=True):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
         self.show_gb_cores=show_gb_cores
@@ -46,8 +46,6 @@ class MC_comparisions:
         self.API_PATH = self.prom_con_obj.prom_api_path
 
         self.test_env_file_path=prom_con_obj.test_env_file_path
-        self.sprint=sprint
-        self.build = build
         self.complete_usage = defaultdict(lambda : 0)
         with open(self.test_env_file_path, 'r') as file:
             self.nodes_data = json.load(file)

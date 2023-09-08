@@ -1,7 +1,7 @@
 import configparser
 from prometeus_utils import PrometheusConnector
 
-load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_multicustomer']
+load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_MultiCustomer','GCP_MultiCustomer']
 load_type_values = ['Osquery', 'CloudQuery', 'KubeQuery']
 
 def save_data(details,config,previous_input_path):
@@ -15,7 +15,12 @@ def update_details(details,config=None,take_input=False):
     for key,val in details.items():
         Type =type(val)            
         if take_input:
-            default = input(f"Enter {' '.join(str(key).split('_')).title()} :").strip()
+            helper_text=''
+            if key == "load_name":
+                helper_text = f"(load name values must be one of the following : {str(load_name_values)})"
+            elif key == "load_type":
+                helper_text = f"(load type values must be one of the following : {str(load_type_values)})" 
+            default = input(f"Enter {' '.join(str(key).split('_')).title()} {helper_text} : ").strip()
         else:
             default = config["DEFAULT"].get(key, val)
         if Type==bool:
@@ -36,8 +41,8 @@ def create_input_form():
             "load_type":"Osquery",
             "start_time_str":  "2023-08-12 23:08",
             "load_duration_in_hrs": 10,
-            "sprint": '138',
-            "build": '138000',
+            "sprint": 138,
+            "build": 138000,
             "start_margin_for_charts":  10,
             "end_margin_for_charts": 10,
             "add_disk_space_usage": True,
@@ -58,8 +63,6 @@ def create_input_form():
             print("Continuing ...")
         elif user_input == "no":
             print("Please enter the load details ...(use the above details as reference)")
-            print('NOTE : ')
-            print("load name should be one of these following : " , load_name_values)
             details=update_details(details,take_input=True)
         prom_con_obj = save_data(details,config,previous_input_path)
         return details,prom_con_obj
@@ -71,4 +74,4 @@ def create_input_form():
 
 if __name__ == "__main__":
     details = create_input_form()
-    print(details)  # Print the details to verify that they are read from the configuration
+    print(details) 

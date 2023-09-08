@@ -122,9 +122,8 @@ def extract_stack_details(nodes_file_path,prom_con_obj):
     with open(nodes_file_path,'w') as file:
         json.dump(data,file,indent=4)
 
-def push_data_to_mongo(load_name,load_type,json_path, prom_con_obj):
+def push_data_to_mongo(load_name,load_type,json_path, connection_string):
     try:
-        connection_string=prom_con_obj.mongo_connection_string
         client = pymongo.MongoClient(connection_string)
         db=client[load_type+"_LoadTests"]
         collection = db[load_name]

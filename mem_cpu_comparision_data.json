@@ -1,21 +1,42 @@
 {
     "details": {
         "stack": "S1",
-        "sprint": "139",
-        "build": "138005",
+        "sprint": 139,
+        "build": 138005,
         "load_name": "MultiCustomer",
-        "load_duration_in_hrs": "10 hrs",
+        "load_type": "Osquery",
+        "load_duration_in_hrs": 10,
         "load_start_time_ist": "2023-09-04 00:33",
         "load_end_time_ist": "2023-09-04 10:33",
-        "Customers": "120",
-        "Number of Customers with Auto Exception enabled": "0",
-        "Test type": "Rule Engine Load and Control Plane Load",
-        "Customer": "Multiple",
-        "Total assets": "80K Control Plane +15K Multi customer",
-        "Records sent per hour per customer": "8164800",
-        "Records sent per hour": "979776000 (979 million)",
-        "Input File": "rhel7-6tab_12rec.log",
-        "Events table name": "dns_lookup_events, socket_events, process_events, process_file_events"
+        "run": 2
+    },
+    "load_specific_details": {
+        "MultiCustomer": {
+            "Customers": "120",
+            "Number of Customers with Auto Exception enabled": "0",
+            "Test type": "Rule Engine Load and Control Plane Load",
+            "Customer": "Multiple",
+            "Total assets": "80K Control Plane +15K Multi customer",
+            "Records sent per hour per customer": "8164800",
+            "Records sent per hour": "979776000 (979 million)",
+            "Input File": "rhel7-6tab_12rec.log",
+            "Events table name": "dns_lookup_events, socket_events, process_events, process_file_events"
+        },
+        "SingleCustomer": {
+            "Number of Customers with Auto Exception enabled": "1",
+            "Test type": "Rule Engine Load",
+            "Customer": "Single",
+            "Total assets": "24k (24576)",
+            "Records sent per hour": "1.592 B",
+            "Input File": "rhel7-6tab_12rec.log",
+            "Events table name": "dns_lookup_events, socket_events, process_events, process_file_events"
+        },
+        "ControlPlane": {
+            "Customer": "Single",
+            "Total assets": "200K"
+        },
+        "CombinedLoad": {},
+        "AWS_multicustomer": {}
     },
     "test_environment_details": {
         "stack": "S1",
@@ -457,139 +478,139 @@
             "clst": "1"
         }
     },
-    "KAFKA_disk_used_space": {
+    "kafka_disk_used_space": {
         "s1c1pn1": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 4.0,
-            "KAFKA disk used % after load": 4.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 4.0,
+            "kafka disk used % after load": 4.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c1pn2": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 5.0,
-            "KAFKA disk used % after load": 5.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 5.0,
+            "kafka disk used % after load": 5.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c1pn3": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 4.0,
-            "KAFKA disk used % after load": 4.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 4.0,
+            "kafka disk used % after load": 4.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c1pn4": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 5.0,
-            "KAFKA disk used % after load": 5.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 5.0,
+            "kafka disk used % after load": 5.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c1pn5": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 5.0,
-            "KAFKA disk used % after load": 5.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 5.0,
+            "kafka disk used % after load": 5.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c1pn6": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 4.0,
-            "KAFKA disk used % after load": 4.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 4.0,
+            "kafka disk used % after load": 4.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c2pn1": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 5.0,
-            "KAFKA disk used % after load": 5.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 5.0,
+            "kafka disk used % after load": 5.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c2pn2": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 4.0,
-            "KAFKA disk used % after load": 4.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 4.0,
+            "kafka disk used % after load": 4.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c2pn3": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 4.0,
-            "KAFKA disk used % after load": 4.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 4.0,
+            "kafka disk used % after load": 4.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c2pn4": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 4.0,
-            "KAFKA disk used % after load": 4.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 4.0,
+            "kafka disk used % after load": 4.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c2pn5": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 5.0,
-            "KAFKA disk used % after load": 5.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 5.0,
+            "kafka disk used % after load": 5.0,
+            "kafka used space during load (GB)": 0.0
         },
         "s1c2pn6": {
-            "KAFKA total space configured(TB)": 3.6,
-            "KAFKA disk used % before load": 5.0,
-            "KAFKA disk used % after load": 5.0,
-            "KAFKA used space during load (GB)": 0.0
+            "kafka total space configured(TB)": 3.6,
+            "kafka disk used % before load": 5.0,
+            "kafka disk used % after load": 5.0,
+            "kafka used space during load (GB)": 0.0
         }
     },
-    "HDFS_disk_used_space": {
+    "hdfs_disk_used_space": {
         "s1c1dn3": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.26593331037678,
-            "HDFS disk used % after load": 6.284873225094163,
-            "HDFS used space during load (GB)": 2.2840062382073847
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.26593331037678,
+            "hdfs disk used % after load": 6.284873225094163,
+            "hdfs used space during load (GB)": 2.2840062382073847
         },
         "s1c1dn6": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.253002377792155,
-            "HDFS disk used % after load": 6.2719242216740785,
-            "HDFS used space during load (GB)": 2.281827036160481
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.253002377792155,
+            "hdfs disk used % after load": 6.2719242216740785,
+            "hdfs used space during load (GB)": 2.281827036160481
         },
         "s1c2dn2": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.251212200371093,
-            "HDFS disk used % after load": 6.276545669042105,
-            "HDFS used space during load (GB)": 3.0550190612482973
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.251212200371093,
+            "hdfs disk used % after load": 6.276545669042105,
+            "hdfs used space during load (GB)": 3.0550190612482973
         },
         "s1c2dn4": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.230343672427242,
-            "HDFS disk used % after load": 6.255520090904161,
-            "HDFS used space during load (GB)": 3.0360800307208247
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.230343672427242,
+            "hdfs disk used % after load": 6.255520090904161,
+            "hdfs used space during load (GB)": 3.0360800307208247
         },
         "s1c1dn4": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.229004345464658,
-            "HDFS disk used % after load": 6.255242948357406,
-            "HDFS used space during load (GB)": 3.1641712005111686
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.229004345464658,
+            "hdfs disk used % after load": 6.255242948357406,
+            "hdfs used space during load (GB)": 3.1641712005111686
         },
         "s1c2dn6": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.220662651228784,
-            "HDFS disk used % after load": 6.238189024937399,
-            "HDFS used space during load (GB)": 2.113544199166382
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.220662651228784,
+            "hdfs disk used % after load": 6.238189024937399,
+            "hdfs used space during load (GB)": 2.113544199166382
         },
         "s1c1dn1": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.21626710982366,
-            "HDFS disk used % after load": 6.230999210742079,
-            "HDFS used space during load (GB)": 1.7765766584306184
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.21626710982366,
+            "hdfs disk used % after load": 6.230999210742079,
+            "hdfs used space during load (GB)": 1.7765766584306184
         },
         "s1c2dn1": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.208246388274807,
-            "HDFS disk used % after load": 6.221085260465649,
-            "HDFS used space during load (GB)": 1.5482680156165554
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.208246388274807,
+            "hdfs disk used % after load": 6.221085260465649,
+            "hdfs used space during load (GB)": 1.5482680156165554
         },
         "s1c1dn2": {
-            "HDFS total space configured(TB)": 11.776583344128,
-            "HDFS disk used % before load": 6.168387396589077,
-            "HDFS disk used % after load": 6.192028848091962,
-            "HDFS used space during load (GB)": 2.850974965758758
+            "hdfs total space configured(TB)": 11.776583344128,
+            "hdfs disk used % before load": 6.168387396589077,
+            "hdfs disk used % after load": 6.192028848091962,
+            "hdfs used space during load (GB)": 2.850974965758758
         }
     },
-    "PG_disk_used_space": {
+    "pg_disk_used_space": {
         "/pg": {
-            "s1configdb1": "7.8G",
+            "s1configdb1": "20G",
             "s1configdb2": "4.5G"
         },
         "/data": {
@@ -1665,7 +1686,7 @@
                 "GB": 0.5743269976738914
             },
             "cloud-graph-processor": {
-                "GB": 0.6570845328175784
+                "GB": 0.6570845328175788
             },
             "cloud-graph-synchronizer": {
                 "GB": 0.4703960619554351
@@ -1680,7 +1701,7 @@
                 "GB": 1.2606917007209573
             },
             "cloudquery-launcher": {
-                "GB": 0.6158085153461058
+                "GB": 0.6158085153461057
             },
             "cloudquery-logger": {
                 "GB": 0.8329941020370814
@@ -1704,10 +1725,10 @@
                 "GB": 0.07836008400000002
             },
             "consul": {
-                "GB": 1.2039230363769278
+                "GB": 1.203923036376928
             },
             "data-archival": {
-                "GB": 110.88470682793503
+                "GB": 110.88470682793505
             },
             "dazzling_margulis": {
                 "GB": 0.096427048
@@ -1734,7 +1755,7 @@
                 "GB": 1.6595319100891261
             },
             "elasticsearch": {
-                "GB": 38.514008811968154
+                "GB": 38.51400881196852
             },
             "eloquent_cartwright": {
                 "GB": 0.09611247600000003
@@ -1749,7 +1770,7 @@
                 "GB": 0.06790578099999997
             },
             "filebeat": {
-                "GB": 76.90595619410212
+                "GB": 76.90595619410213
             },
             "focused_torvalds": {
                 "GB": 0.09573498800000001
@@ -1896,7 +1917,7 @@
                 "GB": 0.41962819821949165
             },
             "pgbouncer-6545": {
-                "GB": 0.21841148980882974
+                "GB": 0.2184114898088297
             },
             "pgbouncer-statedb": {
                 "GB": 0.027841482395668225
@@ -1932,7 +1953,7 @@
                 "GB": 4.295498575266179
             },
             "query-runner": {
-                "GB": 98.64540328040555
+                "GB": 98.64540328040553
             },
             "quirky_pare": {
                 "GB": 0.09578741699999997
@@ -1962,7 +1983,7 @@
                 "GB": 0.676479174703877
             },
             "registry-scanner": {
-                "GB": 0.9917073068738023
+                "GB": 0.991707306873802
             },
             "relaxed_bassi": {
                 "GB": 0.09429843899999996
@@ -1983,7 +2004,7 @@
                 "GB": 0.09599713199999997
             },
             "side-query-decorator": {
-                "GB": 0.818239772204498
+                "GB": 0.8182397722044977
             },
             "side-query-pipeline": {
                 "GB": 0.7626045655943339
@@ -1992,7 +2013,7 @@
                 "GB": 0.069122129
             },
             "spark-master": {
-                "GB": 6.154844927360279
+                "GB": 6.154844927360277
             },
             "spark-worker": {
                 "GB": 840.8505016877244
@@ -2028,7 +2049,7 @@
                 "GB": 0.09504292800000001
             },
             "windows-state-manager": {
-                "GB": 0.5248723625526859
+                "GB": 0.5248723625526858
             },
             "wine": {
                 "GB": 0.4123862824668896
@@ -2541,7 +2562,7 @@
         }
     },
     "complete_usage": {
-        "Memory": 3498.403254861901,
+        "Memory": 3498.4032548619016,
         "CPU": 372.31702311536884
     }
 }
