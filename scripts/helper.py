@@ -36,11 +36,11 @@ def save_screenshots_to_mongo(directory_path, grafana_ids, table_ids,collection,
                 collection.update_one(filter, update)
             except Exception as e:
                 print(f"Error processing image {filename}: {e}")
-    # try:
-    #     shutil.rmtree(directory_path)
-    #     print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
-    # except Exception as e:
-    #     print(f"Error deleting screenshots folder: {str(e)}")
+    try:
+        shutil.rmtree(directory_path)
+        print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
+    except Exception as e:
+        print(f"Error deleting screenshots folder: {str(e)}")
 
 def extract_node_detail(data,node_type,prom_con_obj):
     port=prom_con_obj.ssh_port
