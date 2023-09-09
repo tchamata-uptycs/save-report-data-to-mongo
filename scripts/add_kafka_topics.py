@@ -18,7 +18,7 @@ class kafka_topics:
             print(f"Executing kafka topics script in host {self.host}")
             ssh.connect(self.host, self.port, self.username, self.password)
             sftp = ssh.open_sftp()
-            remote_script_path = f'{self.remote_directory}/kafka_new_topic.py'
+            remote_script_path = f'{self.remote_directory}/get_kafka_topics.py'
             sftp.put(self.local_script_path, remote_script_path)
             print(f"The script '{remote_script_path}' has been uploaded to the remote server.")
             remote_command = f'python3 {remote_script_path}'

@@ -11,9 +11,9 @@ def save_screenshots_to_mongo(directory_path, grafana_ids, table_ids,collection,
     all_shots = os.listdir(directory_path)
     mapping = defaultdict(lambda: defaultdict(lambda: []))
     for shot in all_shots:
-        panel_id, n, topic = shot.split('_')
+        panel_id, n, file_name = shot.split('_')
         panel_id,n = int(panel_id),int(n)
-        title, _ = topic.split('.')
+        title, _ = file_name.split('.')
         mapping[panel_id]['title'] = [title]
         mapping[panel_id]['images'].append(shot)
     
@@ -36,11 +36,11 @@ def save_screenshots_to_mongo(directory_path, grafana_ids, table_ids,collection,
                 collection.update_one(filter, update)
             except Exception as e:
                 print(f"Error processing image {filename}: {e}")
-    try:
-        shutil.rmtree(directory_path)
-        print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
-    except Exception as e:
-        print(f"Error deleting screenshots folder: {str(e)}")
+    # try:
+    #     shutil.rmtree(directory_path)
+    #     print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
+    # except Exception as e:
+    #     print(f"Error deleting screenshots folder: {str(e)}")
 
 def extract_node_detail(data,node_type,prom_con_obj):
     port=prom_con_obj.ssh_port
@@ -136,4 +136,4 @@ def push_data_to_mongo(load_name,load_type,json_path, connection_string,director
         client.close()
         print(f"Document pushed to mongo successfully into database:{load_type}, collection:{load_name} with id {inserted_id}")
     except:
-        print(f"Failed to insert document into database {load_name}, collection:{load_name}")
+        print(f"ERROR : Failed to insert document into database {load_name}, collection:{load_name}")

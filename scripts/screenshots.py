@@ -61,7 +61,7 @@ class take_screenshots:
 		driver.get("http://" + self.monitoring_ip + ":" + self.db.GRAFANA_PORT + "/" + "login")
 
 		driver.maximize_window()
-		wait = WebDriverWait(driver, self.panel_loading_time_threshold_sec+60)  #waits for _ seconds
+		wait = WebDriverWait(driver, self.panel_loading_time_threshold_sec)  #waits for _ seconds
 		try:
 			wait.until(EC.visibility_of_element_located((By.NAME, "user"))).send_keys(self.db.GRAFANA_USERNAME)
 		except Exception as e:
@@ -88,8 +88,10 @@ class take_screenshots:
 				average_pixel_value = np.mean(np.array(screenshot_image))
 				if average_pixel_value < 84:
 					title = f"LOADING FAILED : panel {t_id} not loaded in given time"
+					print("url : " , url)
 			except Exception as e:
 				title = f"LOADING FAILED : panel {t_id} not loaded in given time"
+				print("url : " , url)
 			print(f"{title} : {t_id}")
 			driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_1_{title}.png')
 			page_number = 2
@@ -134,7 +136,7 @@ class take_screenshots:
 		driver.get("http://" + self.monitoring_ip + ":" + self.db.GRAFANA_PORT + "/" + "login")
 		print("Connecting to http://" + self.monitoring_ip + ":" + self.db.GRAFANA_PORT + "/" + "login")
 
-		wait = WebDriverWait(driver, self.panel_loading_time_threshold_sec+60)  #waits for _ seconds
+		wait = WebDriverWait(driver, self.panel_loading_time_threshold_sec)  #waits for _ seconds
 		try:
 			wait.until(EC.visibility_of_element_located((By.NAME, "user"))).send_keys(self.db.GRAFANA_USERNAME)
 		except Exception as e:

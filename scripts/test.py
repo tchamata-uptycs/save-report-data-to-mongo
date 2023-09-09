@@ -5,13 +5,13 @@ from bson import Binary,ObjectId
 
 # Initialize the MongoDB client and connect to your database
 client = MongoClient('mongodb://localhost:27017')
-db = client['CloudQuery_LoadTests']
+db = client['Osquery_LoadTests']
 
 # Create a GridFS instance using the database
 fs = GridFS(db)
 
 # Specify the file_id of the file you want to retrieve
-file_id = ObjectId("64fc8c2a5ddb8fd9cf622de6")  # Replace 'your_file_id' with the actual file_id
+file_id = ObjectId("64fc958693e8b4a95e57e3b4")  # Replace 'your_file_id' with the actual file_id
 
 # Get the file from GridFS
 file = fs.get(file_id)

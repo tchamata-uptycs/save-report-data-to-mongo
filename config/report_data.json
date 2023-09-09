@@ -1,403 +1,544 @@
 {
     "details": {
-        "stack": "S4",
+        "stack": "S1",
         "sprint": 139,
         "build": 139000,
-        "load_name": "AWS_MultiCustomer",
-        "load_type": "CloudQuery",
+        "load_name": "MultiCustomer",
+        "load_type": "Osquery",
         "load_duration_in_hrs": 12,
-        "load_start_time_ist": "2023-09-05 00:23",
-        "load_end_time_ist": "2023-09-05 12:23",
-        "run": 1
+        "load_start_time_ist": "2023-09-05 00:24",
+        "load_end_time_ist": "2023-09-05 12:24",
+        "run": 2
     },
-    "load_specific_details": {},
+    "load_specific_details": {
+        "total_number_of_customers": "120",
+        "number_of_customers_with_auto_exception_enabled": "0",
+        "test_title": "Multiple Customer Rule Engine and Control Plane Load",
+        "total_assets": "80K Control Plane +15K Multi customer",
+        "records_sent_per_hour_per_customer": 8164800,
+        "records_sent_per_hour": 979776000,
+        "input_file": "rhel7-6tab_12rec.log",
+        "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
+    },
     "test_environment_details": {
-        "stack": "S4",
-        "stack_url": "https://mercury.uptycs.net/",
-        "elk_url": "192.168.136.53",
+        "stack": "S1",
+        "stack_url": "https://jupiter.uptycs.net/",
+        "elk_url": "192.168.134.50",
         "grafana_table_ids": [
-            116,
-            118,
-            122
+            78,
+            80,
+            82
         ],
-        "dashboard_uid": "flZtYNq4z",
-        "dashboard_name": "load_test",
+        "dashboard_uid": "0xQAxECVk",
+        "dashboard_name": "osqueryloadtest",
         "pnodes": [
-            "s4c1pn1",
-            "s4c1pn2",
-            "s4c1pn3",
-            "s4c1pn4",
-            "s4c1pn5",
-            "s4c1pn6",
-            "s4c2pn1",
-            "s4c2pn2",
-            "s4c2pn3",
-            "s4c2pn4",
-            "s4c2pn5",
-            "s4c2pn6"
+            "s1c1pn1",
+            "s1c1pn2",
+            "s1c1pn3",
+            "s1c1pn4",
+            "s1c1pn5",
+            "s1c1pn6",
+            "s1c2pn1",
+            "s1c2pn2",
+            "s1c2pn3",
+            "s1c2pn4",
+            "s1c2pn5",
+            "s1c2pn6"
         ],
         "dnodes": [
-            "s4c1dn1",
-            "s4c1dn2",
-            "s4c1dn3",
-            "s4c1dn4",
-            "s4c1dn5",
-            "s4c1dn6",
-            "s4c2dn1",
-            "s4c2dn2",
-            "s4c2dn3",
-            "s4c2dn4",
-            "s4c2dn5",
-            "s4c2dn6"
+            "s1c1dn1",
+            "s1c1dn2",
+            "s1c1dn3",
+            "s1c1dn4",
+            "s1c1dn5",
+            "s1c1dn6",
+            "s1c2dn1",
+            "s1c2dn2",
+            "s1c2dn3",
+            "s1c2dn4",
+            "s1c2dn5",
+            "s1c2dn6"
         ],
         "pgnodes": [
-            "s4configdb1",
-            "s4configdb2"
+            "s1configdb1",
+            "s1configdb2"
         ],
         "monitoring_node": [
-            "s4mon"
+            "s1monitor"
         ],
         "other_nodes": [
-            "s4stsnode1",
-            "s4stsnode2",
-            "mlbank1a"
+            "s1elasticsearch",
+            "s1kibana",
+            "s1logstash1",
+            "s1logstash2",
+            "s1stsnode1",
+            "s1stsnode2",
+            "s1stsnode3",
+            "s1cloudquery",
+            "s1mlnode1",
+            "s1mlnode2",
+            "s1superset"
         ],
-        "s4c1pn1": {
+        "s1monitor": {
             "storage": {
-                "root_partition": "731G",
-                "kafka": "3.6T"
+                "root_partition": "98G",
+                "data_prometheus": "3.6T"
             },
-            "lan_ip": "192.168.135.26",
+            "ram": "62",
+            "cores": "16",
+            "clst": "1"
+        },
+        "s1configdb1": {
+            "storage": {
+                "root_partition": "365G",
+                "pg": "3.5T",
+                "data": "3.5T"
+            },
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1pn2": {
+        "s1configdb2": {
+            "storage": {
+                "root_partition": "365G",
+                "pg": "5.5T",
+                "data": "5.5T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "1"
+        },
+        "s1c1pn1": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.138.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1pn3": {
+        "s1c1pn2": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.139.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1pn4": {
+        "s1c1pn3": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.140.15",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1pn5": {
+        "s1c1pn4": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.141.15",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1pn6": {
+        "s1c1pn5": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.142.15",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4c2pn1": {
-            "storage": {
-                "root_partition": "731G",
-                "kafka": "3.6T"
-            },
-            "lan_ip": "192.168.137.20",
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2pn2": {
+        "s1c1pn6": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.137.12",
             "ram": "188",
             "cores": "32",
-            "clst": "2"
+            "clst": "1"
         },
-        "s4c2pn3": {
-            "storage": {
-                "root_partition": "731G",
-                "kafka": "3.6T"
-            },
-            "lan_ip": "192.168.137.16",
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2pn4": {
+        "s1c2pn1": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.131.15",
             "ram": "188",
             "cores": "32",
             "clst": "2"
         },
-        "s4c2pn5": {
-            "storage": {
-                "root_partition": "3.6T",
-                "kafka": "366G"
-            },
-            "lan_ip": "192.168.133.15",
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2pn6": {
+        "s1c2pn2": {
             "storage": {
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
-            "lan_ip": "192.168.134.15",
             "ram": "188",
             "cores": "32",
             "clst": "2"
         },
-        "s4c1dn1": {
+        "s1c2pn3": {
             "storage": {
-                "root_partition": "731G",
+                "root_partition": "365G",
+                "kafka": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2pn4": {
+            "storage": {
+                "root_partition": "365G",
+                "kafka": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2pn5": {
+            "storage": {
+                "root_partition": "365G",
+                "kafka": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2pn6": {
+            "storage": {
+                "root_partition": "365G",
+                "kafka": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c1dn1": {
+            "storage": {
+                "root_partition": "365G",
                 "spark": "3.6T",
                 "dn1": "3.6T",
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
-            "lan_ip": "192.168.141.25",
             "ram": "251",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1dn2": {
+        "s1c1dn2": {
             "storage": {
-                "root_partition": "731G",
+                "root_partition": "365G",
                 "spark": "3.6T",
                 "dn1": "3.6T",
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
-            "lan_ip": "192.168.137.15",
             "ram": "251",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1dn3": {
+        "s1c1dn3": {
             "storage": {
-                "root_partition": "731G",
+                "root_partition": "365G",
                 "spark": "3.6T",
                 "dn1": "3.6T",
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
-            "lan_ip": "192.168.137.17",
             "ram": "251",
             "cores": "32",
             "clst": "1"
         },
-        "s4c1dn4": {
+        "s1c1dn4": {
             "storage": {
-                "root_partition": "731G",
+                "root_partition": "365G",
                 "spark": "3.6T",
                 "dn1": "3.6T",
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
-            "lan_ip": "192.168.137.19",
-            "ram": "251",
-            "cores": "32",
-            "clst": "1"
-        },
-        "s4c1dn5": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.137.23",
-            "ram": "251",
-            "cores": "32",
-            "clst": "1"
-        },
-        "s4c1dn6": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.134.25",
-            "ram": "251",
-            "cores": "32",
-            "clst": "1"
-        },
-        "s4c2dn1": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.137.13",
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2dn2": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.137.14",
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2dn3": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.141.19",
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2dn4": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.137.18",
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2dn5": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.137.22",
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4c2dn6": {
-            "storage": {
-                "root_partition": "731G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "lan_ip": "192.168.134.26",
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
-        },
-        "s4configdb1": {
-            "storage": {
-                "root_partition": "731G",
-                "pg": "3.6T",
-                "data": "3.6T"
-            },
-            "lan_ip": "192.168.136.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4configdb2": {
+        "s1c1dn5": {
             "storage": {
-                "root_partition": "731G",
-                "pg": "3.6T",
-                "data": "3.6T"
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
             },
-            "lan_ip": "192.168.137.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
         },
-        "s4mon": {
+        "s1c1dn6": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "1"
+        },
+        "s1c2dn1": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "251",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2dn2": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "251",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2dn3": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "251",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2dn4": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2dn5": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1c2dn6": {
+            "storage": {
+                "root_partition": "365G",
+                "spark": "3.6T",
+                "dn1": "3.6T",
+                "dn2": "3.6T",
+                "dn3": "3.6T"
+            },
+            "ram": "188",
+            "cores": "32",
+            "clst": "2"
+        },
+        "s1elastic": {
             "storage": {
                 "root_partition": "196G",
                 "data": "3.6T"
             },
-            "lan_ip": "192.168.136.69",
-            "ram": "78",
+            "lan_ip": "192.168.129.52",
+            "ram": "62",
             "cores": "16",
             "clst": "1"
         },
-        "s4stsnode1": {
+        "s1kibana": {
             "storage": {
-                "root_partition": "196G",
-                "spark": "3.6T"
+                "root_partition": "147G"
             },
-            "lan_ip": "192.168.141.61",
-            "ram": "78",
-            "cores": "16",
+            "ram": "31",
+            "cores": "4",
             "clst": "1"
         },
-        "s4stsnode2": {
-            "storage": {
-                "root_partition": "196G",
-                "spark": "3.6T"
-            },
-            "lan_ip": "192.168.141.62",
-            "ram": "78",
-            "cores": "16",
-            "clst": "1"
-        },
-        "mlbank1a": {
+        "s1logstash1": {
             "storage": {
                 "root_partition": "196G"
             },
-            "lan_ip": "192.168.140.77",
+            "ram": "62",
+            "cores": "8",
+            "clst": "1"
+        },
+        "s1logstash2": {
+            "storage": {
+                "root_partition": "196G"
+            },
+            "ram": "62",
+            "cores": "8",
+            "clst": "1"
+        },
+        "s1stsnode1": {
+            "storage": {
+                "root_partition": "492G"
+            },
+            "ram": "47",
+            "cores": "16",
+            "clst": "1"
+        },
+        "s1stsnode2": {
+            "storage": {
+                "root_partition": "492G"
+            },
+            "ram": "47",
+            "cores": "16",
+            "clst": "1"
+        },
+        "s1stsnode3": {
+            "storage": {
+                "root_partition": "442G"
+            },
+            "ram": "47",
+            "cores": "16",
+            "clst": "1"
+        },
+        "s1cloudquery": {
+            "storage": {
+                "root_partition": "98G"
+            },
+            "ram": "31",
+            "cores": "4",
+            "clst": "1"
+        },
+        "s1mlnode1": {
+            "storage": {
+                "root_partition": "442G"
+            },
+            "ram": "62",
+            "cores": "16",
+            "clst": "1"
+        },
+        "s1mlnode2": {
+            "storage": {
+                "root_partition": "442G"
+            },
+            "ram": "62",
+            "cores": "16",
+            "clst": "1"
+        },
+        "s1superset": {
+            "storage": {
+                "root_partition": "196G"
+            },
             "ram": "47",
             "cores": "8",
             "clst": "1"
+        },
+        "s1elasticsearch": {
+            "storage": {
+                "root_partition": "196G",
+                "data": "3.6T"
+            },
+            "ram": "62",
+            "cores": "16",
+            "clst": "1"
         }
-    }
+    },
+    "kafka_topics": [
+        "__consumer_offsets",
+        "__debezium-heartbeat.cdc",
+        "__debezium-heartbeat.statedb",
+        "agentghquery",
+        "agentkubequery",
+        "agentlesslog",
+        "agentlesslogdecorator",
+        "agentoktaquery",
+        "agentosquery",
+        "alert",
+        "alert_replay",
+        "api",
+        "asset-capability",
+        "assetgroup1",
+        "audit",
+        "auto-exception",
+        "az_events_blob",
+        "bulk_replay",
+        "cdc.public.alerts",
+        "cdc.public.asset_cloud_infos",
+        "cdc.public.asset_tags",
+        "cdc.public.assets",
+        "cdc.public.cloud_accounts",
+        "cdc.public.customer_database",
+        "cdc.public.customers",
+        "cdc.public.incidents",
+        "cdc.public.object_groups",
+        "cdc.public.user_object_groups",
+        "cdc.public.users",
+        "cloudconnectorsink",
+        "cloudqueryVuln",
+        "cloudqueryevents",
+        "cloudqueryinventory",
+        "cloudtrail_objects",
+        "compliance",
+        "compliance_summary",
+        "containers",
+        "cqazevents",
+        "cqcloudtrail",
+        "cqcloudtrail_data_sink",
+        "cqcloudtrail_ro_sink",
+        "debezium_configs",
+        "debezium_offsets",
+        "debezium_statedb_configs",
+        "debezium_statedb_offsets",
+        "debezium_statedb_status_storage",
+        "debezium_status_storage",
+        "decorators",
+        "detection",
+        "ephermalresources",
+        "epsink",
+        "event",
+        "event_cloud",
+        "event_replay",
+        "gcp_cloudlog_objects",
+        "managedavtables",
+        "notifications",
+        "op",
+        "osquery_cli_tags",
+        "prestoquerylogs",
+        "querypack",
+        "realtimequery",
+        "registryevent",
+        "reportschedule1",
+        "scan_summary",
+        "sidequerydecorator",
+        "slackuser1",
+        "state",
+        "statedb.public.containers_current",
+        "statedb.public.kubernetes_nodes_current",
+        "statedb.public.kubernetes_pods_containers_current",
+        "statedb.public.kubernetes_pods_current",
+        "statedb.public.vulnerabilities_scanned_images",
+        "tag1",
+        "threat_indicators",
+        "unified_dashboard",
+        "uptycs-cloud-remediation",
+        "vulnerabilities",
+        "vulntickets"
+    ]
 }
