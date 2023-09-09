@@ -43,7 +43,6 @@ class MC_comparisions:
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_api_path
         self.test_env_file_path=prom_con_obj.test_env_file_path
-        self.complete_usage = defaultdict(lambda : 0)
         with open(self.test_env_file_path, 'r') as file:
             self.nodes_data = json.load(file)
 
@@ -113,10 +112,8 @@ class MC_comparisions:
                 avg = sum(values) / len(values)
                 if tag == memory_tag:
                     final[query][container_name] = {f"{unit}":avg}
-                    self.complete_usage[tag]+=avg
                 else:
                     final[query][container_name] = {f"{unit}":avg/100}
-                    self.complete_usage[tag]+=avg/100
 
         return final 
     
@@ -140,9 +137,8 @@ class MC_comparisions:
         current_build_data["overall_nodes_average_cpu_usage"]=cpu_data["overall_current"]
         current_build_data["node_level_average_memory_usage"]=memory_data["current"]
         current_build_data["node_level_average_cpu_usage"]=cpu_data["current"]
-        current_build_data["container_level_memory_usage"] = container_memory_data["current"]
-        current_build_data["container_level_cpu_usage"] = container_cpu_data["current"]
-        current_build_data["complete_resource_usage"] = self.complete_usage
+        current_build_data["container_level_average_memory_usage"] = container_memory_data["current"]
+        current_build_data["container_level_average_cpu_usage"] = container_cpu_data["current"]
 
         with open(self.save_current_build_data_path, 'w') as file:
             json.dump(current_build_data, file, indent=4)  # indent for pretty formatting

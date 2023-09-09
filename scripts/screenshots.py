@@ -121,7 +121,7 @@ class take_screenshots:
 	def get_compaction_status(self):
 		driver = webdriver.Chrome(service=service,options=chrome_options)
 		driver.get(self.compaction_status_url)
-		print(f"Connecting to : {self.compaction_status_url}")
+		print(f"Connecting to {self.compaction_status_url}")
 		time.sleep(60)
 		unique_number = int(time.time() * 1000)
 		title="Compaction Status"
@@ -132,7 +132,7 @@ class take_screenshots:
 	def get_grafana_ids(self):
 		driver = webdriver.Chrome(service=service,options = chrome_options)
 		driver.get("http://" + self.monitoring_ip + ":" + self.db.GRAFANA_PORT + "/" + "login")
-		print("Connecting to : http://" + self.monitoring_ip + ":" + self.db.GRAFANA_PORT + "/" + "login")
+		print("Connecting to http://" + self.monitoring_ip + ":" + self.db.GRAFANA_PORT + "/" + "login")
 
 		wait = WebDriverWait(driver, self.panel_loading_time_threshold_sec+60)  #waits for _ seconds
 		try:

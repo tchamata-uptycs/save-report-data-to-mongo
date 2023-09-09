@@ -9,7 +9,7 @@ from screenshots import take_screenshots
 from memory_and_cpu_comparison import MC_comparisions
 from add_kafka_topics import kafka_topics
 from disk_space import DISK
-from helper import add_screenshots_to_docx,push_data_to_mongo
+from helper import push_data_to_mongo
 from input import create_input_form
 
 if __name__ == "__main__":
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             kafka_obj.add_topics_to_report()
 
         #---------------------------take screenshots and add to report------------------------------
-
+        grafana_ids=None
         if variables["add_screenshots"]==True:
             print("Collecting screenshots ...")
             dash_board_path= f'/d/{test_env_json_details["dashboard_uid"]}/{test_env_json_details["dashboard_name"]}'
@@ -106,7 +106,6 @@ if __name__ == "__main__":
                                 dash_board_path=dash_board_path
                                 )
             grafana_ids=ss_object.capture_screenshots_add_get_ids()
-            add_screenshots_to_docx(SCREENSHOT_DIR, grafana_ids,test_env_json_details["grafana_table_ids"])
             f_at = time.perf_counter()
             print(f"Collecting the Screenshots took : {round(f_at - s_at,2)} seconds in total")     
 
@@ -120,7 +119,7 @@ if __name__ == "__main__":
 
         #----------------Saving the json data to mongo--------------------
         print("Savig data to mongoDB ...")
-        push_data_to_mongo(variables['load_name'],variables['load_type'],save_current_build_data_path,mongo_connection_string)
+        push_data_to_mongo(variables['load_name'],variables['load_type'],save_current_build_data_path,mongo_connection_string,SCREENSHOT_DIR, grafana_ids,test_env_json_details["grafana_table_ids"])
         #-----------------------------------------------------------------
         f3_at = time.perf_counter()
         print(f"Preparing the report took : {round(f3_at - s_at,2)} seconds in total")

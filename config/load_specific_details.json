@@ -23,5 +23,6 @@
         "total_assets": "200K"
     },
     "CombinedLoad":{},
-    "AWS_multicustomer":{}
+    "AWS_MultiCustomer":{},
+    "GCP_MultiCustomer":{}
 }
