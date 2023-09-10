@@ -22,7 +22,7 @@
         "test_title": "Single Customer Control Plane Load",
         "total_assets": "200K"
     },
-    "CombinedLoad":{},
+    "Osquery+CloudQuery":{},
     "AWS_MultiCustomer":{},
     "GCP_MultiCustomer":{}
 }

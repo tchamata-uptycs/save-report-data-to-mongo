@@ -1,8 +1,8 @@
 import configparser
 from settings import configuration
 
-load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'CombinedLoad' , 'AWS_MultiCustomer','GCP_MultiCustomer']
-load_type_values = ['Osquery', 'CloudQuery', 'KubeQuery']
+load_name_values = ['ControlPlane', 'SingleCustomer', 'MultiCustomer', 'Osquery+CloudQuery' , 'AWS_MultiCustomer','GCP_MultiCustomer']
+load_type_values = ['Osquery', 'CloudQuery', 'KubeQuery' , "Combined"]
 
 def save_data(details,config,previous_input_path):
     prom_con_obj = configuration(test_env_file_name=details['test_env_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])

@@ -93,7 +93,8 @@ class take_screenshots:
 				title = f"LOADING FAILED : panel {t_id} not loaded in given time"
 				print("url : " , url)
 			print(f"{title} : {t_id}")
-			driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_1_{title}.png')
+			try:driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_1_{title}.png')
+			except:print(f"ERROR : failed to save chart {title}")
 			page_number = 2
 			def filter(n):
 				lst=[]
@@ -113,7 +114,8 @@ class take_screenshots:
 					if "active" not in html and active_flag==1:
 						i.find_element(By.TAG_NAME , "a").click()
 						time.sleep(1)
-						driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_{page_number}_{title}.png')
+						try:driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_{page_number}_{title}.png')
+						except:print(f"ERROR : failed to save chart {title}")
 						page_number += 1
 						break
 				if "active" in last_html:
@@ -128,7 +130,8 @@ class take_screenshots:
 		unique_number = int(time.time() * 1000)
 		title="Compaction Status"
 		print(f"{title} : {unique_number}")
-		driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{unique_number}_1_{title}.png')
+		try:driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{unique_number}_1_{title}.png')
+		except:print(f"ERROR : failed to save chart {title}")
 		return unique_number
 
 	def get_grafana_ids(self):
