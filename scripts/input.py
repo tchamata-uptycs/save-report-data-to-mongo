@@ -48,6 +48,7 @@ def create_input_form():
             "add_disk_space_usage": True,
             "add_screenshots": True,
             "add_kafka_topics": True,
+            "add_trino_queries": True,
             "make_cpu_mem_comparisions": True,
             "fetch_node_parameters_before_generating_report" :  False
             }

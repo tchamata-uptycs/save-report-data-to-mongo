@@ -11,6 +11,7 @@ from add_kafka_topics import kafka_topics
 from disk_space import DISK
 from helper import add_screenshots_to_docx,push_data_to_mongo
 from input import create_input_form
+from trino_queries import TRINO
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
@@ -81,6 +82,15 @@ if __name__ == "__main__":
         if variables["add_disk_space_usage"] == True and variables["load_name"] != "ControlPlane":
             print("Performing disk space calculations ...")
             calc = DISK(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
+                        save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
+            
+            calc.make_calculations()
+
+        #-------------------------Trino Queries--------------------------
+
+        if variables["add_trino_queries"] == True:
+            print("Performing trino queries ...")
+            calc = TRINO(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
                         save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
             
             calc.make_calculations()
