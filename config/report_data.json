@@ -2,7 +2,7 @@
     "details": {
         "stack": "S4",
         "sprint": 139,
-        "build": 139000,
+        "build": 139011,
         "load_name": "AWS_MultiCustomer",
         "load_type": "CloudQuery",
         "load_duration_in_hrs": 12,
@@ -11,12 +11,10 @@
         "run": 1
     },
     "load_specific_details": {
-        "AWS Services telemetry simulated in the Load": "EC2, EBS, IAM, Replication Group, Security Group, Elastic Kubernetes Service(EKS), Simple Storage Service(S3), Elastic File System(EFS), RDS, VPC, CodePipeline, ElastiCache, CloudTrail, Redshift, Subnet, Organizations, Elastic Load Balancer, S3 glacier, Lambda, Simple Queue Service(SQS), Simple Notification Service(SNS), CloudFront, CodeCommit, Kinesis, API Gateway,Elastic Container Registry,Elastic Container Service,Route 53, CodeDeploy,CloudWatch,CloudFormation,Config,Service Catalog,Systems Manager, Resource Access Manager, Secrets Manager, GuardDuty,Key Management Service,Directory Service,Web Application Firewall,Security Hub",
-        "Tables Validated in the Load": "aws_ec2_instance,aws_ec2_address,aws_ec2_image, aws_ec2_snapshot,aws_ec2_volume ,aws_elb , aws_lambda_function ,aws_ecr_repository, aws_ecs_cluster,aws_eks_cluster,aws_s3_bucket ,aws_efs_file_system,aws_glacier_vault , aws_rds_db_instance,aws_rds_db_cluster,aws_rds_db_snapshot,aws_elasticache_cluster, aws_elasticache_replication_group,aws_ec2_vpc,aws_ec2_security_group,aws_ec2_network_acl, aws_cloudfront_distribution,aws_route53_domain, aws_route53_hosted_zone, aws_api_gateway_rest_api,aws_codecommit_repository,aws_codedeploy_application ,aws_codepipeline, aws_organizations_account,aws_organizations_account,aws_cloudwatch_metric_alarm, aws_cloudformation_stack,aws_cloudtrail_trail,aws_cloudtrail_events,aws_config_delivery_channel, aws_servicecatalog_portfolio, aws_ssm_managed_instance, aws_redshift_cluster, aws_kinesis_data_stream,aws_iam_group,aws_iam_user,aws_iam_policy, aws_iam_role, aws_ram_resource_share, aws_secretsmanager_secret ,aws_guardduty_detector, aws_kms_key, aws_directoryservice_directory,aws_wafv2_web_acl,aws_securityhub_hub,aws_ec2_subnet, aws_sqs_queue,aws_sns_topic, aws_workspaces_workspace",
-        "test_title": "AWS Multicustomer load with 25 customers",
-        "Setup": "s4",
         "total_number_of_customers": "25",
-        "Stack URL": "https://mercury.uptycs.net/"
+        "test_title": "AWS Multicustomer load with 25 customers",
+        "AWS Services telemetry simulated in the Load": "EC2, EBS, IAM, Replication Group, Security Group, Elastic Kubernetes Service(EKS), Simple Storage Service(S3), Elastic File System(EFS), RDS, VPC, CodePipeline, ElastiCache, CloudTrail, Redshift, Subnet, Organizations, Elastic Load Balancer, S3 glacier, Lambda, Simple Queue Service(SQS), Simple Notification Service(SNS), CloudFront, CodeCommit, Kinesis, API Gateway,Elastic Container Registry,Elastic Container Service,Route 53, CodeDeploy,CloudWatch,CloudFormation,Config,Service Catalog,Systems Manager, Resource Access Manager, Secrets Manager, GuardDuty,Key Management Service,Directory Service,Web Application Firewall,Security Hub",
+        "Tables Validated in the Load": "aws_ec2_instance,aws_ec2_address,aws_ec2_image, aws_ec2_snapshot,aws_ec2_volume ,aws_elb , aws_lambda_function ,aws_ecr_repository, aws_ecs_cluster,aws_eks_cluster,aws_s3_bucket ,aws_efs_file_system,aws_glacier_vault , aws_rds_db_instance,aws_rds_db_cluster,aws_rds_db_snapshot,aws_elasticache_cluster, aws_elasticache_replication_group,aws_ec2_vpc,aws_ec2_security_group,aws_ec2_network_acl, aws_cloudfront_distribution,aws_route53_domain, aws_route53_hosted_zone, aws_api_gateway_rest_api,aws_codecommit_repository,aws_codedeploy_application ,aws_codepipeline, aws_organizations_account,aws_organizations_account,aws_cloudwatch_metric_alarm, aws_cloudformation_stack,aws_cloudtrail_trail,aws_cloudtrail_events,aws_config_delivery_channel, aws_servicecatalog_portfolio, aws_ssm_managed_instance, aws_redshift_cluster, aws_kinesis_data_stream,aws_iam_group,aws_iam_user,aws_iam_policy, aws_iam_role, aws_ram_resource_share, aws_secretsmanager_secret ,aws_guardduty_detector, aws_kms_key, aws_directoryservice_directory,aws_wafv2_web_acl,aws_securityhub_hub,aws_ec2_subnet, aws_sqs_queue,aws_sns_topic, aws_workspaces_workspace"
     },
     "test_environment_details": {
         "stack": "S4",
@@ -74,6 +72,7 @@
                 "root_partition": "731G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.135.26",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -83,6 +82,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.138.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -92,6 +92,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.139.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -101,6 +102,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.140.15",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -110,6 +112,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.141.15",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -119,6 +122,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.142.15",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -128,6 +132,7 @@
                 "root_partition": "731G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.137.20",
             "ram": "188",
             "cores": "32",
             "clst": "2"
@@ -137,6 +142,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.137.12",
             "ram": "188",
             "cores": "32",
             "clst": "2"
@@ -146,6 +152,7 @@
                 "root_partition": "731G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.137.16",
             "ram": "188",
             "cores": "32",
             "clst": "2"
@@ -155,6 +162,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.131.15",
             "ram": "188",
             "cores": "32",
             "clst": "2"
@@ -164,6 +172,7 @@
                 "root_partition": "3.6T",
                 "kafka": "366G"
             },
+            "lan_ip": "192.168.133.15",
             "ram": "188",
             "cores": "32",
             "clst": "2"
@@ -173,6 +182,7 @@
                 "root_partition": "365G",
                 "kafka": "3.6T"
             },
+            "lan_ip": "192.168.134.15",
             "ram": "188",
             "cores": "32",
             "clst": "2"
@@ -185,6 +195,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.141.25",
             "ram": "251",
             "cores": "32",
             "clst": "1"
@@ -197,6 +208,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.15",
             "ram": "251",
             "cores": "32",
             "clst": "1"
@@ -209,6 +221,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.17",
             "ram": "251",
             "cores": "32",
             "clst": "1"
@@ -221,6 +234,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.19",
             "ram": "251",
             "cores": "32",
             "clst": "1"
@@ -233,6 +247,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.23",
             "ram": "251",
             "cores": "32",
             "clst": "1"
@@ -245,6 +260,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.134.25",
             "ram": "251",
             "cores": "32",
             "clst": "1"
@@ -257,6 +273,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.13",
             "ram": "251",
             "cores": "32",
             "clst": "2"
@@ -269,6 +286,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.14",
             "ram": "251",
             "cores": "32",
             "clst": "2"
@@ -281,6 +299,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.141.19",
             "ram": "251",
             "cores": "32",
             "clst": "2"
@@ -293,6 +312,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.18",
             "ram": "251",
             "cores": "32",
             "clst": "2"
@@ -305,6 +325,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.137.22",
             "ram": "251",
             "cores": "32",
             "clst": "2"
@@ -317,6 +338,7 @@
                 "dn2": "3.6T",
                 "dn3": "3.6T"
             },
+            "lan_ip": "192.168.134.26",
             "ram": "251",
             "cores": "32",
             "clst": "2"
@@ -327,6 +349,7 @@
                 "pg": "3.6T",
                 "data": "3.6T"
             },
+            "lan_ip": "192.168.136.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -337,6 +360,7 @@
                 "pg": "3.6T",
                 "data": "3.6T"
             },
+            "lan_ip": "192.168.137.25",
             "ram": "188",
             "cores": "32",
             "clst": "1"
@@ -346,6 +370,7 @@
                 "root_partition": "196G",
                 "data": "3.6T"
             },
+            "lan_ip": "192.168.136.69",
             "ram": "78",
             "cores": "16",
             "clst": "1"
@@ -355,6 +380,7 @@
                 "root_partition": "196G",
                 "spark": "3.6T"
             },
+            "lan_ip": "192.168.141.61",
             "ram": "78",
             "cores": "16",
             "clst": "1"
@@ -364,6 +390,7 @@
                 "root_partition": "196G",
                 "spark": "3.6T"
             },
+            "lan_ip": "192.168.141.62",
             "ram": "78",
             "cores": "16",
             "clst": "1"
@@ -372,6 +399,7 @@
             "storage": {
                 "root_partition": "196G"
             },
+            "lan_ip": "192.168.140.77",
             "ram": "47",
             "cores": "8",
             "clst": "1"
@@ -527,2721 +555,53 @@
     },
     "pg_disk_used_space": {
         "/pg": {
-            "s4configdb1": "15G",
+            "s4configdb1": "14G",
             "s4configdb2": "24G"
         },
         "/data": {
-            "s4configdb1": "54G",
-            "s4configdb2": "66G"
+            "s4configdb1": "51G",
+            "s4configdb2": "64G"
         }
     },
-    "kafka_topics": [],
-    "overall_nodes_average_memory_usage": {
-        "pnodes": {
-            "GB": 722.8607549487258
+    "Trino Queries": {
+        "alertsql": {
+            "Query": 94
         },
-        "dnodes": {
-            "GB": 1614.8564709906586
+        "cloudPreProcessor": {
+            "Query": 499
         },
-        "pgnodes": {
-            "GB": 14.68235301479308
+        "etl-jobs": {
+            "Query": 5579,
+            "Delete": 1,
+            "": 11746
+        },
+        "eventsql": {
+            "Query": 2262
+        },
+        "index": {
+            "DropView": 4,
+            "CreateView": 3890,
+            "CreateTableAsSelect": 4,
+            "Delete": 1,
+            "Query": 20
+        },
+        "maintenance": {
+            "Query": 1305,
+            "Analyze": 124
+        },
+        "queryscheduler": {
+            "Query": 1438
+        },
+        "system": {
+            "CreateSchema": 4328,
+            "Query": 34559,
+            "Insert": 8
+        },
+        "trino-cli": {
+            "Query": 244
+        },
+        "vulners-decorator": {
+            "Query": 17279
         }
-    },
-    "overall_nodes_average_cpu_usage": {
-        "pnodes": {
-            "cores": 111.05426171468233
-        },
-        "dnodes": {
-            "cores": 53.4867837556404
-        },
-        "pgnodes": {
-            "cores": 16.582830961471736
-        }
-    },
-    "node_level_average_memory_usage": {
-        "Host": {
-            "mlbank1a": {
-                "percentage": 5.221983654632352,
-                "GB": 2.4543323176772054
-            },
-            "s4c1dn1": {
-                "percentage": 67.77237606002323,
-                "GB": 170.10866391065832
-            },
-            "s4c1dn2": {
-                "percentage": 66.3158596714472,
-                "GB": 166.45280777533247
-            },
-            "s4c1dn3": {
-                "percentage": 65.30377591867806,
-                "GB": 163.91247755588194
-            },
-            "s4c1dn4": {
-                "percentage": 60.14432002351356,
-                "GB": 150.96224325901903
-            },
-            "s4c1dn5": {
-                "percentage": 61.91547740375145,
-                "GB": 155.40784828341614
-            },
-            "s4c1dn6": {
-                "percentage": 61.03786155309577,
-                "GB": 153.20503249827038
-            },
-            "s4c1pn1": {
-                "percentage": 37.18528279135444,
-                "GB": 69.90833164774635
-            },
-            "s4c1pn2": {
-                "percentage": 42.45623658715279,
-                "GB": 79.81772478384724
-            },
-            "s4c1pn3": {
-                "percentage": 35.75425322887572,
-                "GB": 67.21799607028635
-            },
-            "s4c1pn4": {
-                "percentage": 31.628698861414765,
-                "GB": 59.461953859459754
-            },
-            "s4c1pn5": {
-                "percentage": 31.119079693232536,
-                "GB": 58.503869823277164
-            },
-            "s4c1pn6": {
-                "percentage": 31.190707353213497,
-                "GB": 58.63852982404138
-            },
-            "s4c2dn1": {
-                "percentage": 50.47873029789685,
-                "GB": 126.7016130477211
-            },
-            "s4c2dn2": {
-                "percentage": 42.91199836314594,
-                "GB": 107.70911589149631
-            },
-            "s4c2dn3": {
-                "percentage": 41.47077158119897,
-                "GB": 104.0916366688094
-            },
-            "s4c2dn4": {
-                "percentage": 42.24709968436582,
-                "GB": 106.04022020775821
-            },
-            "s4c2dn5": {
-                "percentage": 42.40626508234255,
-                "GB": 106.43972535667979
-            },
-            "s4c2dn6": {
-                "percentage": 41.364576309010125,
-                "GB": 103.82508653561541
-            },
-            "s4c2pn1": {
-                "percentage": 27.448166776269765,
-                "GB": 51.602553539387166
-            },
-            "s4c2pn2": {
-                "percentage": 30.848728782875735,
-                "GB": 57.99561011180638
-            },
-            "s4c2pn3": {
-                "percentage": 29.155681400939507,
-                "GB": 54.812681033766275
-            },
-            "s4c2pn4": {
-                "percentage": 30.68675467799834,
-                "GB": 57.69109879463688
-            },
-            "s4c2pn5": {
-                "percentage": 28.457534305815475,
-                "GB": 53.500164494933095
-            },
-            "s4c2pn6": {
-                "percentage": 28.569277109328603,
-                "GB": 53.71024096553777
-            },
-            "s4configdb1": {
-                "percentage": 1.66070900261664,
-                "GB": 3.122132924919283
-            },
-            "s4configdb2": {
-                "percentage": 6.149053239294573,
-                "GB": 11.560220089873797
-            },
-            "s4mon": {
-                "percentage": 13.372404460234378,
-                "GB": 10.430475478982814
-            },
-            "s4stsnode1": {
-                "percentage": 67.37550253906409,
-                "GB": 52.55289198046999
-            },
-            "s4stsnode2": {
-                "percentage": 23.476020594887924,
-                "GB": 18.31129606401258
-            }
-        },
-        "rule-engine": {
-            "s4c1pn1": {
-                "percentage": 7.152417391304363,
-                "GB": 13.446544695652204
-            },
-            "s4c1pn2": {
-                "percentage": 7.197952099965324,
-                "GB": 13.532149947934808
-            },
-            "s4c1pn3": {
-                "percentage": 7.152730434782671,
-                "GB": 13.447133217391421
-            },
-            "s4c1pn4": {
-                "percentage": 7.006812652068095,
-                "GB": 13.172807785888017
-            },
-            "s4c1pn5": {
-                "percentage": 6.59260159777701,
-                "GB": 12.39409100382078
-            },
-            "s4c1pn6": {
-                "percentage": 6.648490107601567,
-                "GB": 12.499161402290945
-            },
-            "s4c2pn1": {
-                "percentage": 3.572192916352708,
-                "GB": 6.715722682743092
-            },
-            "s4c2pn2": {
-                "percentage": 7.06609874826152,
-                "GB": 13.284265646731658
-            },
-            "s4c2pn3": {
-                "percentage": 7.3241834607366805,
-                "GB": 13.76946490618496
-            },
-            "s4c2pn4": {
-                "percentage": 7.336722280152927,
-                "GB": 13.793037886687502
-            },
-            "s4c2pn5": {
-                "percentage": 6.785039916695572,
-                "GB": 12.755875043387675
-            },
-            "s4c2pn6": {
-                "percentage": 7.070104166666639,
-                "GB": 13.29179583333328
-            }
-        },
-        "osquery-ingestion": {
-            "s4c1dn1": {
-                "percentage": 5.090615224191897,
-                "GB": 12.777444212721662
-            },
-            "s4c1dn2": {
-                "percentage": 5.822026431717948,
-                "GB": 14.61328634361205
-            },
-            "s4c1dn3": {
-                "percentage": 5.783659278574607,
-                "GB": 14.516984789222263
-            },
-            "s4c1dn4": {
-                "percentage": 5.524507283633292,
-                "GB": 13.866513281919563
-            },
-            "s4c1dn5": {
-                "percentage": 5.621270117442226,
-                "GB": 14.109387994779986
-            },
-            "s4c1dn6": {
-                "percentage": 4.937151437151391,
-                "GB": 12.39225010724999
-            },
-            "s4c2dn1": {
-                "percentage": 5.753907606807899,
-                "GB": 14.442308093087826
-            },
-            "s4c2dn2": {
-                "percentage": 5.905633802816845,
-                "GB": 14.82314084507028
-            },
-            "s4c2dn3": {
-                "percentage": 5.793228484054137,
-                "GB": 14.541003494975884
-            },
-            "s4c2dn4": {
-                "percentage": 6.131388078365975,
-                "GB": 15.389784076698596
-            },
-            "s4c2dn5": {
-                "percentage": 5.865008576329437,
-                "GB": 14.721171526586886
-            },
-            "s4c2dn6": {
-                "percentage": 5.317919580419622,
-                "GB": 13.347978146853253
-            }
-        },
-        "kafka": {
-            "s4c1pn1": {
-                "percentage": 2.7259342820779486,
-                "GB": 5.124756450306544
-            },
-            "s4c1pn2": {
-                "percentage": 2.5680666435266652,
-                "GB": 4.82796528983013
-            },
-            "s4c1pn3": {
-                "percentage": 2.796945505033102,
-                "GB": 5.258257549462232
-            },
-            "s4c1pn4": {
-                "percentage": 3.450919819507125,
-                "GB": 6.487729260673396
-            },
-            "s4c1pn5": {
-                "percentage": 2.7909753557793695,
-                "GB": 5.247033668865215
-            },
-            "s4c1pn6": {
-                "percentage": 2.7829225963208533,
-                "GB": 5.231894481083205
-            },
-            "s4c2pn1": {
-                "percentage": 2.3809788267961833,
-                "GB": 4.476240194376825
-            },
-            "s4c2pn2": {
-                "percentage": 3.346719888927299,
-                "GB": 6.291833391183323
-            },
-            "s4c2pn3": {
-                "percentage": 2.5949670253385535,
-                "GB": 4.878538007636481
-            },
-            "s4c2pn4": {
-                "percentage": 2.595001735508633,
-                "GB": 4.87860326275623
-            },
-            "s4c2pn5": {
-                "percentage": 2.2986810135368514,
-                "GB": 4.321520305449281
-            },
-            "s4c2pn6": {
-                "percentage": 2.7947587643180722,
-                "GB": 5.254146476917976
-            }
-        },
-        "trino": {
-            "s4c1dn1": {
-                "percentage": 12.044862894828391,
-                "GB": 30.232605866019263
-            },
-            "s4c1dn2": {
-                "percentage": 27.5,
-                "GB": 69.025
-            },
-            "s4c1dn3": {
-                "percentage": 27.60000000000018,
-                "GB": 69.27600000000045
-            },
-            "s4c1dn4": {
-                "percentage": 27.5,
-                "GB": 69.025
-            },
-            "s4c1dn5": {
-                "percentage": 28.0,
-                "GB": 70.28
-            },
-            "s4c1dn6": {
-                "percentage": 27.80000000000151,
-                "GB": 69.7780000000038
-            },
-            "s4c2dn1": {
-                "percentage": 17.731065602220575,
-                "GB": 44.50497466157364
-            },
-            "s4c2dn2": {
-                "percentage": 13.69999999999993,
-                "GB": 34.38699999999982
-            },
-            "s4c2dn3": {
-                "percentage": 13.69999999999993,
-                "GB": 34.38699999999982
-            },
-            "s4c2dn4": {
-                "percentage": 13.69999999999993,
-                "GB": 34.38699999999982
-            },
-            "s4c2dn5": {
-                "percentage": 13.69999999999993,
-                "GB": 34.38699999999982
-            },
-            "s4c2dn6": {
-                "percentage": 13.69999999999993,
-                "GB": 34.38699999999982
-            }
-        },
-        "tls": {
-            "s4c1pn1": {
-                "percentage": 0.19876952447066823,
-                "GB": 0.3736867060048563
-            },
-            "s4c1pn2": {
-                "percentage": 0.20028602833010825,
-                "GB": 0.3765377332606035
-            },
-            "s4c1pn3": {
-                "percentage": 0.2004953637129943,
-                "GB": 0.3769312837804293
-            },
-            "s4c1pn4": {
-                "percentage": 0.2004736285350635,
-                "GB": 0.3768904216459194
-            },
-            "s4c1pn5": {
-                "percentage": 0.20009132080461287,
-                "GB": 0.37617168311267224
-            },
-            "s4c1pn6": {
-                "percentage": 0.2001966909637837,
-                "GB": 0.3763697790119134
-            },
-            "s4c2pn1": {
-                "percentage": 0.20041627411116947,
-                "GB": 0.3767825953289986
-            },
-            "s4c2pn2": {
-                "percentage": 0.20042478636716546,
-                "GB": 0.3767985983702711
-            },
-            "s4c2pn3": {
-                "percentage": 0.20040776185517403,
-                "GB": 0.3767665922877272
-            },
-            "s4c2pn4": {
-                "percentage": 0.20027230954860037,
-                "GB": 0.37651194195136867
-            },
-            "s4c2pn5": {
-                "percentage": 0.20029627609460787,
-                "GB": 0.3765569990578628
-            },
-            "s4c2pn6": {
-                "percentage": 0.20036734930000935,
-                "GB": 0.3766906166840176
-            }
-        },
-        "eventsdb-ingestion": {},
-        "logger": {
-            "s4c1pn1": {
-                "percentage": 0.9542349250609996,
-                "GB": 1.7939616591146794
-            },
-            "s4c1pn2": {
-                "percentage": 0.9344972067039107,
-                "GB": 1.7568547486033521
-            },
-            "s4c1pn3": {
-                "percentage": 1.0725620412443204,
-                "GB": 2.0164166375393227
-            },
-            "s4c1pn4": {
-                "percentage": 0.8799089954497774,
-                "GB": 1.6542289114455815
-            },
-            "s4c1pn5": {
-                "percentage": 0.9971707998602832,
-                "GB": 1.8746811037373325
-            },
-            "s4c1pn6": {
-                "percentage": 0.9939784197702748,
-                "GB": 1.8686794291681168
-            },
-            "s4c2pn1": {
-                "percentage": 1.4016005567153784,
-                "GB": 2.6350090466249116
-            },
-            "s4c2pn2": {
-                "percentage": 0.884696016771487,
-                "GB": 1.6632285115303955
-            },
-            "s4c2pn3": {
-                "percentage": 1.22901878914405,
-                "GB": 2.310555323590814
-            },
-            "s4c2pn4": {
-                "percentage": 1.0660410149461255,
-                "GB": 2.004157108098716
-            },
-            "s4c2pn5": {
-                "percentage": 1.4805623047552905,
-                "GB": 2.783457132939946
-            },
-            "s4c2pn6": {
-                "percentage": 1.3235048678720471,
-                "GB": 2.4881891515994483
-            }
-        }
-    },
-    "node_level_average_cpu_usage": {
-        "Host": {
-            "mlbank1a": {
-                "percentage": 93.54671988892741,
-                "cores": 7.483737591114193
-            },
-            "s4c1dn1": {
-                "percentage": 23.454009024644282,
-                "cores": 7.50528288788617
-            },
-            "s4c1dn2": {
-                "percentage": 13.941929885456416,
-                "cores": 4.461417563346053
-            },
-            "s4c1dn3": {
-                "percentage": 15.084623394654601,
-                "cores": 4.827079486289472
-            },
-            "s4c1dn4": {
-                "percentage": 12.803818118708783,
-                "cores": 4.09722179798681
-            },
-            "s4c1dn5": {
-                "percentage": 13.204026379729239,
-                "cores": 4.2252884415133565
-            },
-            "s4c1dn6": {
-                "percentage": 13.911384935786147,
-                "cores": 4.451643179451567
-            },
-            "s4c1pn1": {
-                "percentage": 37.29212079139201,
-                "cores": 11.933478653245443
-            },
-            "s4c1pn2": {
-                "percentage": 32.33457132939945,
-                "cores": 10.347062825407825
-            },
-            "s4c1pn3": {
-                "percentage": 30.095661228739942,
-                "cores": 9.630611593196782
-            },
-            "s4c1pn4": {
-                "percentage": 28.063311350225625,
-                "cores": 8.9802596320722
-            },
-            "s4c1pn5": {
-                "percentage": 27.93148212426238,
-                "cores": 8.938074279763962
-            },
-            "s4c1pn6": {
-                "percentage": 27.230024297119034,
-                "cores": 8.71360777507809
-            },
-            "s4c2dn1": {
-                "percentage": 14.301423116973314,
-                "cores": 4.57645539743146
-            },
-            "s4c2dn2": {
-                "percentage": 13.933599444637295,
-                "cores": 4.458751822283935
-            },
-            "s4c2dn3": {
-                "percentage": 10.93380770565777,
-                "cores": 3.4988184658104866
-            },
-            "s4c2dn4": {
-                "percentage": 11.626067337729948,
-                "cores": 3.7203415480735833
-            },
-            "s4c2dn5": {
-                "percentage": 11.720652551197528,
-                "cores": 3.7506088163832088
-            },
-            "s4c2dn6": {
-                "percentage": 12.230857341200936,
-                "cores": 3.9138743491842996
-            },
-            "s4c2pn1": {
-                "percentage": 18.831239153071845,
-                "cores": 6.02599652898299
-            },
-            "s4c2pn2": {
-                "percentage": 26.437729954876776,
-                "cores": 8.460073585560568
-            },
-            "s4c2pn3": {
-                "percentage": 29.621659146129762,
-                "cores": 9.478930926761524
-            },
-            "s4c2pn4": {
-                "percentage": 29.157965984033325,
-                "cores": 9.330549114890664
-            },
-            "s4c2pn5": {
-                "percentage": 29.07264838597699,
-                "cores": 9.303247483512637
-            },
-            "s4c2pn6": {
-                "percentage": 30.976154113155186,
-                "cores": 9.91236931620966
-            },
-            "s4configdb1": {
-                "percentage": 1.8358556056924673,
-                "cores": 0.5874737938215895
-            },
-            "s4configdb2": {
-                "percentage": 49.9854911489067,
-                "cores": 15.995357167650145
-            },
-            "s4mon": {
-                "percentage": 14.19142658799032,
-                "cores": 2.270628254078451
-            },
-            "s4stsnode1": {
-                "percentage": 18.645192641443973,
-                "cores": 2.9832308226310356
-            },
-            "s4stsnode2": {
-                "percentage": 7.695765359250272,
-                "cores": 1.2313224574800434
-            }
-        },
-        "rule-engine": {
-            "s4c1pn1": {
-                "percentage": 319.72337391304296,
-                "cores": 3.1972337391304295
-            },
-            "s4c1pn2": {
-                "percentage": 320.41228740020927,
-                "cores": 3.204122874002093
-            },
-            "s4c1pn3": {
-                "percentage": 320.813982608694,
-                "cores": 3.2081398260869403
-            },
-            "s4c1pn4": {
-                "percentage": 316.4475495307605,
-                "cores": 3.164475495307605
-            },
-            "s4c1pn5": {
-                "percentage": 273.5198680097256,
-                "cores": 2.735198680097256
-            },
-            "s4c1pn6": {
-                "percentage": 279.9487330787915,
-                "cores": 2.7994873307879153
-            },
-            "s4c2pn1": {
-                "percentage": 8.422456669178525,
-                "cores": 0.08422456669178524
-            },
-            "s4c2pn2": {
-                "percentage": 309.8285118219736,
-                "cores": 3.0982851182197364
-            },
-            "s4c2pn3": {
-                "percentage": 415.3662265462129,
-                "cores": 4.1536622654621285
-            },
-            "s4c2pn4": {
-                "percentage": 370.25352798053524,
-                "cores": 3.7025352798053524
-            },
-            "s4c2pn5": {
-                "percentage": 343.09875043387564,
-                "cores": 3.4309875043387565
-            },
-            "s4c2pn6": {
-                "percentage": 399.30024305555577,
-                "cores": 3.9930024305555576
-            }
-        },
-        "osquery-ingestion": {
-            "s4c1dn1": {
-                "percentage": 16.40836519522662,
-                "cores": 0.16408365195226618
-            },
-            "s4c1dn2": {
-                "percentage": 25.945638766520478,
-                "cores": 0.2594563876652048
-            },
-            "s4c1dn3": {
-                "percentage": 30.10849630595484,
-                "cores": 0.3010849630595484
-            },
-            "s4c1dn4": {
-                "percentage": 26.58586118252005,
-                "cores": 0.2658586118252005
-            },
-            "s4c1dn5": {
-                "percentage": 24.612918660287708,
-                "cores": 0.24612918660287708
-            },
-            "s4c1dn6": {
-                "percentage": 34.225311025312024,
-                "cores": 0.3422531102531202
-            },
-            "s4c2dn1": {
-                "percentage": 19.470128516846255,
-                "cores": 0.19470128516846255
-            },
-            "s4c2dn2": {
-                "percentage": 32.08335467349641,
-                "cores": 0.3208335467349641
-            },
-            "s4c2dn3": {
-                "percentage": 24.386762778506597,
-                "cores": 0.24386762778506596
-            },
-            "s4c2dn4": {
-                "percentage": 33.75197999166414,
-                "cores": 0.33751979991664144
-            },
-            "s4c2dn5": {
-                "percentage": 29.42920240137298,
-                "cores": 0.2942920240137298
-            },
-            "s4c2dn6": {
-                "percentage": 34.6309877622387,
-                "cores": 0.346309877622387
-            }
-        },
-        "kafka": {
-            "s4c1pn1": {
-                "percentage": 71.47930116857586,
-                "cores": 0.7147930116857586
-            },
-            "s4c1pn2": {
-                "percentage": 46.109927108642985,
-                "cores": 0.46109927108642984
-            },
-            "s4c1pn3": {
-                "percentage": 72.66372787226665,
-                "cores": 0.7266372787226665
-            },
-            "s4c1pn4": {
-                "percentage": 40.44633807705652,
-                "cores": 0.40446338077056515
-            },
-            "s4c1pn5": {
-                "percentage": 80.56147171121131,
-                "cores": 0.8056147171121131
-            },
-            "s4c1pn6": {
-                "percentage": 67.40628254078445,
-                "cores": 0.6740628254078445
-            },
-            "s4c2pn1": {
-                "percentage": 58.279520999652824,
-                "cores": 0.5827952099965282
-            },
-            "s4c2pn2": {
-                "percentage": 49.68837209302333,
-                "cores": 0.4968837209302333
-            },
-            "s4c2pn3": {
-                "percentage": 71.98233252342939,
-                "cores": 0.7198233252342939
-            },
-            "s4c2pn4": {
-                "percentage": 61.67119055883353,
-                "cores": 0.6167119055883353
-            },
-            "s4c2pn5": {
-                "percentage": 49.88267962512993,
-                "cores": 0.49882679625129933
-            },
-            "s4c2pn6": {
-                "percentage": 71.66758070114528,
-                "cores": 0.7166758070114528
-            }
-        },
-        "trino": {
-            "s4c1dn1": {
-                "percentage": 21.678427629295467,
-                "cores": 0.21678427629295466
-            },
-            "s4c1dn2": {
-                "percentage": 42.12825407844496,
-                "cores": 0.4212825407844496
-            },
-            "s4c1dn3": {
-                "percentage": 42.045157931274,
-                "cores": 0.42045157931273996
-            },
-            "s4c1dn4": {
-                "percentage": 43.59840333217629,
-                "cores": 0.4359840333217629
-            },
-            "s4c1dn5": {
-                "percentage": 37.83106560222145,
-                "cores": 0.3783106560222145
-            },
-            "s4c1dn6": {
-                "percentage": 39.74748351266915,
-                "cores": 0.39747483512669146
-            },
-            "s4c2dn1": {
-                "percentage": 2.9268656716418575,
-                "cores": 0.029268656716418574
-            },
-            "s4c2dn2": {
-                "percentage": 1.212981603609861,
-                "cores": 0.01212981603609861
-            },
-            "s4c2dn3": {
-                "percentage": 1.1532454009024724,
-                "cores": 0.011532454009024725
-            },
-            "s4c2dn4": {
-                "percentage": 1.1722318639361364,
-                "cores": 0.011722318639361365
-            },
-            "s4c2dn5": {
-                "percentage": 1.1882332523429446,
-                "cores": 0.011882332523429446
-            },
-            "s4c2dn6": {
-                "percentage": 1.2190558833738363,
-                "cores": 0.012190558833738364
-            }
-        },
-        "tls": {
-            "s4c1pn1": {
-                "percentage": 9.859474361305308,
-                "cores": 0.09859474361305308
-            },
-            "s4c1pn2": {
-                "percentage": 7.989978016892302,
-                "cores": 0.07989978016892302
-            },
-            "s4c1pn3": {
-                "percentage": 7.896482565026484,
-                "cores": 0.07896482565026484
-            },
-            "s4c1pn4": {
-                "percentage": 7.7663641923274245,
-                "cores": 0.07766364192327424
-            },
-            "s4c1pn5": {
-                "percentage": 7.577086232734432,
-                "cores": 0.07577086232734433
-            },
-            "s4c1pn6": {
-                "percentage": 8.370242227401247,
-                "cores": 0.08370242227401248
-            },
-            "s4c2pn1": {
-                "percentage": 8.120618281791486,
-                "cores": 0.08120618281791486
-            },
-            "s4c2pn2": {
-                "percentage": 6.79082213517132,
-                "cores": 0.0679082213517132
-            },
-            "s4c2pn3": {
-                "percentage": 7.819351512096221,
-                "cores": 0.0781935151209622
-            },
-            "s4c2pn4": {
-                "percentage": 6.932756538459427,
-                "cores": 0.06932756538459427
-            },
-            "s4c2pn5": {
-                "percentage": 7.256356272348153,
-                "cores": 0.07256356272348154
-            },
-            "s4c2pn6": {
-                "percentage": 8.7546035051762,
-                "cores": 0.087546035051762
-            }
-        },
-        "eventsdb-ingestion": {},
-        "logger": {
-            "s4c1pn1": {
-                "percentage": 35.92354580285605,
-                "cores": 0.3592354580285605
-            },
-            "s4c1pn2": {
-                "percentage": 34.006926557605276,
-                "cores": 0.34006926557605277
-            },
-            "s4c1pn3": {
-                "percentage": 33.81197207678881,
-                "cores": 0.3381197207678881
-            },
-            "s4c1pn4": {
-                "percentage": 34.71690534404472,
-                "cores": 0.3471690534404472
-            },
-            "s4c1pn5": {
-                "percentage": 36.009870945238895,
-                "cores": 0.3600987094523889
-            },
-            "s4c1pn6": {
-                "percentage": 35.80381811870875,
-                "cores": 0.35803818118708747
-            },
-            "s4c2pn1": {
-                "percentage": 37.73641096841382,
-                "cores": 0.3773641096841382
-            },
-            "s4c2pn2": {
-                "percentage": 34.900417681865626,
-                "cores": 0.34900417681865625
-            },
-            "s4c2pn3": {
-                "percentage": 38.24918317692042,
-                "cores": 0.3824918317692042
-            },
-            "s4c2pn4": {
-                "percentage": 36.530475529330204,
-                "cores": 0.36530475529330203
-            },
-            "s4c2pn5": {
-                "percentage": 38.96227004512315,
-                "cores": 0.3896227004512315
-            },
-            "s4c2pn6": {
-                "percentage": 39.80735855605692,
-                "cores": 0.3980735855605692
-            }
-        }
-    },
-    "container_level_memory_usage": {
-        "container": {
-            "admin-api": {
-                "GB": 2.900571108262062
-            },
-            "admin-login": {
-                "GB": 2.1491364698028455
-            },
-            "adminui": {
-                "GB": 2.05390105598087
-            },
-            "admiring_galileo": {
-                "GB": 0.09810476999999997
-            },
-            "admiring_pare": {
-                "GB": 0.09799991199999997
-            },
-            "agent-download": {
-                "GB": 2.4431320303742
-            },
-            "agitated_visvesvaraya": {
-                "GB": 0.061782097000000015
-            },
-            "airflow-redis": {
-                "GB": 0.01076596258174241
-            },
-            "airflow_airflow-scheduler_1": {
-                "GB": 0.4145401993078821
-            },
-            "airflow_airflow-triggerer_1": {
-                "GB": 0.3046183884835133
-            },
-            "airflow_airflow-webserver_1": {
-                "GB": 1.0199538798354766
-            },
-            "airflow_airflow-worker_1": {
-                "GB": 5.825734411965352
-            },
-            "airflow_elasticsearch": {
-                "GB": 2.082164663581461
-            },
-            "airflow_flower_1": {
-                "GB": 0.3012846738639334
-            },
-            "alertgrouping-consumer": {
-                "GB": 2.4761880520024384
-            },
-            "alerts-consumer": {
-                "GB": 2.8212633128323557
-            },
-            "alerts-delivery": {
-                "GB": 2.217712139056932
-            },
-            "alertsql": {
-                "GB": 3.8729875156980387
-            },
-            "alluxio-master": {
-                "GB": 8.907656696626244
-            },
-            "alluxio-worker": {
-                "GB": 5.3709963639617095
-            },
-            "angry_almeida": {
-                "GB": 0.09784262600000003
-            },
-            "api": {
-                "GB": 6.585706911775118
-            },
-            "ask-uptycs-server": {
-                "GB": 3.9679817340482697
-            },
-            "asset-capability": {
-                "GB": 2.075038688403681
-            },
-            "awesome_kare": {
-                "GB": 0.09699327999999997
-            },
-            "boring_perlman": {
-                "GB": 0.09781116900000003
-            },
-            "brave_nobel": {
-                "GB": 0.09691987900000004
-            },
-            "checksum-validator": {
-                "GB": 0.5811032231641822
-            },
-            "cloud-compliance-manager": {
-                "GB": 7.713474931057958
-            },
-            "cloud-crossaccount-processor": {
-                "GB": 0.4140037600603919
-            },
-            "cloud-detection-consumer": {
-                "GB": 9.42933512166608
-            },
-            "cloud-graph-processor": {
-                "GB": 0.4629940392485292
-            },
-            "cloud-graph-synchronizer": {
-                "GB": 0.2941484150607429
-            },
-            "cloud-misc-consumer": {
-                "GB": 2.440022079831286
-            },
-            "cloudinstancemapper-consumer": {
-                "GB": 0.39902425355883436
-            },
-            "cloudpreprocessor": {
-                "GB": 0.939465004222499
-            },
-            "cloudquery-consumer": {
-                "GB": 7.45136543442418
-            },
-            "cloudquery-event-relay": {
-                "GB": 0.05005901800000065
-            },
-            "cloudquery-launcher": {
-                "GB": 0.5158456508042354
-            },
-            "cloudremediation-publisher-subscriber": {
-                "GB": 2.276929094724743
-            },
-            "cloudriskprocessor": {
-                "GB": 0.5369139231277312
-            },
-            "cloudvuln-consumer": {
-                "GB": 0.4537473456952396
-            },
-            "compliance-check-runner": {
-                "GB": 0.5669228978587316
-            },
-            "compliance-summary-consumer": {
-                "GB": 0.5650374261423132
-            },
-            "condescending_knuth": {
-                "GB": 0.09732882400000004
-            },
-            "consul": {
-                "GB": 1.6394018622547761
-            },
-            "crazy_antonelli": {
-                "GB": 0.09829351400000003
-            },
-            "crownrule-scheduler": {
-                "GB": 2.1939278440694316
-            },
-            "data-archival": {
-                "GB": 62.76997577545177
-            },
-            "dbsync-scheduler": {
-                "GB": 3.5746687355911586
-            },
-            "debezium": {
-                "GB": 1.6202704488371342
-            },
-            "debezium-consumer": {
-                "GB": 0.678002466292607
-            },
-            "debezium-statedb": {
-                "GB": 2.0766166869999045
-            },
-            "decorators-consumer": {
-                "GB": 4.494362152201
-            },
-            "downloads": {
-                "GB": 2.4161408252783407
-            },
-            "eager_tereshkova": {
-                "GB": 0.09776922600000003
-            },
-            "ecstatic_gould": {
-                "GB": 0.09832497100000002
-            },
-            "effective-permissions": {
-                "GB": 36.186270167804004
-            },
-            "elasticsearch": {
-                "GB": 11.365708146742007
-            },
-            "elated_wilson": {
-                "GB": 0.09114222500000001
-            },
-            "event-alert-throttler": {
-                "GB": 0.31971173016279103
-            },
-            "eventsql": {
-                "GB": 3.911706903325562
-            },
-            "feature-toggle": {
-                "GB": 2.058514171561247
-            },
-            "featureset-autoupdater": {
-                "GB": 2.2944004964401414
-            },
-            "fervent_golick": {
-                "GB": 0.06156189599999997
-            },
-            "festive_bardeen": {
-                "GB": 0.09755951100000003
-            },
-            "filebeat": {
-                "GB": 2.8674620603293923
-            },
-            "focused_heisenberg": {
-                "GB": 0.09809428400000003
-            },
-            "gifted_lewin": {
-                "GB": 0.09252634600000004
-            },
-            "gracious_fermat": {
-                "GB": 0.09748610999999997
-            },
-            "graph-query-runner": {
-                "GB": 35.62851806516093
-            },
-            "graph-redis": {
-                "GB": 13.438611277702567
-            },
-            "haproxy": {
-                "GB": 4.757572627202031
-            },
-            "hdfs-dn": {
-                "GB": 897.4210466596784
-            },
-            "hdfs-jn": {
-                "GB": 10.965601234271368
-            },
-            "hdfs-nn": {
-                "GB": 37.50226128346356
-            },
-            "hdfs-wrapper": {
-                "GB": 20.53577601354729
-            },
-            "help": {
-                "GB": 2.056378002724411
-            },
-            "heuristic_merkle": {
-                "GB": 0.07992246200000003
-            },
-            "ingestion": {
-                "GB": 20.722288251228406
-            },
-            "insights-consumer": {
-                "GB": 3.676454310204437
-            },
-            "intelligent_satoshi": {
-                "GB": 0.09792651199999997
-            },
-            "interesting_maxwell": {
-                "GB": 0.09770631100000003
-            },
-            "k8s_POD_coredns-64897985d-5qn26_kube-system_c8fbbffc-e5ea-4632-b525-d906b703ac5c_5": {
-                "GB": 0.002760900000000124
-            },
-            "k8s_POD_coredns-64897985d-8n9dw_kube-system_303c91b4-af6a-4e1b-a6db-b2b6cb740371_0": {
-                "GB": 0.0032075930000000754
-            },
-            "k8s_POD_coredns-64897985d-f95nw_kube-system_fb26378e-35eb-49bf-809b-01689c6b2ab1_0": {
-                "GB": 0.0029003610000000167
-            },
-            "k8s_POD_coredns-64897985d-htcvq_kube-system_030c0b07-535b-4122-8ba5-402b7da67550_4": {
-                "GB": 0.0016095639999998813
-            },
-            "k8s_POD_etcd-s4c1pn1v_kube-system_d8c9e3c3c39759bd065df299cd1af3dd_8": {
-                "GB": 0.006459228000000339
-            },
-            "k8s_POD_etcd-s4c1pn2v_kube-system_8c1253d41b2a9cf7336ae897a9cb05ff_6": {
-                "GB": 0.0022114459999998406
-            },
-            "k8s_POD_etcd-s4c1pn3v_kube-system_b4277342e00349151283bdd379eaa601_6": {
-                "GB": 0.0029936839999999292
-            },
-            "k8s_POD_kube-apiserver-s4c1pn1v_kube-system_8ccc7cd1dac7103e0bd26f736028b4db_7": {
-                "GB": 0.005709495999999838
-            },
-            "k8s_POD_kube-apiserver-s4c1pn2v_kube-system_7f501f617fe102772b67482e9b37c113_7": {
-                "GB": 0.002342517999999902
-            },
-            "k8s_POD_kube-apiserver-s4c1pn3v_kube-system_3d85b51b2d64a25e56f504d1673762bb_6": {
-                "GB": 0.002690645999999803
-            },
-            "k8s_POD_kube-controller-manager-s4c1pn1v_kube-system_428d87ec1f81a73359555ccb662da08a_7": {
-                "GB": 0.005869927999999606
-            },
-            "k8s_POD_kube-controller-manager-s4c1pn2v_kube-system_e04f80ca27e15e7f21d7b820e20cd03b_7": {
-                "GB": 0.002281701000000043
-            },
-            "k8s_POD_kube-controller-manager-s4c1pn3v_kube-system_e381f298b8dbed96122e3d143197d624_7": {
-                "GB": 0.0029370609999999687
-            },
-            "k8s_POD_kube-flannel-ds-288pm_kube-flannel_68eda6f7-f336-43fc-8ae7-41c6e5fa316e_6": {
-                "GB": 0.002961177999999819
-            },
-            "k8s_POD_kube-flannel-ds-4scvr_kube-flannel_f71b6bd4-6345-44c9-9658-15571cf00757_6": {
-                "GB": 0.0014334030000000485
-            },
-            "k8s_POD_kube-flannel-ds-4wkt8_kube-flannel_155539fb-2da8-4e0b-a5f1-6b1ead2b0ca5_5": {
-                "GB": 0.0022282239999998335
-            },
-            "k8s_POD_kube-flannel-ds-5jp9t_kube-flannel_6c55350e-148d-4397-b661-bb118ec95588_6": {
-                "GB": 0.0028384949999999565
-            },
-            "k8s_POD_kube-flannel-ds-5l6w4_kube-flannel_b982b7fb-a35a-46a4-afe3-f4ad5ae6bde3_6": {
-                "GB": 0.002277506999999881
-            },
-            "k8s_POD_kube-flannel-ds-8dg54_kube-flannel_36aa0030-91aa-4891-892a-d7db0303983b_5": {
-                "GB": 0.002297429999999865
-            },
-            "k8s_POD_kube-flannel-ds-9r9dz_kube-flannel_c8d2747c-e784-424d-beec-5d5bd12a54f4_5": {
-                "GB": 0.002162163000000112
-            },
-            "k8s_POD_kube-flannel-ds-9zvtk_kube-flannel_a8800134-052b-4dcc-baa4-d35d155c6b34_6": {
-                "GB": 0.003715103999999945
-            },
-            "k8s_POD_kube-flannel-ds-bssp5_kube-flannel_577869e5-e3de-4bfb-b05f-6ca20449b8b4_5": {
-                "GB": 0.0023959959999999307
-            },
-            "k8s_POD_kube-flannel-ds-clzdg_kube-flannel_07cef1e2-dd47-4090-989b-71b2ef8ac28b_6": {
-                "GB": 0.002703227999999854
-            },
-            "k8s_POD_kube-flannel-ds-cvds2_kube-flannel_d7679dd4-bc51-4632-910d-0fd459b00b73_8": {
-                "GB": 0.0023467129999998806
-            },
-            "k8s_POD_kube-flannel-ds-fnr5b_kube-flannel_b7dc376d-5941-4e51-888a-90620c70fef9_5": {
-                "GB": 0.002281701000000043
-            },
-            "k8s_POD_kube-flannel-ds-frql7_kube-flannel_18670364-349e-48de-a02a-fd6a9cb29c8c_7": {
-                "GB": 0.005930745000000239
-            },
-            "k8s_POD_kube-flannel-ds-hw8kw_kube-flannel_5431dd3f-b292-489b-9f6e-5a888239c8fd_6": {
-                "GB": 0.002699033999999945
-            },
-            "k8s_POD_kube-flannel-ds-j57cv_kube-flannel_c53f0de1-8f04-4649-8df3-4e18aa9d9311_6": {
-                "GB": 0.0022324180000001153
-            },
-            "k8s_POD_kube-flannel-ds-kpvw4_kube-flannel_94a467a4-3738-4f41-ad51-86b0945d299e_7": {
-                "GB": 0.0025510531756334845
-            },
-            "k8s_POD_kube-flannel-ds-l65t9_kube-flannel_e73c06f9-a94c-465c-9a56-2e7adc34205a_5": {
-                "GB": 0.0014627630000000605
-            },
-            "k8s_POD_kube-flannel-ds-lxp9j_kube-flannel_1983251d-26df-485c-aa43-ec303683e601_7": {
-                "GB": 0.0026192280013884236
-            },
-            "k8s_POD_kube-flannel-ds-pdw4l_kube-flannel_1066afda-4406-4630-9e0f-9f8d69c1741d_5": {
-                "GB": 0.003444571999999948
-            },
-            "k8s_POD_kube-flannel-ds-phwnn_kube-flannel_29705764-edb9-488c-93b3-4d1ffcab73f0_5": {
-                "GB": 0.002342517999999902
-            },
-            "k8s_POD_kube-flannel-ds-rjbb2_kube-flannel_8c6a5b7f-b96c-459c-b51c-e315450eb9d5_5": {
-                "GB": 0.0037643870000002126
-            },
-            "k8s_POD_kube-flannel-ds-rt4js_kube-flannel_6e250e3d-70a9-4851-a2e3-410348b0cef3_5": {
-                "GB": 0.002342517999999902
-            },
-            "k8s_POD_kube-flannel-ds-rx77k_kube-flannel_0d27dcca-43ae-497e-abcd-a3d2d744bfd9_5": {
-                "GB": 0.0034487659999999924
-            },
-            "k8s_POD_kube-flannel-ds-xp2tn_kube-flannel_ac014de0-6126-4751-aab6-a0731a9c2555_6": {
-                "GB": 0.0029328670000001228
-            },
-            "k8s_POD_kube-flannel-ds-xvhmz_kube-flannel_bcf55591-1ee7-4bee-8fc0-eb380e57eb4a_6": {
-                "GB": 0.003047160999999778
-            },
-            "k8s_POD_kube-proxy-2l95d_kube-system_5b79ac90-8cc5-416d-8893-d1c4c2e0b7d5_7": {
-                "GB": 0.0023328204866365017
-            },
-            "k8s_POD_kube-proxy-44p52_kube-system_be7cacf4-e4ef-423a-93ba-d8a0028219c6_5": {
-                "GB": 0.0011345590000000282
-            },
-            "k8s_POD_kube-proxy-74g7n_kube-system_4f96f8ea-0e37-4216-a1cf-fad0d4d81e24_6": {
-                "GB": 0.0024243070000000574
-            },
-            "k8s_POD_kube-proxy-8kw9b_kube-system_7014c045-a7d2-4e58-9c1a-63a6c4c8ead2_8": {
-                "GB": 0.004321180999999906
-            },
-            "k8s_POD_kube-proxy-8wh4g_kube-system_3d2beb74-0ae3-4be1-9fca-f666cfd04094_6": {
-                "GB": 0.0027074230000001583
-            },
-            "k8s_POD_kube-proxy-92gcd_kube-system_f4400acc-1f79-4c9c-bf83-adf3746bd088_6": {
-                "GB": 0.002245001000000099
-            },
-            "k8s_POD_kube-proxy-9zznk_kube-system_81261f21-c191-4923-841a-5dfe6efcc468_6": {
-                "GB": 0.0025889340000000826
-            },
-            "k8s_POD_kube-proxy-bf9kk_kube-system_808cef6e-2861-4c55-af84-a5eaed704abd_5": {
-                "GB": 0.003255828000000171
-            },
-            "k8s_POD_kube-proxy-bgtvv_kube-system_d5c0e05f-a192-4a70-b921-5c2049c81014_6": {
-                "GB": 0.0026298279999999044
-            },
-            "k8s_POD_kube-proxy-bp8tc_kube-system_646c844d-8b3f-4462-9d34-1d643799e6db_6": {
-                "GB": 0.0031782329999999015
-            },
-            "k8s_POD_kube-proxy-c67dd_kube-system_0dff8f45-e7d5-4fcf-8ac6-ce267caee0dc_6": {
-                "GB": 0.0012205419999999916
-            },
-            "k8s_POD_kube-proxy-cjm2j_kube-system_c27a127c-f6cc-42f7-ab65-e02b1969c908_6": {
-                "GB": 0.0025144849999998936
-            },
-            "k8s_POD_kube-proxy-d9g5w_kube-system_a18f099c-e8bc-4b31-a65a-18a2714113fb_7": {
-                "GB": 0.0028913168955223274
-            },
-            "k8s_POD_kube-proxy-dwt9z_kube-system_431acfd8-4182-4a59-82f5-3dd96f2ac9e6_7": {
-                "GB": 0.0028510779999999783
-            },
-            "k8s_POD_kube-proxy-fktjk_kube-system_908e179b-37b0-4615-9bbb-0ab87adce4c1_5": {
-                "GB": 0.0034770780000000566
-            },
-            "k8s_POD_kube-proxy-gnj9v_kube-system_ece854ed-53e0-4b7c-8464-cbde93987147_6": {
-                "GB": 0.002326789999999904
-            },
-            "k8s_POD_kube-proxy-hb452_kube-system_509e28e5-b422-461f-890c-d7986854ebdc_6": {
-                "GB": 0.002522873000000143
-            },
-            "k8s_POD_kube-proxy-krm57_kube-system_11fc7e4d-545c-4724-a842-c96a4e53e513_5": {
-                "GB": 0.002552233000000099
-            },
-            "k8s_POD_kube-proxy-l8gxp_kube-system_0e86b6d7-e546-4d7b-9bb7-5a486f7f9b44_6": {
-                "GB": 0.0026088570000000638
-            },
-            "k8s_POD_kube-proxy-n7f7f_kube-system_5be652e9-fd84-4d0d-ab28-8126df472aa9_5": {
-                "GB": 0.0033260829999999623
-            },
-            "k8s_POD_kube-proxy-r7rfx_kube-system_60e60ccd-bb5d-4d42-a490-24244a15a40e_5": {
-                "GB": 0.002441083999999983
-            },
-            "k8s_POD_kube-proxy-svgkc_kube-system_1d2671c5-3592-45ed-9b68-708f158d91ca_8": {
-                "GB": 0.0028059889999998387
-            },
-            "k8s_POD_kube-proxy-t8kl8_kube-system_bc800a7e-82bb-4455-82c0-0c31e64f12ea_6": {
-                "GB": 0.002466250000000102
-            },
-            "k8s_POD_kube-proxy-xbcjq_kube-system_5a4ceed2-43d2-439a-87c1-1e224f43709b_6": {
-                "GB": 0.0024620559999999126
-            },
-            "k8s_POD_kube-proxy-xkdd7_kube-system_dba94728-96be-4772-b652-f7ab10aac012_6": {
-                "GB": 0.003124756000000052
-            },
-            "k8s_POD_kube-scheduler-s4c1pn1v_kube-system_0229746bdb4b73c2f5a2a0716274fbed_8": {
-                "GB": 0.006050283000000331
-            },
-            "k8s_POD_kube-scheduler-s4c1pn2v_kube-system_aefa72c207db9a864a27ea42c1fed071_6": {
-                "GB": 0.002552233000000099
-            },
-            "k8s_POD_kube-scheduler-s4c1pn3v_kube-system_f1487c3b05e915f9ae15ffba86e488fa_7": {
-                "GB": 0.002891971999999824
-            },
-            "k8s_coredns_coredns-64897985d-5qn26_kube-system_c8fbbffc-e5ea-4632-b525-d906b703ac5c_5": {
-                "GB": 0.02795075548385965
-            },
-            "k8s_coredns_coredns-64897985d-8n9dw_kube-system_303c91b4-af6a-4e1b-a6db-b2b6cb740371_0": {
-                "GB": 0.03460505664422099
-            },
-            "k8s_coredns_coredns-64897985d-f95nw_kube-system_fb26378e-35eb-49bf-809b-01689c6b2ab1_0": {
-                "GB": 0.022394157978826996
-            },
-            "k8s_coredns_coredns-64897985d-htcvq_kube-system_030c0b07-535b-4122-8ba5-402b7da67550_4": {
-                "GB": 0.027199453128427777
-            },
-            "k8s_etcd_etcd-s4c1pn1v_kube-system_d8c9e3c3c39759bd065df299cd1af3dd_9": {
-                "GB": 0.1394872496674748
-            },
-            "k8s_etcd_etcd-s4c1pn2v_kube-system_8c1253d41b2a9cf7336ae897a9cb05ff_6": {
-                "GB": 0.12335071686775394
-            },
-            "k8s_etcd_etcd-s4c1pn3v_kube-system_b4277342e00349151283bdd379eaa601_6": {
-                "GB": 0.12354114199583506
-            },
-            "k8s_kube-apiserver_kube-apiserver-s4c1pn1v_kube-system_8ccc7cd1dac7103e0bd26f736028b4db_8": {
-                "GB": 0.24937557598160057
-            },
-            "k8s_kube-apiserver_kube-apiserver-s4c1pn2v_kube-system_7f501f617fe102772b67482e9b37c113_8": {
-                "GB": 0.2221157300305468
-            },
-            "k8s_kube-apiserver_kube-apiserver-s4c1pn3v_kube-system_3d85b51b2d64a25e56f504d1673762bb_7": {
-                "GB": 0.2138795129767389
-            },
-            "k8s_kube-controller-manager_kube-controller-manager-s4c1pn1v_kube-system_428d87ec1f81a73359555ccb662da08a_10": {
-                "GB": 0.08193112767615451
-            },
-            "k8s_kube-controller-manager_kube-controller-manager-s4c1pn2v_kube-system_e04f80ca27e15e7f21d7b820e20cd03b_8": {
-                "GB": 0.028233510681013155
-            },
-            "k8s_kube-controller-manager_kube-controller-manager-s4c1pn3v_kube-system_e381f298b8dbed96122e3d143197d624_8": {
-                "GB": 0.03190300258868416
-            },
-            "k8s_kube-flannel_kube-flannel-ds-288pm_kube-flannel_68eda6f7-f336-43fc-8ae7-41c6e5fa316e_6": {
-                "GB": 0.0349611211541131
-            },
-            "k8s_kube-flannel_kube-flannel-ds-4scvr_kube-flannel_f71b6bd4-6345-44c9-9658-15571cf00757_6": {
-                "GB": 0.036516027222145205
-            },
-            "k8s_kube-flannel_kube-flannel-ds-4wkt8_kube-flannel_155539fb-2da8-4e0b-a5f1-6b1ead2b0ca5_5": {
-                "GB": 0.035197583973620244
-            },
-            "k8s_kube-flannel_kube-flannel-ds-5jp9t_kube-flannel_6c55350e-148d-4397-b661-bb118ec95588_5": {
-                "GB": 0.03408101614161756
-            },
-            "k8s_kube-flannel_kube-flannel-ds-5l6w4_kube-flannel_b982b7fb-a35a-46a4-afe3-f4ad5ae6bde3_6": {
-                "GB": 0.03786604790940641
-            },
-            "k8s_kube-flannel_kube-flannel-ds-8dg54_kube-flannel_36aa0030-91aa-4891-892a-d7db0303983b_5": {
-                "GB": 0.036295455045123305
-            },
-            "k8s_kube-flannel_kube-flannel-ds-9r9dz_kube-flannel_c8d2747c-e784-424d-beec-5d5bd12a54f4_5": {
-                "GB": 0.03677948150572684
-            },
-            "k8s_kube-flannel_kube-flannel-ds-9zvtk_kube-flannel_a8800134-052b-4dcc-baa4-d35d155c6b34_6": {
-                "GB": 0.03397254804130436
-            },
-            "k8s_kube-flannel_kube-flannel-ds-bssp5_kube-flannel_577869e5-e3de-4bfb-b05f-6ca20449b8b4_5": {
-                "GB": 0.03731203508746953
-            },
-            "k8s_kube-flannel_kube-flannel-ds-clzdg_kube-flannel_07cef1e2-dd47-4090-989b-71b2ef8ac28b_5": {
-                "GB": 0.03481456438632391
-            },
-            "k8s_kube-flannel_kube-flannel-ds-cvds2_kube-flannel_d7679dd4-bc51-4632-910d-0fd459b00b73_7": {
-                "GB": 0.03723749560603975
-            },
-            "k8s_kube-flannel_kube-flannel-ds-fnr5b_kube-flannel_b7dc376d-5941-4e51-888a-90620c70fef9_5": {
-                "GB": 0.036482451712946895
-            },
-            "k8s_kube-flannel_kube-flannel-ds-frql7_kube-flannel_18670364-349e-48de-a02a-fd6a9cb29c8c_11": {
-                "GB": 0.034724352628948206
-            },
-            "k8s_kube-flannel_kube-flannel-ds-hw8kw_kube-flannel_5431dd3f-b292-489b-9f6e-5a888239c8fd_6": {
-                "GB": 0.03366547650676859
-            },
-            "k8s_kube-flannel_kube-flannel-ds-j57cv_kube-flannel_c53f0de1-8f04-4649-8df3-4e18aa9d9311_6": {
-                "GB": 0.03644041404338776
-            },
-            "k8s_kube-flannel_kube-flannel-ds-kpvw4_kube-flannel_94a467a4-3738-4f41-ad51-86b0945d299e_7": {
-                "GB": 0.02305501929642478
-            },
-            "k8s_kube-flannel_kube-flannel-ds-l65t9_kube-flannel_e73c06f9-a94c-465c-9a56-2e7adc34205a_5": {
-                "GB": 0.03598545369940968
-            },
-            "k8s_kube-flannel_kube-flannel-ds-lxp9j_kube-flannel_1983251d-26df-485c-aa43-ec303683e601_7": {
-                "GB": 0.02747936218118701
-            },
-            "k8s_kube-flannel_kube-flannel-ds-pdw4l_kube-flannel_1066afda-4406-4630-9e0f-9f8d69c1741d_5": {
-                "GB": 0.03378126022041024
-            },
-            "k8s_kube-flannel_kube-flannel-ds-phwnn_kube-flannel_29705764-edb9-488c-93b3-4d1ffcab73f0_5": {
-                "GB": 0.03559240685109351
-            },
-            "k8s_kube-flannel_kube-flannel-ds-rjbb2_kube-flannel_8c6a5b7f-b96c-459c-b51c-e315450eb9d5_5": {
-                "GB": 0.03275476951023931
-            },
-            "k8s_kube-flannel_kube-flannel-ds-rt4js_kube-flannel_6e250e3d-70a9-4851-a2e3-410348b0cef3_5": {
-                "GB": 0.036169957153071745
-            },
-            "k8s_kube-flannel_kube-flannel-ds-rx77k_kube-flannel_0d27dcca-43ae-497e-abcd-a3d2d744bfd9_4": {
-                "GB": 0.03462502001874337
-            },
-            "k8s_kube-flannel_kube-flannel-ds-xp2tn_kube-flannel_ac014de0-6126-4751-aab6-a0731a9c2555_8": {
-                "GB": 0.0337243620173555
-            },
-            "k8s_kube-flannel_kube-flannel-ds-xvhmz_kube-flannel_bcf55591-1ee7-4bee-8fc0-eb380e57eb4a_5": {
-                "GB": 0.036614369906282695
-            },
-            "k8s_kube-proxy_kube-proxy-2l95d_kube-system_5b79ac90-8cc5-416d-8893-d1c4c2e0b7d5_7": {
-                "GB": 0.025833359947587512
-            },
-            "k8s_kube-proxy_kube-proxy-44p52_kube-system_be7cacf4-e4ef-423a-93ba-d8a0028219c6_5": {
-                "GB": 0.043878035298159965
-            },
-            "k8s_kube-proxy_kube-proxy-74g7n_kube-system_4f96f8ea-0e37-4216-a1cf-fad0d4d81e24_6": {
-                "GB": 0.044192116763970724
-            },
-            "k8s_kube-proxy_kube-proxy-8kw9b_kube-system_7014c045-a7d2-4e58-9c1a-63a6c4c8ead2_8": {
-                "GB": 0.04767322536306855
-            },
-            "k8s_kube-proxy_kube-proxy-8wh4g_kube-system_3d2beb74-0ae3-4be1-9fca-f666cfd04094_6": {
-                "GB": 0.04193658647830609
-            },
-            "k8s_kube-proxy_kube-proxy-92gcd_kube-system_f4400acc-1f79-4c9c-bf83-adf3746bd088_6": {
-                "GB": 0.04556818970704769
-            },
-            "k8s_kube-proxy_kube-proxy-9zznk_kube-system_81261f21-c191-4923-841a-5dfe6efcc468_6": {
-                "GB": 0.04491745401041308
-            },
-            "k8s_kube-proxy_kube-proxy-bf9kk_kube-system_808cef6e-2861-4c55-af84-a5eaed704abd_5": {
-                "GB": 0.04546080269489874
-            },
-            "k8s_kube-proxy_kube-proxy-bgtvv_kube-system_d5c0e05f-a192-4a70-b921-5c2049c81014_6": {
-                "GB": 0.045348312877819506
-            },
-            "k8s_kube-proxy_kube-proxy-bp8tc_kube-system_646c844d-8b3f-4462-9d34-1d643799e6db_5": {
-                "GB": 0.040320509126344106
-            },
-            "k8s_kube-proxy_kube-proxy-c67dd_kube-system_0dff8f45-e7d5-4fcf-8ac6-ce267caee0dc_6": {
-                "GB": 0.045358634802499305
-            },
-            "k8s_kube-proxy_kube-proxy-cjm2j_kube-system_c27a127c-f6cc-42f7-ab65-e02b1969c908_6": {
-                "GB": 0.04484466877959088
-            },
-            "k8s_kube-proxy_kube-proxy-d9g5w_kube-system_a18f099c-e8bc-4b31-a65a-18a2714113fb_7": {
-                "GB": 0.03412396002290945
-            },
-            "k8s_kube-proxy_kube-proxy-dwt9z_kube-system_431acfd8-4182-4a59-82f5-3dd96f2ac9e6_7": {
-                "GB": 0.04174669627039199
-            },
-            "k8s_kube-proxy_kube-proxy-fktjk_kube-system_908e179b-37b0-4615-9bbb-0ab87adce4c1_5": {
-                "GB": 0.045793104154807106
-            },
-            "k8s_kube-proxy_kube-proxy-gnj9v_kube-system_ece854ed-53e0-4b7c-8464-cbde93987147_6": {
-                "GB": 0.038630518446024525
-            },
-            "k8s_kube-proxy_kube-proxy-hb452_kube-system_509e28e5-b422-461f-890c-d7986854ebdc_7": {
-                "GB": 0.03978857065741041
-            },
-            "k8s_kube-proxy_kube-proxy-krm57_kube-system_11fc7e4d-545c-4724-a842-c96a4e53e513_5": {
-                "GB": 0.04063178450537991
-            },
-            "k8s_kube-proxy_kube-proxy-l8gxp_kube-system_0e86b6d7-e546-4d7b-9bb7-5a486f7f9b44_6": {
-                "GB": 0.04522215985213506
-            },
-            "k8s_kube-proxy_kube-proxy-n7f7f_kube-system_5be652e9-fd84-4d0d-ab28-8126df472aa9_5": {
-                "GB": 0.039561439936480584
-            },
-            "k8s_kube-proxy_kube-proxy-r7rfx_kube-system_60e60ccd-bb5d-4d42-a490-24244a15a40e_5": {
-                "GB": 0.04391399481325898
-            },
-            "k8s_kube-proxy_kube-proxy-svgkc_kube-system_1d2671c5-3592-45ed-9b68-708f158d91ca_8": {
-                "GB": 0.04486296882193667
-            },
-            "k8s_kube-proxy_kube-proxy-t8kl8_kube-system_bc800a7e-82bb-4455-82c0-0c31e64f12ea_6": {
-                "GB": 0.04425954081499459
-            },
-            "k8s_kube-proxy_kube-proxy-xbcjq_kube-system_5a4ceed2-43d2-439a-87c1-1e224f43709b_6": {
-                "GB": 0.045063282838249966
-            },
-            "k8s_kube-proxy_kube-proxy-xkdd7_kube-system_dba94728-96be-4772-b652-f7ab10aac012_6": {
-                "GB": 0.04068866096216505
-            },
-            "k8s_kube-scheduler_kube-scheduler-s4c1pn1v_kube-system_0229746bdb4b73c2f5a2a0716274fbed_11": {
-                "GB": 0.0351662431461299
-            },
-            "k8s_kube-scheduler_kube-scheduler-s4c1pn2v_kube-system_aefa72c207db9a864a27ea42c1fed071_7": {
-                "GB": 0.029356058339812394
-            },
-            "k8s_kube-scheduler_kube-scheduler-s4c1pn3v_kube-system_f1487c3b05e915f9ae15ffba86e488fa_8": {
-                "GB": 0.03477955117528733
-            },
-            "kafka": {
-                "GB": 253.79887420539674
-            },
-            "keen_jang": {
-                "GB": 0.08015314900000002
-            },
-            "kubernetes-state-manager": {
-                "GB": 0.3051655388993421
-            },
-            "latest-snapshot-consumer": {
-                "GB": 0.3657192124293683
-            },
-            "logger": {
-                "GB": 51.855453644156675
-            },
-            "login": {
-                "GB": 2.931437058542871
-            },
-            "magical_lamport": {
-                "GB": 0.09795796900000003
-            },
-            "maintenance": {
-                "GB": 3.9675467600097347
-            },
-            "metastore": {
-                "GB": 41.34479380097766
-            },
-            "misc-consumer": {
-                "GB": 5.71901546339776
-            },
-            "mongo": {
-                "GB": 1.3053946812624235
-            },
-            "nginx": {
-                "GB": 6.971141611762209
-            },
-            "nice_jackson": {
-                "GB": 0.08121221099999999
-            },
-            "notification-consumer": {
-                "GB": 0.4635425853005897
-            },
-            "notification-dst-consumer": {
-                "GB": 0.3968629239586965
-            },
-            "op-consumer": {
-                "GB": 2.0709726083780233
-            },
-            "orc-compactor": {
-                "GB": 121.43358826005046
-            },
-            "osquery-state-manager": {
-                "GB": 0.2097761725407879
-            },
-            "peaceful_vaughan": {
-                "GB": 0.029139927000000003
-            },
-            "pedantic_hofstadter": {
-                "GB": 0.097528053
-            },
-            "pedantic_solomon": {
-                "GB": 0.08196718499999996
-            },
-            "pensive_almeida": {
-                "GB": 0.09747562400000004
-            },
-            "pgbouncer-6542": {
-                "GB": 0.008042302641096826
-            },
-            "pgbouncer-6543": {
-                "GB": 0.4159764937250988
-            },
-            "pgbouncer-6545": {
-                "GB": 0.28010976775841634
-            },
-            "pgbouncer-statedb": {
-                "GB": 0.034881102399167044
-            },
-            "postgres-airflowdb": {
-                "GB": 0.6197871406844814
-            },
-            "postgres-configdb": {
-                "GB": 35.97569931409711
-            },
-            "postgres-metastoredb": {
-                "GB": 5.761091502214084
-            },
-            "postgres-prestogatewaydb": {
-                "GB": 0.2754232082874041
-            },
-            "postgres-statedb": {
-                "GB": 53.44620182359032
-            },
-            "postgres-vaultdb": {
-                "GB": 1.2438715756678256
-            },
-            "presto": {
-                "GB": 675.5468712077374
-            },
-            "prestogateway": {
-                "GB": 5.5687064845655065
-            },
-            "query-runner": {
-                "GB": 47.635170698745384
-            },
-            "query-scheduler": {
-                "GB": 3.2119638950020835
-            },
-            "queryjobs-consumer": {
-                "GB": 5.934547184833026
-            },
-            "quirky_driscoll": {
-                "GB": 0.09682550699999998
-            },
-            "ranger_admin": {
-                "GB": 3.9770689029463306
-            },
-            "rangerjobs-consumer": {
-                "GB": 4.238022480579625
-            },
-            "rate-limiter": {
-                "GB": 7.8097195401114865
-            },
-            "redis-7000": {
-                "GB": 1.3952505464251999
-            },
-            "redis-7002": {
-                "GB": 1.1739416481454341
-            },
-            "redis-7004": {
-                "GB": 1.250106627379382
-            },
-            "redisinsight": {
-                "GB": 2.238587502876075
-            },
-            "registry-listener": {
-                "GB": 0.4916398727105143
-            },
-            "registry-scanner": {
-                "GB": 0.6278157627934746
-            },
-            "report-consumer": {
-                "GB": 2.367341896134334
-            },
-            "report-scheduler": {
-                "GB": 3.7794026718805878
-            },
-            "report-templates": {
-                "GB": 2.400521264640388
-            },
-            "rule-engine": {
-                "GB": 80.13532463426809
-            },
-            "rule-enginecc": {
-                "GB": 175.78120957699088
-            },
-            "ruleconverter": {
-                "GB": 0.13845077912842726
-            },
-            "saslaunch-consumer": {
-                "GB": 1.1708593842880903
-            },
-            "scan-summary": {
-                "GB": 2.106982404370018
-            },
-            "serene_borg": {
-                "GB": 0.097590968
-            },
-            "side-query-decorator": {
-                "GB": 0.5940026186417784
-            },
-            "side-query-pipeline": {
-                "GB": 0.5096714672322132
-            },
-            "slack": {
-                "GB": 2.2485562513203523
-            },
-            "slack-consumer": {
-                "GB": 2.2436909096838233
-            },
-            "sleepy_mclaren": {
-                "GB": 0.079628861
-            },
-            "spark-master": {
-                "GB": 6.1796253459270964
-            },
-            "spark-worker": {
-                "GB": 693.86753051445
-            },
-            "stoic_edison": {
-                "GB": 0.09080668100000004
-            },
-            "stoic_feynman": {
-                "GB": 0.08357150700000003
-            },
-            "sts-detection": {
-                "GB": 1.88600126176292
-            },
-            "stupefied_leakey": {
-                "GB": 0.077070336
-            },
-            "support": {
-                "GB": 2.1891639021201104
-            },
-            "swagger": {
-                "GB": 2.7329145063866696
-            },
-            "tender_kapitsa": {
-                "GB": 0.09219080100000004
-            },
-            "threat-imports": {
-                "GB": 2.6212790917675903
-            },
-            "tls": {
-                "GB": 40.80990601012855
-            },
-            "ui": {
-                "GB": 2.0637975969344113
-            },
-            "upbeat_perlman": {
-                "GB": 0.09651093499999998
-            },
-            "user-mgmt": {
-                "GB": 0.24319337136363633
-            },
-            "vault": {
-                "GB": 3.8271493490472226
-            },
-            "vibrant_saha": {
-                "GB": 0.09794748400000003
-            },
-            "vigilant_hypatia": {
-                "GB": 0.09806282699999996
-            },
-            "vuln-ticket": {
-                "GB": 2.335711915906958
-            },
-            "vuln-ticket-consumer": {
-                "GB": 2.3166787146195595
-            },
-            "webhook-ghquery": {
-                "GB": 1.0591020269062947
-            },
-            "webhook-oktaquery": {
-                "GB": 1.0583152270402723
-            },
-            "windows-state-manager": {
-                "GB": 0.30633987121485295
-            },
-            "wine": {
-                "GB": 0.3500047006383247
-            },
-            "wizardly_kirch": {
-                "GB": 0.09791602600000003
-            },
-            "wonderful_wright": {
-                "GB": 0.097045708
-            },
-            "youthful_faraday": {
-                "GB": 0.09740222400000004
-            },
-            "zen_borg": {
-                "GB": 0.09706667999999997
-            },
-            "zookeeper": {
-                "GB": 3.2705897388944885
-            }
-        }
-    },
-    "container_level_cpu_usage": {
-        "container": {
-            "admin-api": {
-                "cores": 0.1468011454356124
-            },
-            "admin-login": {
-                "cores": 0.11901575841721782
-            },
-            "adminui": {
-                "cores": 0.09821752863588991
-            },
-            "admiring_galileo": {
-                "cores": 0.6930999999999997
-            },
-            "admiring_pare": {
-                "cores": 0.4457000000000002
-            },
-            "agent-download": {
-                "cores": 0.1299631030892054
-            },
-            "agitated_visvesvaraya": {
-                "cores": 1.3736000000000006
-            },
-            "airflow-redis": {
-                "cores": 0.0022688302672683363
-            },
-            "airflow_airflow-scheduler_1": {
-                "cores": 0.3459639708434551
-            },
-            "airflow_airflow-triggerer_1": {
-                "cores": 0.09406702533842409
-            },
-            "airflow_airflow-webserver_1": {
-                "cores": 0.030180978826796157
-            },
-            "airflow_airflow-worker_1": {
-                "cores": 0.8868846928149888
-            },
-            "airflow_elasticsearch": {
-                "cores": 0.003017424505379995
-            },
-            "airflow_flower_1": {
-                "cores": 0.0030309614717111684
-            },
-            "alertgrouping-consumer": {
-                "cores": 0.15725053800763475
-            },
-            "alerts-consumer": {
-                "cores": 0.18679083651509815
-            },
-            "alerts-delivery": {
-                "cores": 0.10073582089552208
-            },
-            "alertsql": {
-                "cores": 0.1362775078097892
-            },
-            "alluxio-master": {
-                "cores": 0.028547552933009562
-            },
-            "alluxio-worker": {
-                "cores": 0.012513710517181465
-            },
-            "angry_almeida": {
-                "cores": 0.5088
-            },
-            "api": {
-                "cores": 0.34553571676501027
-            },
-            "ask-uptycs-server": {
-                "cores": 0.016880944116626197
-            },
-            "asset-capability": {
-                "cores": 0.07868816383200267
-            },
-            "awesome_kare": {
-                "cores": 1.9011000000000007
-            },
-            "boring_perlman": {
-                "cores": 0.0756
-            },
-            "brave_nobel": {
-                "cores": 0.9623
-            },
-            "checksum-validator": {
-                "cores": 0.12484890662964512
-            },
-            "cloud-compliance-manager": {
-                "cores": 1.5682757028809453
-            },
-            "cloud-crossaccount-processor": {
-                "cores": 0.07494960083304314
-            },
-            "cloud-detection-consumer": {
-                "cores": 10.861410725442527
-            },
-            "cloud-graph-processor": {
-                "cores": 0.1043031586254781
-            },
-            "cloud-graph-synchronizer": {
-                "cores": 0.06591763276640097
-            },
-            "cloud-misc-consumer": {
-                "cores": 0.33477178063172786
-            },
-            "cloudinstancemapper-consumer": {
-                "cores": 0.10115994446372772
-            },
-            "cloudpreprocessor": {
-                "cores": 0.08097545990975336
-            },
-            "cloudquery-consumer": {
-                "cores": 7.7726792086080305
-            },
-            "cloudquery-event-relay": {
-                "cores": 0.0018367927802846256
-            },
-            "cloudquery-launcher": {
-                "cores": 0.026595036445678413
-            },
-            "cloudremediation-publisher-subscriber": {
-                "cores": 0.1285481430059015
-            },
-            "cloudriskprocessor": {
-                "cores": 0.10040288094411681
-            },
-            "cloudvuln-consumer": {
-                "cores": 0.22601284276292888
-            },
-            "compliance-check-runner": {
-                "cores": 0.07706223533495321
-            },
-            "compliance-summary-consumer": {
-                "cores": 0.14755008677542586
-            },
-            "condescending_knuth": {
-                "cores": 1.0076
-            },
-            "consul": {
-                "cores": 0.3340619229434242
-            },
-            "crazy_antonelli": {
-                "cores": 0.4279999999999998
-            },
-            "crownrule-scheduler": {
-                "cores": 0.09585265532801218
-            },
-            "data-archival": {
-                "cores": 7.994366990628322
-            },
-            "dbsync-scheduler": {
-                "cores": 0.5166199236376223
-            },
-            "debezium": {
-                "cores": 0.023069871572370847
-            },
-            "debezium-consumer": {
-                "cores": 0.14426317250954426
-            },
-            "debezium-statedb": {
-                "cores": 0.05367660534536636
-            },
-            "decorators-consumer": {
-                "cores": 0.15356091634849
-            },
-            "downloads": {
-                "cores": 0.08905824366539303
-            },
-            "eager_tereshkova": {
-                "cores": 0.7515000000000002
-            },
-            "ecstatic_gould": {
-                "cores": 0.2508999999999999
-            },
-            "effective-permissions": {
-                "cores": 1.161560291565421
-            },
-            "elasticsearch": {
-                "cores": 0.020691461298160334
-            },
-            "elated_wilson": {
-                "cores": 0.9895000000000003
-            },
-            "event-alert-throttler": {
-                "cores": 0.01742280458174249
-            },
-            "eventsql": {
-                "cores": 0.11953967372440105
-            },
-            "feature-toggle": {
-                "cores": 0.08933887539048917
-            },
-            "featureset-autoupdater": {
-                "cores": 0.1192250260326281
-            },
-            "fervent_golick": {
-                "cores": 1.8863999999999992
-            },
-            "festive_bardeen": {
-                "cores": 0.9170000000000003
-            },
-            "filebeat": {
-                "cores": 0.6704904547032356
-            },
-            "focused_heisenberg": {
-                "cores": 0.4520000000000002
-            },
-            "gifted_lewin": {
-                "cores": 1.7284000000000004
-            },
-            "gracious_fermat": {
-                "cores": 0.9509999999999996
-            },
-            "graph-query-runner": {
-                "cores": 0.09313731343283495
-            },
-            "graph-redis": {
-                "cores": 0.3311728566469992
-            },
-            "haproxy": {
-                "cores": 0.08015564040263795
-            },
-            "hdfs-dn": {
-                "cores": 1.1190175633460593
-            },
-            "hdfs-jn": {
-                "cores": 0.04710079833391138
-            },
-            "hdfs-nn": {
-                "cores": 0.3044916695591807
-            },
-            "hdfs-wrapper": {
-                "cores": 0.04681489066296412
-            },
-            "help": {
-                "cores": 0.08997830614369981
-            },
-            "heuristic_merkle": {
-                "cores": 1.0701000000000003
-            },
-            "ingestion": {
-                "cores": 3.1713333564734905
-            },
-            "insights-consumer": {
-                "cores": 0.11667289135716662
-            },
-            "intelligent_satoshi": {
-                "cores": 0.6698999999999999
-            },
-            "interesting_maxwell": {
-                "cores": 0.5532000000000001
-            },
-            "k8s_POD_coredns-64897985d-5qn26_kube-system_c8fbbffc-e5ea-4632-b525-d906b703ac5c_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_coredns-64897985d-8n9dw_kube-system_303c91b4-af6a-4e1b-a6db-b2b6cb740371_0": {
-                "cores": 0.0
-            },
-            "k8s_POD_coredns-64897985d-f95nw_kube-system_fb26378e-35eb-49bf-809b-01689c6b2ab1_0": {
-                "cores": 0.0
-            },
-            "k8s_POD_coredns-64897985d-htcvq_kube-system_030c0b07-535b-4122-8ba5-402b7da67550_4": {
-                "cores": 0.0
-            },
-            "k8s_POD_etcd-s4c1pn1v_kube-system_d8c9e3c3c39759bd065df299cd1af3dd_8": {
-                "cores": 0.0
-            },
-            "k8s_POD_etcd-s4c1pn2v_kube-system_8c1253d41b2a9cf7336ae897a9cb05ff_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_etcd-s4c1pn3v_kube-system_b4277342e00349151283bdd379eaa601_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-apiserver-s4c1pn1v_kube-system_8ccc7cd1dac7103e0bd26f736028b4db_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-apiserver-s4c1pn2v_kube-system_7f501f617fe102772b67482e9b37c113_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-apiserver-s4c1pn3v_kube-system_3d85b51b2d64a25e56f504d1673762bb_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-controller-manager-s4c1pn1v_kube-system_428d87ec1f81a73359555ccb662da08a_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-controller-manager-s4c1pn2v_kube-system_e04f80ca27e15e7f21d7b820e20cd03b_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-controller-manager-s4c1pn3v_kube-system_e381f298b8dbed96122e3d143197d624_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-288pm_kube-flannel_68eda6f7-f336-43fc-8ae7-41c6e5fa316e_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-4scvr_kube-flannel_f71b6bd4-6345-44c9-9658-15571cf00757_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-4wkt8_kube-flannel_155539fb-2da8-4e0b-a5f1-6b1ead2b0ca5_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-5jp9t_kube-flannel_6c55350e-148d-4397-b661-bb118ec95588_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-5l6w4_kube-flannel_b982b7fb-a35a-46a4-afe3-f4ad5ae6bde3_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-8dg54_kube-flannel_36aa0030-91aa-4891-892a-d7db0303983b_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-9r9dz_kube-flannel_c8d2747c-e784-424d-beec-5d5bd12a54f4_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-9zvtk_kube-flannel_a8800134-052b-4dcc-baa4-d35d155c6b34_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-bssp5_kube-flannel_577869e5-e3de-4bfb-b05f-6ca20449b8b4_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-clzdg_kube-flannel_07cef1e2-dd47-4090-989b-71b2ef8ac28b_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-cvds2_kube-flannel_d7679dd4-bc51-4632-910d-0fd459b00b73_8": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-fnr5b_kube-flannel_b7dc376d-5941-4e51-888a-90620c70fef9_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-frql7_kube-flannel_18670364-349e-48de-a02a-fd6a9cb29c8c_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-hw8kw_kube-flannel_5431dd3f-b292-489b-9f6e-5a888239c8fd_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-j57cv_kube-flannel_c53f0de1-8f04-4649-8df3-4e18aa9d9311_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-kpvw4_kube-flannel_94a467a4-3738-4f41-ad51-86b0945d299e_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-l65t9_kube-flannel_e73c06f9-a94c-465c-9a56-2e7adc34205a_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-lxp9j_kube-flannel_1983251d-26df-485c-aa43-ec303683e601_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-pdw4l_kube-flannel_1066afda-4406-4630-9e0f-9f8d69c1741d_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-phwnn_kube-flannel_29705764-edb9-488c-93b3-4d1ffcab73f0_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-rjbb2_kube-flannel_8c6a5b7f-b96c-459c-b51c-e315450eb9d5_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-rt4js_kube-flannel_6e250e3d-70a9-4851-a2e3-410348b0cef3_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-rx77k_kube-flannel_0d27dcca-43ae-497e-abcd-a3d2d744bfd9_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-xp2tn_kube-flannel_ac014de0-6126-4751-aab6-a0731a9c2555_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-flannel-ds-xvhmz_kube-flannel_bcf55591-1ee7-4bee-8fc0-eb380e57eb4a_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-2l95d_kube-system_5b79ac90-8cc5-416d-8893-d1c4c2e0b7d5_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-44p52_kube-system_be7cacf4-e4ef-423a-93ba-d8a0028219c6_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-74g7n_kube-system_4f96f8ea-0e37-4216-a1cf-fad0d4d81e24_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-8kw9b_kube-system_7014c045-a7d2-4e58-9c1a-63a6c4c8ead2_8": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-8wh4g_kube-system_3d2beb74-0ae3-4be1-9fca-f666cfd04094_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-92gcd_kube-system_f4400acc-1f79-4c9c-bf83-adf3746bd088_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-9zznk_kube-system_81261f21-c191-4923-841a-5dfe6efcc468_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-bf9kk_kube-system_808cef6e-2861-4c55-af84-a5eaed704abd_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-bgtvv_kube-system_d5c0e05f-a192-4a70-b921-5c2049c81014_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-bp8tc_kube-system_646c844d-8b3f-4462-9d34-1d643799e6db_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-c67dd_kube-system_0dff8f45-e7d5-4fcf-8ac6-ce267caee0dc_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-cjm2j_kube-system_c27a127c-f6cc-42f7-ab65-e02b1969c908_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-d9g5w_kube-system_a18f099c-e8bc-4b31-a65a-18a2714113fb_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-dwt9z_kube-system_431acfd8-4182-4a59-82f5-3dd96f2ac9e6_7": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-fktjk_kube-system_908e179b-37b0-4615-9bbb-0ab87adce4c1_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-gnj9v_kube-system_ece854ed-53e0-4b7c-8464-cbde93987147_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-hb452_kube-system_509e28e5-b422-461f-890c-d7986854ebdc_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-krm57_kube-system_11fc7e4d-545c-4724-a842-c96a4e53e513_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-l8gxp_kube-system_0e86b6d7-e546-4d7b-9bb7-5a486f7f9b44_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-n7f7f_kube-system_5be652e9-fd84-4d0d-ab28-8126df472aa9_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-r7rfx_kube-system_60e60ccd-bb5d-4d42-a490-24244a15a40e_5": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-svgkc_kube-system_1d2671c5-3592-45ed-9b68-708f158d91ca_8": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-t8kl8_kube-system_bc800a7e-82bb-4455-82c0-0c31e64f12ea_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-xbcjq_kube-system_5a4ceed2-43d2-439a-87c1-1e224f43709b_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-proxy-xkdd7_kube-system_dba94728-96be-4772-b652-f7ab10aac012_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-scheduler-s4c1pn1v_kube-system_0229746bdb4b73c2f5a2a0716274fbed_8": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-scheduler-s4c1pn2v_kube-system_aefa72c207db9a864a27ea42c1fed071_6": {
-                "cores": 0.0
-            },
-            "k8s_POD_kube-scheduler-s4c1pn3v_kube-system_f1487c3b05e915f9ae15ffba86e488fa_7": {
-                "cores": 0.0
-            },
-            "k8s_coredns_coredns-64897985d-5qn26_kube-system_c8fbbffc-e5ea-4632-b525-d906b703ac5c_5": {
-                "cores": 0.002181603609857681
-            },
-            "k8s_coredns_coredns-64897985d-8n9dw_kube-system_303c91b4-af6a-4e1b-a6db-b2b6cb740371_0": {
-                "cores": 0.001979278028462352
-            },
-            "k8s_coredns_coredns-64897985d-f95nw_kube-system_fb26378e-35eb-49bf-809b-01689c6b2ab1_0": {
-                "cores": 0.0015617493925720418
-            },
-            "k8s_coredns_coredns-64897985d-htcvq_kube-system_030c0b07-535b-4122-8ba5-402b7da67550_4": {
-                "cores": 0.0025061437001041137
-            },
-            "k8s_etcd_etcd-s4c1pn1v_kube-system_d8c9e3c3c39759bd065df299cd1af3dd_9": {
-                "cores": 0.03374116626171452
-            },
-            "k8s_etcd_etcd-s4c1pn2v_kube-system_8c1253d41b2a9cf7336ae897a9cb05ff_6": {
-                "cores": 0.03258070114543535
-            },
-            "k8s_etcd_etcd-s4c1pn3v_kube-system_b4277342e00349151283bdd379eaa601_6": {
-                "cores": 0.04023859770912875
-            },
-            "k8s_kube-apiserver_kube-apiserver-s4c1pn1v_kube-system_8ccc7cd1dac7103e0bd26f736028b4db_8": {
-                "cores": 0.059646719888927564
-            },
-            "k8s_kube-apiserver_kube-apiserver-s4c1pn2v_kube-system_7f501f617fe102772b67482e9b37c113_8": {
-                "cores": 0.04090298507462678
-            },
-            "k8s_kube-apiserver_kube-apiserver-s4c1pn3v_kube-system_3d85b51b2d64a25e56f504d1673762bb_7": {
-                "cores": 0.04753387712599823
-            },
-            "k8s_kube-controller-manager_kube-controller-manager-s4c1pn1v_kube-system_428d87ec1f81a73359555ccb662da08a_10": {
-                "cores": 0.017280076362374136
-            },
-            "k8s_kube-controller-manager_kube-controller-manager-s4c1pn2v_kube-system_e04f80ca27e15e7f21d7b820e20cd03b_8": {
-                "cores": 0.001790142311697328
-            },
-            "k8s_kube-controller-manager_kube-controller-manager-s4c1pn3v_kube-system_e381f298b8dbed96122e3d143197d624_8": {
-                "cores": 0.0020221797986809996
-            },
-            "k8s_kube-flannel_kube-flannel-ds-288pm_kube-flannel_68eda6f7-f336-43fc-8ae7-41c6e5fa316e_6": {
-                "cores": 0.002932801110725432
-            },
-            "k8s_kube-flannel_kube-flannel-ds-4scvr_kube-flannel_f71b6bd4-6345-44c9-9658-15571cf00757_6": {
-                "cores": 0.0037911836167997103
-            },
-            "k8s_kube-flannel_kube-flannel-ds-4wkt8_kube-flannel_155539fb-2da8-4e0b-a5f1-6b1ead2b0ca5_5": {
-                "cores": 0.003637591114196422
-            },
-            "k8s_kube-flannel_kube-flannel-ds-5jp9t_kube-flannel_6c55350e-148d-4397-b661-bb118ec95588_5": {
-                "cores": 0.0029796598403332092
-            },
-            "k8s_kube-flannel_kube-flannel-ds-5l6w4_kube-flannel_b982b7fb-a35a-46a4-afe3-f4ad5ae6bde3_6": {
-                "cores": 0.0049239847275251445
-            },
-            "k8s_kube-flannel_kube-flannel-ds-8dg54_kube-flannel_36aa0030-91aa-4891-892a-d7db0303983b_5": {
-                "cores": 0.0038098576883026708
-            },
-            "k8s_kube-flannel_kube-flannel-ds-9r9dz_kube-flannel_c8d2747c-e784-424d-beec-5d5bd12a54f4_5": {
-                "cores": 0.004194897604998259
-            },
-            "k8s_kube-flannel_kube-flannel-ds-9zvtk_kube-flannel_a8800134-052b-4dcc-baa4-d35d155c6b34_6": {
-                "cores": 0.003252030544949663
-            },
-            "k8s_kube-flannel_kube-flannel-ds-bssp5_kube-flannel_577869e5-e3de-4bfb-b05f-6ca20449b8b4_5": {
-                "cores": 0.004617355085039888
-            },
-            "k8s_kube-flannel_kube-flannel-ds-clzdg_kube-flannel_07cef1e2-dd47-4090-989b-71b2ef8ac28b_5": {
-                "cores": 0.0030677542519957986
-            },
-            "k8s_kube-flannel_kube-flannel-ds-cvds2_kube-flannel_d7679dd4-bc51-4632-910d-0fd459b00b73_7": {
-                "cores": 0.004054911489066295
-            },
-            "k8s_kube-flannel_kube-flannel-ds-fnr5b_kube-flannel_b7dc376d-5941-4e51-888a-90620c70fef9_5": {
-                "cores": 0.005100277681360633
-            },
-            "k8s_kube-flannel_kube-flannel-ds-frql7_kube-flannel_18670364-349e-48de-a02a-fd6a9cb29c8c_11": {
-                "cores": 0.0029459909753557878
-            },
-            "k8s_kube-flannel_kube-flannel-ds-hw8kw_kube-flannel_5431dd3f-b292-489b-9f6e-5a888239c8fd_6": {
-                "cores": 0.0035156542867059797
-            },
-            "k8s_kube-flannel_kube-flannel-ds-j57cv_kube-flannel_c53f0de1-8f04-4649-8df3-4e18aa9d9311_6": {
-                "cores": 0.00405414786532454
-            },
-            "k8s_kube-flannel_kube-flannel-ds-kpvw4_kube-flannel_94a467a4-3738-4f41-ad51-86b0945d299e_7": {
-                "cores": 0.00632544255466848
-            },
-            "k8s_kube-flannel_kube-flannel-ds-l65t9_kube-flannel_e73c06f9-a94c-465c-9a56-2e7adc34205a_5": {
-                "cores": 0.0045854217285664555
-            },
-            "k8s_kube-flannel_kube-flannel-ds-lxp9j_kube-flannel_1983251d-26df-485c-aa43-ec303683e601_7": {
-                "cores": 0.005131551544602575
-            },
-            "k8s_kube-flannel_kube-flannel-ds-pdw4l_kube-flannel_1066afda-4406-4630-9e0f-9f8d69c1741d_5": {
-                "cores": 0.0031009371745921383
-            },
-            "k8s_kube-flannel_kube-flannel-ds-phwnn_kube-flannel_29705764-edb9-488c-93b3-4d1ffcab73f0_5": {
-                "cores": 0.003710933703575144
-            },
-            "k8s_kube-flannel_kube-flannel-ds-rjbb2_kube-flannel_8c6a5b7f-b96c-459c-b51c-e315450eb9d5_5": {
-                "cores": 0.002703644567858384
-            },
-            "k8s_kube-flannel_kube-flannel-ds-rt4js_kube-flannel_6e250e3d-70a9-4851-a2e3-410348b0cef3_5": {
-                "cores": 0.004834501909059349
-            },
-            "k8s_kube-flannel_kube-flannel-ds-rx77k_kube-flannel_0d27dcca-43ae-497e-abcd-a3d2d744bfd9_4": {
-                "cores": 0.002985629989586926
-            },
-            "k8s_kube-flannel_kube-flannel-ds-xp2tn_kube-flannel_ac014de0-6126-4751-aab6-a0731a9c2555_8": {
-                "cores": 0.0034683790350572546
-            },
-            "k8s_kube-flannel_kube-flannel-ds-xvhmz_kube-flannel_bcf55591-1ee7-4bee-8fc0-eb380e57eb4a_5": {
-                "cores": 0.003455397431447425
-            },
-            "k8s_kube-proxy_kube-proxy-2l95d_kube-system_5b79ac90-8cc5-416d-8893-d1c4c2e0b7d5_7": {
-                "cores": 0.000730093717459219
-            },
-            "k8s_kube-proxy_kube-proxy-44p52_kube-system_be7cacf4-e4ef-423a-93ba-d8a0028219c6_5": {
-                "cores": 0.0005213467545990962
-            },
-            "k8s_kube-proxy_kube-proxy-74g7n_kube-system_4f96f8ea-0e37-4216-a1cf-fad0d4d81e24_6": {
-                "cores": 0.00045463380770565976
-            },
-            "k8s_kube-proxy_kube-proxy-8kw9b_kube-system_7014c045-a7d2-4e58-9c1a-63a6c4c8ead2_8": {
-                "cores": 0.00028587296077751235
-            },
-            "k8s_kube-proxy_kube-proxy-8wh4g_kube-system_3d2beb74-0ae3-4be1-9fca-f666cfd04094_6": {
-                "cores": 0.0003714682401943814
-            },
-            "k8s_kube-proxy_kube-proxy-92gcd_kube-system_f4400acc-1f79-4c9c-bf83-adf3746bd088_6": {
-                "cores": 0.00032405414786532594
-            },
-            "k8s_kube-proxy_kube-proxy-9zznk_kube-system_81261f21-c191-4923-841a-5dfe6efcc468_6": {
-                "cores": 0.0004248524817771611
-            },
-            "k8s_kube-proxy_kube-proxy-bf9kk_kube-system_808cef6e-2861-4c55-af84-a5eaed704abd_5": {
-                "cores": 0.0003339812565081615
-            },
-            "k8s_kube-proxy_kube-proxy-bgtvv_kube-system_d5c0e05f-a192-4a70-b921-5c2049c81014_6": {
-                "cores": 0.00040124956612287916
-            },
-            "k8s_kube-proxy_kube-proxy-bp8tc_kube-system_646c844d-8b3f-4462-9d34-1d643799e6db_5": {
-                "cores": 0.00037188476223533627
-            },
-            "k8s_kube-proxy_kube-proxy-c67dd_kube-system_0dff8f45-e7d5-4fcf-8ac6-ce267caee0dc_6": {
-                "cores": 0.00014824713641096966
-            },
-            "k8s_kube-proxy_kube-proxy-cjm2j_kube-system_c27a127c-f6cc-42f7-ab65-e02b1969c908_6": {
-                "cores": 0.0003178757375911134
-            },
-            "k8s_kube-proxy_kube-proxy-d9g5w_kube-system_a18f099c-e8bc-4b31-a65a-18a2714113fb_7": {
-                "cores": 0.000768691426587999
-            },
-            "k8s_kube-proxy_kube-proxy-dwt9z_kube-system_431acfd8-4182-4a59-82f5-3dd96f2ac9e6_7": {
-                "cores": 0.00035609163484901223
-            },
-            "k8s_kube-proxy_kube-proxy-fktjk_kube-system_908e179b-37b0-4615-9bbb-0ab87adce4c1_5": {
-                "cores": 0.00036084692814994954
-            },
-            "k8s_kube-proxy_kube-proxy-gnj9v_kube-system_ece854ed-53e0-4b7c-8464-cbde93987147_6": {
-                "cores": 0.0003576188823325226
-            },
-            "k8s_kube-proxy_kube-proxy-hb452_kube-system_509e28e5-b422-461f-890c-d7986854ebdc_7": {
-                "cores": 0.0003167650121485593
-            },
-            "k8s_kube-proxy_kube-proxy-krm57_kube-system_11fc7e4d-545c-4724-a842-c96a4e53e513_5": {
-                "cores": 0.0002665046858729625
-            },
-            "k8s_kube-proxy_kube-proxy-l8gxp_kube-system_0e86b6d7-e546-4d7b-9bb7-5a486f7f9b44_6": {
-                "cores": 0.0005534189517528633
-            },
-            "k8s_kube-proxy_kube-proxy-n7f7f_kube-system_5be652e9-fd84-4d0d-ab28-8126df472aa9_5": {
-                "cores": 0.00034342242276987333
-            },
-            "k8s_kube-proxy_kube-proxy-r7rfx_kube-system_60e60ccd-bb5d-4d42-a490-24244a15a40e_5": {
-                "cores": 0.0006472752516487332
-            },
-            "k8s_kube-proxy_kube-proxy-svgkc_kube-system_1d2671c5-3592-45ed-9b68-708f158d91ca_8": {
-                "cores": 0.000353314821242625
-            },
-            "k8s_kube-proxy_kube-proxy-t8kl8_kube-system_bc800a7e-82bb-4455-82c0-0c31e64f12ea_6": {
-                "cores": 0.000381117667476574
-            },
-            "k8s_kube-proxy_kube-proxy-xbcjq_kube-system_5a4ceed2-43d2-439a-87c1-1e224f43709b_6": {
-                "cores": 0.0005402290871225296
-            },
-            "k8s_kube-proxy_kube-proxy-xkdd7_kube-system_dba94728-96be-4772-b652-f7ab10aac012_6": {
-                "cores": 0.0002446372787226687
-            },
-            "k8s_kube-scheduler_kube-scheduler-s4c1pn1v_kube-system_0229746bdb4b73c2f5a2a0716274fbed_11": {
-                "cores": 0.003256855258590734
-            },
-            "k8s_kube-scheduler_kube-scheduler-s4c1pn2v_kube-system_aefa72c207db9a864a27ea42c1fed071_7": {
-                "cores": 0.002625928497049625
-            },
-            "k8s_kube-scheduler_kube-scheduler-s4c1pn3v_kube-system_f1487c3b05e915f9ae15ffba86e488fa_8": {
-                "cores": 0.0028280458174244454
-            },
-            "kafka": {
-                "cores": 9.296676952447028
-            },
-            "keen_jang": {
-                "cores": 1.9515000000000007
-            },
-            "kubernetes-state-manager": {
-                "cores": 0.08679430753210694
-            },
-            "latest-snapshot-consumer": {
-                "cores": 0.10136587990281212
-            },
-            "logger": {
-                "cores": 5.060796806664349
-            },
-            "login": {
-                "cores": 0.13790364456785867
-            },
-            "magical_lamport": {
-                "cores": 0.4532000000000002
-            },
-            "maintenance": {
-                "cores": 1.1714873654980864
-            },
-            "metastore": {
-                "cores": 2.053683963901425
-            },
-            "misc-consumer": {
-                "cores": 0.9906753904894116
-            },
-            "mongo": {
-                "cores": 0.16451228740020732
-            },
-            "nginx": {
-                "cores": 0.48313616799722225
-            },
-            "nice_jackson": {
-                "cores": 1.0593000000000004
-            },
-            "notification-consumer": {
-                "cores": 0.09962686567164143
-            },
-            "notification-dst-consumer": {
-                "cores": 0.028239743144741102
-            },
-            "op-consumer": {
-                "cores": 0.08489607775078042
-            },
-            "orc-compactor": {
-                "cores": 2.871449184311034
-            },
-            "osquery-state-manager": {
-                "cores": 0.07941041305102373
-            },
-            "peaceful_vaughan": {
-                "cores": 0.7163000000000003
-            },
-            "pedantic_hofstadter": {
-                "cores": 0.5394000000000002
-            },
-            "pedantic_solomon": {
-                "cores": 0.9657999999999997
-            },
-            "pensive_almeida": {
-                "cores": 0.7833999999999999
-            },
-            "pgbouncer-6542": {
-                "cores": 0.0004665393960430456
-            },
-            "pgbouncer-6543": {
-                "cores": 0.15840024297119093
-            },
-            "pgbouncer-6545": {
-                "cores": 0.012801596667823583
-            },
-            "pgbouncer-statedb": {
-                "cores": 0.34517042693508926
-            },
-            "postgres-airflowdb": {
-                "cores": 0.10731638320027864
-            },
-            "postgres-configdb": {
-                "cores": 0.3976749392572004
-            },
-            "postgres-metastoredb": {
-                "cores": 0.45584685872960506
-            },
-            "postgres-prestogatewaydb": {
-                "cores": 0.03526827490454705
-            },
-            "postgres-statedb": {
-                "cores": 14.577401353696589
-            },
-            "postgres-vaultdb": {
-                "cores": 0.08914980909406532
-            },
-            "presto": {
-                "cores": 3.6180367927802877
-            },
-            "prestogateway": {
-                "cores": 0.026245748004165615
-            },
-            "query-runner": {
-                "cores": 0.14535741062131197
-            },
-            "query-scheduler": {
-                "cores": 0.12347393266226961
-            },
-            "queryjobs-consumer": {
-                "cores": 0.8921222492190217
-            },
-            "quirky_driscoll": {
-                "cores": 0.9925
-            },
-            "ranger_admin": {
-                "cores": 0.012343110031239215
-            },
-            "rangerjobs-consumer": {
-                "cores": 0.3855471364109688
-            },
-            "rate-limiter": {
-                "cores": 0.02804352655328022
-            },
-            "redis-7000": {
-                "cores": 0.8795656022214517
-            },
-            "redis-7002": {
-                "cores": 0.25768937868795716
-            },
-            "redis-7004": {
-                "cores": 0.42426150642138355
-            },
-            "redisinsight": {
-                "cores": 0.0019750780978827097
-            },
-            "registry-listener": {
-                "cores": 0.06057587643179435
-            },
-            "registry-scanner": {
-                "cores": 0.12297292606733774
-            },
-            "report-consumer": {
-                "cores": 0.14883200277681471
-            },
-            "report-scheduler": {
-                "cores": 0.11731089899340556
-            },
-            "report-templates": {
-                "cores": 0.095284033321763
-            },
-            "rule-engine": {
-                "cores": 0.40793217632766227
-            },
-            "rule-enginecc": {
-                "cores": 40.90599833391209
-            },
-            "ruleconverter": {
-                "cores": 0.0002754599097535584
-            },
-            "saslaunch-consumer": {
-                "cores": 0.12933609857688247
-            },
-            "scan-summary": {
-                "cores": 0.10676400555362714
-            },
-            "serene_borg": {
-                "cores": 0.8227
-            },
-            "side-query-decorator": {
-                "cores": 0.16764102742103265
-            },
-            "side-query-pipeline": {
-                "cores": 0.013493092676154207
-            },
-            "slack": {
-                "cores": 0.09151315515446093
-            },
-            "slack-consumer": {
-                "cores": 0.053727664005553136
-            },
-            "sleepy_mclaren": {
-                "cores": 1.7080000000000006
-            },
-            "spark-master": {
-                "cores": 0.03074939257202365
-            },
-            "spark-worker": {
-                "cores": 29.349047934744974
-            },
-            "stoic_edison": {
-                "cores": 0.9134999999999996
-            },
-            "stoic_feynman": {
-                "cores": 1.0264000000000006
-            },
-            "sts-detection": {
-                "cores": 0.13259982644914955
-            },
-            "stupefied_leakey": {
-                "cores": 2.8111999999999995
-            },
-            "support": {
-                "cores": 0.1322794168691429
-            },
-            "swagger": {
-                "cores": 0.1011627212773351
-            },
-            "tender_kapitsa": {
-                "cores": 1.0079999999999998
-            },
-            "threat-imports": {
-                "cores": 0.12282444742129917
-            },
-            "tls": {
-                "cores": 7.0573281499478755
-            },
-            "ui": {
-                "cores": 0.0911361332870528
-            },
-            "upbeat_perlman": {
-                "cores": 0.9185999999999995
-            },
-            "user-mgmt": {
-                "cores": 2.10329090909091
-            },
-            "vault": {
-                "cores": 0.33536931620964566
-            },
-            "vibrant_saha": {
-                "cores": 0.4225
-            },
-            "vigilant_hypatia": {
-                "cores": 0.7916000000000001
-            },
-            "vuln-ticket": {
-                "cores": 0.11017254425546659
-            },
-            "vuln-ticket-consumer": {
-                "cores": 0.102553141270393
-            },
-            "webhook-ghquery": {
-                "cores": 0.04566622700451266
-            },
-            "webhook-oktaquery": {
-                "cores": 0.04605890315862564
-            },
-            "windows-state-manager": {
-                "cores": 0.08712998958694916
-            },
-            "wine": {
-                "cores": 0.03601610551891719
-            },
-            "wizardly_kirch": {
-                "cores": 0.8103999999999999
-            },
-            "wonderful_wright": {
-                "cores": 0.5611
-            },
-            "youthful_faraday": {
-                "cores": 0.5805999999999997
-            },
-            "zen_borg": {
-                "cores": 0.9878999999999998
-            },
-            "zookeeper": {
-                "cores": 0.030379104477612023
-            }
-        }
-    },
-    "complete_resource_usage": {
-        "Memory": 3680.215991625971,
-        "CPU": 208.58247196879984
     }
 }
