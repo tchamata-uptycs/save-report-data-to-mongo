@@ -1,2 +1,3 @@
 scripts/__pycache__/*
 other/test.py
+other/get_current_pg_disk_s1.py

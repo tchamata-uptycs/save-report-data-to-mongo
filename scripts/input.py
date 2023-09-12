@@ -6,7 +6,7 @@ load_type_options = {
                         'Osquery':['ControlPlane', 'SingleCustomer', 'MultiCustomer'],
                         'CloudQuery':['AWS_MultiCustomer','GCP_MultiCustomer'],
                         "Combined":['Osquery+CloudQuery'],
-                        'KubeQuery':[] 
+                        'KubeQuery':['kubequery_SingleCustomer'] 
                      }
 
 all_files = os.listdir(configuration().base_stack_config_path)

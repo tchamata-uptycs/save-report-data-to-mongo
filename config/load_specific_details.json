@@ -24,5 +24,11 @@
     },
     "Osquery+CloudQuery":{},
     "AWS_MultiCustomer":{},
-    "GCP_MultiCustomer":{}
+    "GCP_MultiCustomer":{},
+    "kubequery_SingleCustomer":{
+        "Number of Customers": "1",
+        "Test type": "Kubequery and K8sosquery Load",
+        "Total Assets": "1200",
+        "Total Clusters": "4"
+    }
 }

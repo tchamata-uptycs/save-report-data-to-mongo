@@ -87,7 +87,7 @@ class take_screenshots:
 				screenshot_image = Image.open(io.BytesIO(screenshot))
 				average_pixel_value = np.mean(np.array(screenshot_image))
 				if average_pixel_value < 84:
-					title = f"LOADING FAILED : panel {t_id} not loaded in given time"
+					title = f"LOADING FAILED : panel {t_id} failed to display data"
 					print("url : " , url)
 			except Exception as e:
 				title = f"LOADING FAILED : panel {t_id} not loaded in given time"
