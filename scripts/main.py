@@ -7,7 +7,7 @@ import json
 from datetime import datetime
 from screenshots import take_screenshots
 from memory_and_cpu_usages import MC_comparisions
-from add_kafka_topics import kafka_topics
+from osquery.add_kafka_topics import kafka_topics
 from disk_space import DISK
 from helper import push_data_to_mongo
 from input import create_input_form
