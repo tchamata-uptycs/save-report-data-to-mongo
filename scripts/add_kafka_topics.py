@@ -22,6 +22,7 @@ class kafka_topics:
             sftp.put(self.local_script_path, remote_script_path)
             print(f"The script '{remote_script_path}' has been uploaded to the remote server.")
             remote_command = f'python3 {remote_script_path}'
+            ssh.exec_command("pip install kafka-python")
             stdin, stdout, stderr = ssh.exec_command(remote_command)
             exit_status = stdout.channel.recv_exit_status()
             output = stdout.read().decode()
@@ -34,6 +35,7 @@ class kafka_topics:
             print("Saving kafka topics ...")
             with open(self.save_path, 'w') as file:
                 json.dump(current_build_data, file, indent=4)  
-
+        except Exception as e:
+            print("ERROR : " , str(e))
         finally:
             ssh.close()

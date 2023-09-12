@@ -1,2400 +1,2888 @@
 {
+    "_id": {
+      "$oid": "64fdbfc78f2439c74a811832"
+    },
     "details": {
-        "stack": "S1",
-        "sprint": 111,
-        "build": 111111,
-        "load_name": "ControlPlane",
-        "load_type": "Osquery",
-        "load_duration_in_hrs": 10,
-        "load_start_time_ist": "2023-09-04 00:00",
-        "load_end_time_ist": "2023-09-04 10:00",
-        "run": 1
+      "stack": "S1",
+      "sprint": 138,
+      "build": 138000,
+      "load_name": "MultiCustomer",
+      "load_type": "Osquery",
+      "load_duration_in_hrs": 10,
+      "load_start_time_ist": "2023-09-05 00:23",
+      "load_end_time_ist": "2023-09-05 10:23",
+      "run": 1
     },
     "load_specific_details": {
-        "test_title": "Single Customer Control Plane Load",
-        "total_assets": "200K"
+      "total_number_of_customers": "120",
+      "number_of_customers_with_auto_exception_enabled": "0",
+      "test_title": "Multiple Customer Rule Engine and Control Plane Load",
+      "total_assets": "80K Control Plane +15K Multi customer",
+      "records_sent_per_hour_per_customer": 8164800,
+      "records_sent_per_hour": 979776000,
+      "input_file": "rhel7-6tab_12rec.log",
+      "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
     },
     "test_environment_details": {
-        "stack": "S1",
-        "stack_url": "https://jupiter.uptycs.net/",
-        "elk_url": "192.168.134.50",
-        "grafana_table_ids": [
-            78,
-            80,
-            82
-        ],
-        "dashboard_uid": "0xQAxECVk",
-        "dashboard_name": "osqueryloadtest",
-        "pnodes": [
-            "s1c1pn1",
-            "s1c1pn2",
-            "s1c1pn3",
-            "s1c1pn4",
-            "s1c1pn5",
-            "s1c1pn6",
-            "s1c2pn1",
-            "s1c2pn2",
-            "s1c2pn3",
-            "s1c2pn4",
-            "s1c2pn5",
-            "s1c2pn6"
-        ],
-        "dnodes": [
-            "s1c1dn1",
-            "s1c1dn2",
-            "s1c1dn3",
-            "s1c1dn4",
-            "s1c1dn5",
-            "s1c1dn6",
-            "s1c2dn1",
-            "s1c2dn2",
-            "s1c2dn3",
-            "s1c2dn4",
-            "s1c2dn5",
-            "s1c2dn6"
-        ],
-        "pgnodes": [
-            "s1configdb1",
-            "s1configdb2"
-        ],
-        "monitoring_node": [
-            "s1monitor"
-        ],
-        "other_nodes": [
-            "s1elasticsearch",
-            "s1kibana",
-            "s1logstash1",
-            "s1logstash2",
-            "s1stsnode1",
-            "s1stsnode2",
-            "s1stsnode3",
-            "s1cloudquery",
-            "s1mlnode1",
-            "s1mlnode2",
-            "s1superset"
-        ],
-        "s1monitor": {
-            "storage": {
-                "root_partition": "98G",
-                "data_prometheus": "3.6T"
-            },
-            "ram": "62",
-            "cores": "16",
-            "clst": "1"
+      "stack": "S1",
+      "stack_url": "https://jupiter.uptycs.net/",
+      "elk_url": "192.168.134.50",
+      "grafana_table_ids": [
+        78,
+        80,
+        82
+      ],
+      "dashboard_uid": "0xQAxECVk",
+      "dashboard_name": "osqueryloadtest",
+      "pnodes": [
+        "s1c1pn1",
+        "s1c1pn2",
+        "s1c1pn3",
+        "s1c1pn4",
+        "s1c1pn5",
+        "s1c1pn6",
+        "s1c2pn1",
+        "s1c2pn2",
+        "s1c2pn3",
+        "s1c2pn4",
+        "s1c2pn5",
+        "s1c2pn6"
+      ],
+      "dnodes": [
+        "s1c1dn1",
+        "s1c1dn2",
+        "s1c1dn3",
+        "s1c1dn4",
+        "s1c1dn5",
+        "s1c1dn6",
+        "s1c2dn1",
+        "s1c2dn2",
+        "s1c2dn3",
+        "s1c2dn4",
+        "s1c2dn5",
+        "s1c2dn6"
+      ],
+      "pgnodes": [
+        "s1configdb1",
+        "s1configdb2"
+      ],
+      "monitoring_node": [
+        "s1monitor"
+      ],
+      "other_nodes": [
+        "s1elasticsearch",
+        "s1kibana",
+        "s1logstash1",
+        "s1logstash2",
+        "s1stsnode1",
+        "s1stsnode2",
+        "s1stsnode3",
+        "s1cloudquery",
+        "s1mlnode1",
+        "s1mlnode2",
+        "s1superset"
+      ],
+      "s1monitor": {
+        "storage": {
+          "root_partition": "98G",
+          "data_prometheus": "3.6T"
         },
-        "s1configdb1": {
-            "storage": {
-                "root_partition": "365G",
-                "pg": "3.5T",
-                "data": "3.5T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "62",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1configdb1": {
+        "storage": {
+          "root_partition": "365G",
+          "pg": "3.5T",
+          "data": "3.5T"
         },
-        "s1configdb2": {
-            "storage": {
-                "root_partition": "365G",
-                "pg": "5.5T",
-                "data": "5.5T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1configdb2": {
+        "storage": {
+          "root_partition": "365G",
+          "pg": "5.5T",
+          "data": "5.5T"
         },
-        "s1c1pn1": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1pn1": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c1pn2": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1pn2": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c1pn3": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1pn3": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c1pn4": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1pn4": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c1pn5": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1pn5": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c1pn6": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1pn6": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c2pn1": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c2pn1": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c2pn2": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2pn2": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c2pn3": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2pn3": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c2pn4": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2pn4": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c2pn5": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2pn5": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c2pn6": {
-            "storage": {
-                "root_partition": "365G",
-                "kafka": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2pn6": {
+        "storage": {
+          "root_partition": "365G",
+          "kafka": "3.6T"
         },
-        "s1c1dn1": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "251",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c1dn1": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c1dn2": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "251",
-            "cores": "32",
-            "clst": "1"
+        "ram": "251",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1dn2": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c1dn3": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "251",
-            "cores": "32",
-            "clst": "1"
+        "ram": "251",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1dn3": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c1dn4": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "251",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1dn4": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c1dn5": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1dn5": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c1dn6": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c1dn6": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c2dn1": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "1"
+      },
+      "s1c2dn1": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c2dn2": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
+        "ram": "251",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2dn2": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c2dn3": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "251",
-            "cores": "32",
-            "clst": "2"
+        "ram": "251",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2dn3": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c2dn4": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "251",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2dn4": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c2dn5": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2dn5": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1c2dn6": {
-            "storage": {
-                "root_partition": "365G",
-                "spark": "3.6T",
-                "dn1": "3.6T",
-                "dn2": "3.6T",
-                "dn3": "3.6T"
-            },
-            "ram": "188",
-            "cores": "32",
-            "clst": "2"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1c2dn6": {
+        "storage": {
+          "root_partition": "365G",
+          "spark": "3.6T",
+          "dn1": "3.6T",
+          "dn2": "3.6T",
+          "dn3": "3.6T"
         },
-        "s1elastic": {
-            "storage": {
-                "root_partition": "196G",
-                "data": "3.6T"
-            },
-            "lan_ip": "192.168.129.52",
-            "ram": "62",
-            "cores": "16",
-            "clst": "1"
+        "ram": "188",
+        "cores": "32",
+        "clst": "2"
+      },
+      "s1elastic": {
+        "storage": {
+          "root_partition": "196G",
+          "data": "3.6T"
         },
-        "s1kibana": {
-            "storage": {
-                "root_partition": "147G"
-            },
-            "ram": "31",
-            "cores": "4",
-            "clst": "1"
+        "lan_ip": "192.168.129.52",
+        "ram": "62",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1kibana": {
+        "storage": {
+          "root_partition": "147G"
         },
-        "s1logstash1": {
-            "storage": {
-                "root_partition": "196G"
-            },
-            "ram": "62",
-            "cores": "8",
-            "clst": "1"
+        "ram": "31",
+        "cores": "4",
+        "clst": "1"
+      },
+      "s1logstash1": {
+        "storage": {
+          "root_partition": "196G"
         },
-        "s1logstash2": {
-            "storage": {
-                "root_partition": "196G"
-            },
-            "ram": "62",
-            "cores": "8",
-            "clst": "1"
+        "ram": "62",
+        "cores": "8",
+        "clst": "1"
+      },
+      "s1logstash2": {
+        "storage": {
+          "root_partition": "196G"
         },
-        "s1stsnode1": {
-            "storage": {
-                "root_partition": "492G"
-            },
-            "ram": "47",
-            "cores": "16",
-            "clst": "1"
+        "ram": "62",
+        "cores": "8",
+        "clst": "1"
+      },
+      "s1stsnode1": {
+        "storage": {
+          "root_partition": "492G"
         },
-        "s1stsnode2": {
-            "storage": {
-                "root_partition": "492G"
-            },
-            "ram": "47",
-            "cores": "16",
-            "clst": "1"
+        "ram": "47",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1stsnode2": {
+        "storage": {
+          "root_partition": "492G"
         },
-        "s1stsnode3": {
-            "storage": {
-                "root_partition": "442G"
-            },
-            "ram": "47",
-            "cores": "16",
-            "clst": "1"
+        "ram": "47",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1stsnode3": {
+        "storage": {
+          "root_partition": "442G"
         },
-        "s1cloudquery": {
-            "storage": {
-                "root_partition": "98G"
-            },
-            "ram": "31",
-            "cores": "4",
-            "clst": "1"
+        "ram": "47",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1cloudquery": {
+        "storage": {
+          "root_partition": "98G"
         },
-        "s1mlnode1": {
-            "storage": {
-                "root_partition": "442G"
-            },
-            "ram": "62",
-            "cores": "16",
-            "clst": "1"
+        "ram": "31",
+        "cores": "4",
+        "clst": "1"
+      },
+      "s1mlnode1": {
+        "storage": {
+          "root_partition": "442G"
         },
-        "s1mlnode2": {
-            "storage": {
-                "root_partition": "442G"
-            },
-            "ram": "62",
-            "cores": "16",
-            "clst": "1"
+        "ram": "62",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1mlnode2": {
+        "storage": {
+          "root_partition": "442G"
         },
-        "s1superset": {
-            "storage": {
-                "root_partition": "196G"
-            },
-            "ram": "47",
-            "cores": "8",
-            "clst": "1"
+        "ram": "62",
+        "cores": "16",
+        "clst": "1"
+      },
+      "s1superset": {
+        "storage": {
+          "root_partition": "196G"
         },
-        "s1elasticsearch": {
-            "storage": {
-                "root_partition": "196G",
-                "data": "3.6T"
-            },
-            "ram": "62",
-            "cores": "16",
-            "clst": "1"
-        }
+        "ram": "47",
+        "cores": "8",
+        "clst": "1"
+      },
+      "s1elasticsearch": {
+        "storage": {
+          "root_partition": "196G",
+          "data": "3.6T"
+        },
+        "ram": "62",
+        "cores": "16",
+        "clst": "1"
+      }
+    },
+    "kafka_disk_used_space": {
+      "s1c1pn1": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 4,
+        "kafka_disk_used_percentage_after_load": 4,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c1pn2": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 5,
+        "kafka_disk_used_percentage_after_load": 5,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c1pn3": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 4,
+        "kafka_disk_used_percentage_after_load": 4,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c1pn4": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 5,
+        "kafka_disk_used_percentage_after_load": 5,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c1pn5": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 5,
+        "kafka_disk_used_percentage_after_load": 5,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c1pn6": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 4,
+        "kafka_disk_used_percentage_after_load": 4,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c2pn1": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 5,
+        "kafka_disk_used_percentage_after_load": 5,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c2pn2": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 4,
+        "kafka_disk_used_percentage_after_load": 4,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c2pn3": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 4,
+        "kafka_disk_used_percentage_after_load": 4,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c2pn4": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 4,
+        "kafka_disk_used_percentage_after_load": 4,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c2pn5": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 5,
+        "kafka_disk_used_percentage_after_load": 5,
+        "kafka used_space_during_load_in_gb": 0
+      },
+      "s1c2pn6": {
+        "kafka_total_space_configured_in_tb": 3.6,
+        "kafka_disk_used_percentage_before_load": 5,
+        "kafka_disk_used_percentage_after_load": 5,
+        "kafka used_space_during_load_in_gb": 0
+      }
+    },
+    "hdfs_disk_used_space": {
+      "s1c1dn3": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.318053928213355,
+        "hdfs_disk_used_percentage_after_load": 6.321467116981738,
+        "hdfs used_space_during_load_in_gb": 0.411603988481096
+      },
+      "s1c1dn6": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.312032363296972,
+        "hdfs_disk_used_percentage_after_load": 6.314868021596511,
+        "hdfs used_space_during_load_in_gb": 0.3419583109118398
+      },
+      "s1c2dn2": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.311036111722363,
+        "hdfs_disk_used_percentage_after_load": 6.308557211845635,
+        "hdfs used_space_during_load_in_gb": -0.2989360230403413
+      },
+      "s1c1dn4": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.306573082508865,
+        "hdfs_disk_used_percentage_after_load": 6.305723968839158,
+        "hdfs used_space_during_load_in_gb": -0.10239649689542453
+      },
+      "s1c2dn4": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.285496443576595,
+        "hdfs_disk_used_percentage_after_load": 6.2929226617711675,
+        "hdfs used_space_during_load_in_gb": 0.8955440896006241
+      },
+      "s1c1dn1": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.269944116339748,
+        "hdfs_disk_used_percentage_after_load": 6.2908710195593365,
+        "hdfs used_space_during_load_in_gb": 2.5236215797758095
+      },
+      "s1c2dn6": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.265906507535007,
+        "hdfs_disk_used_percentage_after_load": 6.263941840557844,
+        "hdfs used_space_during_load_in_gb": -0.23692353945620745
+      },
+      "s1c2dn1": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.245019201012203,
+        "hdfs_disk_used_percentage_after_load": 6.255953213512898,
+        "hdfs used_space_during_load_in_gb": 1.318556769281699
+      },
+      "s1c1dn2": {
+        "hdfs_total_space_configured_in_tb": 11.776583344128,
+        "hdfs_disk_used_percentage_before_load": 6.210360856204295,
+        "hdfs_disk_used_percentage_after_load": 6.207892192785506,
+        "hdfs used_space_during_load_in_gb": -0.29770158591964346
+      }
+    },
+    "pg_disk_used_space": {
+      "/pg": {
+        "s1configdb1": "3.2G",
+        "s1configdb2": 0
+      },
+      "/data": {
+        "s1configdb1": "6.4G",
+        "s1configdb2": 0
+      }
     },
     "kafka_topics": [
-        "__consumer_offsets",
-        "__debezium-heartbeat.cdc",
-        "__debezium-heartbeat.statedb",
-        "agentghquery",
-        "agentkubequery",
-        "agentlesslog",
-        "agentlesslogdecorator",
-        "agentoktaquery",
-        "agentosquery",
-        "alert",
-        "alert_replay",
-        "api",
-        "asset-capability",
-        "assetgroup1",
-        "audit",
-        "auto-exception",
-        "az_events_blob",
-        "bulk_replay",
-        "cdc.public.alerts",
-        "cdc.public.asset_cloud_infos",
-        "cdc.public.asset_tags",
-        "cdc.public.assets",
-        "cdc.public.cloud_accounts",
-        "cdc.public.customer_database",
-        "cdc.public.customers",
-        "cdc.public.incidents",
-        "cdc.public.object_groups",
-        "cdc.public.user_object_groups",
-        "cdc.public.users",
-        "cloudconnectorsink",
-        "cloudqueryVuln",
-        "cloudqueryevents",
-        "cloudqueryinventory",
-        "cloudtrail_objects",
-        "compliance",
-        "compliance_summary",
-        "containers",
-        "cqazevents",
-        "cqcloudtrail",
-        "cqcloudtrail_data_sink",
-        "cqcloudtrail_ro_sink",
-        "debezium_configs",
-        "debezium_offsets",
-        "debezium_statedb_configs",
-        "debezium_statedb_offsets",
-        "debezium_statedb_status_storage",
-        "debezium_status_storage",
-        "decorators",
-        "detection",
-        "ephermalresources",
-        "epsink",
-        "event",
-        "event_cloud",
-        "event_replay",
-        "gcp_cloudlog_objects",
-        "managedavtables",
-        "notifications",
-        "op",
-        "osquery_cli_tags",
-        "prestoquerylogs",
-        "querypack",
-        "realtimequery",
-        "registryevent",
-        "reportschedule1",
-        "scan_summary",
-        "sidequerydecorator",
-        "slackuser1",
-        "state",
-        "statedb.public.containers_current",
-        "statedb.public.kubernetes_nodes_current",
-        "statedb.public.kubernetes_pods_containers_current",
-        "statedb.public.kubernetes_pods_current",
-        "statedb.public.vulnerabilities_scanned_images",
-        "tag1",
-        "threat_indicators",
-        "unified_dashboard",
-        "uptycs-cloud-remediation",
-        "vulnerabilities",
-        "vulntickets"
+      "__consumer_offsets",
+      "__debezium-heartbeat.cdc",
+      "__debezium-heartbeat.statedb",
+      "agentghquery",
+      "agentkubequery",
+      "agentlesslog",
+      "agentlesslogdecorator",
+      "agentoktaquery",
+      "agentosquery",
+      "alert",
+      "alert_replay",
+      "api",
+      "asset-capability",
+      "assetgroup1",
+      "audit",
+      "auto-exception",
+      "az_events_blob",
+      "bulk_replay",
+      "cdc.public.alerts",
+      "cdc.public.asset_cloud_infos",
+      "cdc.public.asset_tags",
+      "cdc.public.assets",
+      "cdc.public.cloud_accounts",
+      "cdc.public.customer_database",
+      "cdc.public.customers",
+      "cdc.public.incidents",
+      "cdc.public.object_groups",
+      "cdc.public.user_object_groups",
+      "cdc.public.users",
+      "cloudconnectorsink",
+      "cloudqueryVuln",
+      "cloudqueryevents",
+      "cloudqueryinventory",
+      "cloudtrail_objects",
+      "compliance",
+      "compliance_summary",
+      "containers",
+      "cqazevents",
+      "cqcloudtrail",
+      "cqcloudtrail_data_sink",
+      "cqcloudtrail_ro_sink",
+      "debezium_configs",
+      "debezium_offsets",
+      "debezium_statedb_configs",
+      "debezium_statedb_offsets",
+      "debezium_statedb_status_storage",
+      "debezium_status_storage",
+      "decorators",
+      "detection",
+      "ephermalresources",
+      "epsink",
+      "event",
+      "event_cloud",
+      "event_replay",
+      "gcp_cloudlog_objects",
+      "managedavtables",
+      "notifications",
+      "op",
+      "osquery_cli_tags",
+      "prestoquerylogs",
+      "querypack",
+      "realtimequery",
+      "registryevent",
+      "reportschedule1",
+      "scan_summary",
+      "sidequerydecorator",
+      "slackuser1",
+      "state",
+      "statedb.public.containers_current",
+      "statedb.public.kubernetes_nodes_current",
+      "statedb.public.kubernetes_pods_containers_current",
+      "statedb.public.kubernetes_pods_current",
+      "statedb.public.vulnerabilities_scanned_images",
+      "tag1",
+      "threat_indicators",
+      "unified_dashboard",
+      "uptycs-cloud-remediation",
+      "vulnerabilities",
+      "vulntickets"
     ],
     "overall_nodes_average_memory_usage": {
-        "pnodes": {
-            "GB": 1079.335034191533
-        },
-        "dnodes": {
-            "GB": 1325.7989543300612
-        },
-        "pgnodes": {
-            "GB": 29.86980549432983
-        }
+      "pnodes": {
+        "GB": 1216.2118754201167
+      },
+      "dnodes": {
+        "GB": 1363.0981841957139
+      },
+      "pgnodes": {
+        "GB": 29.208132844564666
+      }
     },
     "overall_nodes_average_cpu_usage": {
-        "pnodes": {
-            "cores": 207.52302540608096
-        },
-        "dnodes": {
-            "cores": 54.31507538525617
-        },
-        "pgnodes": {
-            "cores": 31.565527696792795
-        }
+      "pnodes": {
+        "cores": 303.4940508121614
+      },
+      "dnodes": {
+        "cores": 54.825715951686746
+      },
+      "pgnodes": {
+        "cores": 30.8590354019157
+      }
     },
     "node_level_average_memory_usage": {
-        "Host": {
-            "s1c1dn1": {
-                "percentage": 53.41366894269242,
-                "GB": 134.06830904615796
-            },
-            "s1c1dn2": {
-                "percentage": 53.53152453713513,
-                "GB": 134.36412658820916
-            },
-            "s1c1dn3": {
-                "percentage": 49.61263047676167,
-                "GB": 124.5277024966718
-            },
-            "s1c1dn4": {
-                "percentage": 53.718048761061326,
-                "GB": 100.98993167079529
-            },
-            "s1c1dn5": {
-                "percentage": 49.91565824314279,
-                "GB": 93.84143749710846
-            },
-            "s1c1dn6": {
-                "percentage": 51.42815269859123,
-                "GB": 96.6849270733515
-            },
-            "s1c1pn1": {
-                "percentage": 46.92551000399595,
-                "GB": 88.2199588075124
-            },
-            "s1c1pn2": {
-                "percentage": 49.055285444394094,
-                "GB": 92.2239366354609
-            },
-            "s1c1pn3": {
-                "percentage": 45.98136079502707,
-                "GB": 86.4449582946509
-            },
-            "s1c1pn4": {
-                "percentage": 50.57207947670043,
-                "GB": 95.0755094161968
-            },
-            "s1c1pn5": {
-                "percentage": 52.047112502248524,
-                "GB": 97.84857150422722
-            },
-            "s1c1pn6": {
-                "percentage": 51.10111314284345,
-                "GB": 96.07009270854569
-            },
-            "s1c2dn1": {
-                "percentage": 53.4838861021885,
-                "GB": 134.24455411649313
-            },
-            "s1c2dn2": {
-                "percentage": 42.93709700372118,
-                "GB": 107.77211347934015
-            },
-            "s1c2dn3": {
-                "percentage": 40.809498126421595,
-                "GB": 102.43184029731819
-            },
-            "s1c2dn4": {
-                "percentage": 53.83410634198553,
-                "GB": 101.2081199229328
-            },
-            "s1c2dn5": {
-                "percentage": 51.341913243756025,
-                "GB": 96.52279689826133
-            },
-            "s1c2dn6": {
-                "percentage": 52.73568895926673,
-                "GB": 99.14309524342144
-            },
-            "s1c2pn1": {
-                "percentage": 41.53186946605176,
-                "GB": 78.0799145961773
-            },
-            "s1c2pn2": {
-                "percentage": 47.4062844354327,
-                "GB": 89.12381473861348
-            },
-            "s1c2pn3": {
-                "percentage": 47.53094328375315,
-                "GB": 89.35817337345593
-            },
-            "s1c2pn4": {
-                "percentage": 46.413996912740686,
-                "GB": 87.25831419595248
-            },
-            "s1c2pn5": {
-                "percentage": 47.88591049187914,
-                "GB": 90.02551172473278
-            },
-            "s1c2pn6": {
-                "percentage": 47.66291393404624,
-                "GB": 89.60627819600694
-            },
-            "s1cloudquery": {
-                "percentage": 3.8055226277493865,
-                "GB": 1.17971201460231
-            },
-            "s1configdb1": {
-                "percentage": 2.103441699183483,
-                "GB": 3.954470394464948
-            },
-            "s1configdb2": {
-                "percentage": 13.784752712694086,
-                "GB": 25.915335099864883
-            },
-            "s1elasticsearch": {
-                "percentage": 26.533563190742303,
-                "GB": 16.45080917826023
-            },
-            "s1kibana": {
-                "percentage": 4.390747443508973,
-                "GB": 1.3611317074877816
-            },
-            "s1logstash1": {
-                "percentage": 16.50220181821346,
-                "GB": 10.231365127292346
-            },
-            "s1logstash2": {
-                "percentage": 16.506093290338786,
-                "GB": 10.233777840010047
-            },
-            "s1mlnode1": {
-                "percentage": 12.9005772579401,
-                "GB": 7.998357899922862
-            },
-            "s1mlnode2": {
-                "percentage": 6.430504461585517,
-                "GB": 3.986912766183021
-            },
-            "s1monitor": {
-                "percentage": 4.413521071451544,
-                "GB": 2.736383064299957
-            },
-            "s1stsnode1": {
-                "percentage": 6.650211227626402,
-                "GB": 3.125599276984409
-            },
-            "s1stsnode2": {
-                "percentage": 17.30249286610494,
-                "GB": 8.132171647069322
-            },
-            "s1stsnode3": {
-                "percentage": 8.436557849042257,
-                "GB": 3.965182189049861
-            }
+      "Host": {
+        "s1c1dn1": {
+          "percentage": 55.193256630502326,
+          "GB": 138.53507414256083
         },
-        "rule-engine": {
-            "s1c1pn1": {
-                "percentage": 7.220363636363644,
-                "GB": 13.574283636363651
-            },
-            "s1c1pn2": {
-                "percentage": 7.100000000000213,
-                "GB": 13.3480000000004
-            },
-            "s1c1pn3": {
-                "percentage": 7.007836372597358,
-                "GB": 13.174732380483032
-            },
-            "s1c1pn4": {
-                "percentage": 7.127948175568491,
-                "GB": 13.400542570068765
-            },
-            "s1c1pn5": {
-                "percentage": 6.947676161918856,
-                "GB": 13.06163118440745
-            },
-            "s1c1pn6": {
-                "percentage": 7.300197530863948,
-                "GB": 13.724371358024223
-            },
-            "s1c2pn1": {
-                "percentage": 7.164960000000191,
-                "GB": 13.470124800000358
-            },
-            "s1c2pn2": {
-                "percentage": 7.25952380952356,
-                "GB": 13.647904761904293
-            },
-            "s1c2pn3": {
-                "percentage": 7.143850760018698,
-                "GB": 13.430439428835152
-            },
-            "s1c2pn4": {
-                "percentage": 6.948242657679244,
-                "GB": 13.06269619643698
-            },
-            "s1c2pn5": {
-                "percentage": 6.922019464720232,
-                "GB": 13.013396593674036
-            },
-            "s1c2pn6": {
-                "percentage": 7.273706691979228,
-                "GB": 13.67456858092095
-            }
+        "s1c1dn2": {
+          "percentage": 55.03213186821597,
+          "GB": 138.1306509892221
         },
-        "osquery-ingestion": {
-            "s1c1dn1": {
-                "percentage": 6.713913043478308,
-                "GB": 16.851921739130553
-            },
-            "s1c1dn2": {
-                "percentage": 6.236088963491412,
-                "GB": 15.652583298363442
-            },
-            "s1c1dn3": {
-                "percentage": 6.765612244897988,
-                "GB": 16.98168673469395
-            },
-            "s1c1dn4": {
-                "percentage": 8.879957242116516,
-                "GB": 16.69431961517905
-            },
-            "s1c1dn5": {
-                "percentage": 8.741464728056005,
-                "GB": 16.43395368874529
-            },
-            "s1c1dn6": {
-                "percentage": 8.790016366612104,
-                "GB": 16.525230769230756
-            },
-            "s1c2dn1": {
-                "percentage": 6.142138364779862,
-                "GB": 15.416767295597454
-            },
-            "s1c2dn2": {
-                "percentage": 6.708963001563355,
-                "GB": 16.83949713392402
-            },
-            "s1c2dn3": {
-                "percentage": 6.771103055411753,
-                "GB": 16.9954686690835
-            },
-            "s1c2dn4": {
-                "percentage": 9.0136933987998,
-                "GB": 16.945743589743625
-            },
-            "s1c2dn5": {
-                "percentage": 8.827543035993694,
-                "GB": 16.595780907668146
-            },
-            "s1c2dn6": {
-                "percentage": 8.75847140566543,
-                "GB": 16.46592624265101
-            }
+        "s1c1dn3": {
+          "percentage": 51.91055816437864,
+          "GB": 130.29550099259038
         },
-        "kafka": {
-            "s1c1pn1": {
-                "percentage": 2.8071914480077913,
-                "GB": 5.277519922254648
-            },
-            "s1c1pn2": {
-                "percentage": 3.3111620158268553,
-                "GB": 6.224984589754488
-            },
-            "s1c1pn3": {
-                "percentage": 3.3000000000001264,
-                "GB": 6.204000000000238
-            },
-            "s1c1pn4": {
-                "percentage": 3.369887546855408,
-                "GB": 6.3353885880881675
-            },
-            "s1c1pn5": {
-                "percentage": 3.3830903790086855,
-                "GB": 6.3602099125363285
-            },
-            "s1c1pn6": {
-                "percentage": 3.3857975843397443,
-                "GB": 6.365299458558719
-            },
-            "s1c2pn1": {
-                "percentage": 2.9263917812021916,
-                "GB": 5.50161654866012
-            },
-            "s1c2pn2": {
-                "percentage": 3.399999999999851,
-                "GB": 6.39199999999972
-            },
-            "s1c2pn3": {
-                "percentage": 3.399333610995273,
-                "GB": 6.390747188671113
-            },
-            "s1c2pn4": {
-                "percentage": 3.3793419408579397,
-                "GB": 6.353162848812926
-            },
-            "s1c2pn5": {
-                "percentage": 3.3956684714700955,
-                "GB": 6.3838567263637795
-            },
-            "s1c2pn6": {
-                "percentage": 3.31849229487727,
-                "GB": 6.238765514369268
-            }
+        "s1c1dn4": {
+          "percentage": 55.17710074483938,
+          "GB": 103.73294940029804
         },
-        "trino": {
-            "s1c1dn1": {
-                "percentage": 11.065680966264377,
-                "GB": 27.77485922532359
-            },
-            "s1c1dn2": {
-                "percentage": 15.099999999999321,
-                "GB": 37.90099999999829
-            },
-            "s1c1dn3": {
-                "percentage": 14.5,
-                "GB": 36.395
-            },
-            "s1c1dn4": {
-                "percentage": 15.400000000000698,
-                "GB": 28.952000000001313
-            },
-            "s1c1dn5": {
-                "percentage": 15.200000000000163,
-                "GB": 28.576000000000302
-            },
-            "s1c1dn6": {
-                "percentage": 14.90000000000067,
-                "GB": 28.012000000001258
-            },
-            "s1c2dn1": {
-                "percentage": 24.344398167430597,
-                "GB": 61.104439400250804
-            },
-            "s1c2dn2": {
-                "percentage": 16.37092877967479,
-                "GB": 41.091031236983724
-            },
-            "s1c2dn3": {
-                "percentage": 16.27159516867966,
-                "GB": 40.841703873385946
-            },
-            "s1c2dn4": {
-                "percentage": 17.65689296126632,
-                "GB": 33.19495876718068
-            },
-            "s1c2dn5": {
-                "percentage": 17.349812578091687,
-                "GB": 32.61764764681237
-            },
-            "s1c2dn6": {
-                "percentage": 17.458558933778317,
-                "GB": 32.822090795503236
-            }
+        "s1c1dn5": {
+          "percentage": 50.939695493905376,
+          "GB": 95.7666275285421
         },
-        "tls": {
-            "s1c1pn1": {
-                "percentage": 0.7360891295293567,
-                "GB": 1.3838475635151906
-            },
-            "s1c1pn2": {
-                "percentage": 0.7186172428154899,
-                "GB": 1.3510004164931209
-            },
-            "s1c1pn3": {
-                "percentage": 0.7677842565597642,
-                "GB": 1.4434344023323566
-            },
-            "s1c1pn4": {
-                "percentage": 0.7507705122865244,
-                "GB": 1.4114485630986657
-            },
-            "s1c1pn5": {
-                "percentage": 0.7879269054560818,
-                "GB": 1.4813025822574337
-            },
-            "s1c1pn6": {
-                "percentage": 0.7934350270720875,
-                "GB": 1.4916578508955243
-            },
-            "s1c2pn1": {
-                "percentage": 0.7604643898375454,
-                "GB": 1.4296730528945851
-            },
-            "s1c2pn2": {
-                "percentage": 0.7553623490212249,
-                "GB": 1.420081216159903
-            },
-            "s1c2pn3": {
-                "percentage": 0.7836005830903531,
-                "GB": 1.4731690962098636
-            },
-            "s1c2pn4": {
-                "percentage": 0.7531965847563257,
-                "GB": 1.4160095793418923
-            },
-            "s1c2pn5": {
-                "percentage": 0.8360891295293487,
-                "GB": 1.5718475635151754
-            },
-            "s1c2pn6": {
-                "percentage": 0.8246355685131115,
-                "GB": 1.5503148688046497
-            }
+        "s1c1dn6": {
+          "percentage": 52.25699590312456,
+          "GB": 98.24315229787419
         },
-        "eventsdb-ingestion": {},
-        "logger": {
-            "s1c1pn4": {
-                "percentage": 0.447112790070156,
-                "GB": 0.8405720453318932
-            },
-            "s1c1pn5": {
-                "percentage": 0.4144630329195908,
-                "GB": 0.7791905018888308
-            },
-            "s1c1pn6": {
-                "percentage": 0.4444158517756038,
-                "GB": 0.8355018013381351
-            },
-            "s1c2pn2": {
-                "percentage": 0.3791282995702896,
-                "GB": 0.7127612031921444
-            },
-            "s1c2pn3": {
-                "percentage": 0.43837520042757805,
-                "GB": 0.8241453768038467
-            },
-            "s1c2pn4": {
-                "percentage": 0.4630753667172479,
-                "GB": 0.8705816894284262
-            },
-            "s1c2pn5": {
-                "percentage": 0.3283680175246443,
-                "GB": 0.6173318729463313
-            },
-            "s1c2pn6": {
-                "percentage": 0.3491048593350373,
-                "GB": 0.6563171355498701
-            }
+        "s1c1pn1": {
+          "percentage": 50.550311328360614,
+          "GB": 95.03458529731796
+        },
+        "s1c1pn2": {
+          "percentage": 52.36923614720523,
+          "GB": 98.45416395674583
+        },
+        "s1c1pn3": {
+          "percentage": 50.20819406069986,
+          "GB": 94.39140483411573
+        },
+        "s1c1pn4": {
+          "percentage": 58.28178598078886,
+          "GB": 109.56975764388307
+        },
+        "s1c1pn5": {
+          "percentage": 58.88914478414554,
+          "GB": 110.71159219419361
+        },
+        "s1c1pn6": {
+          "percentage": 58.26096874071489,
+          "GB": 109.53062123254398
+        },
+        "s1c2dn1": {
+          "percentage": 54.323987257855144,
+          "GB": 136.35320801721642
+        },
+        "s1c2dn2": {
+          "percentage": 44.641177506562975,
+          "GB": 112.04935554147306
+        },
+        "s1c2dn3": {
+          "percentage": 42.382466449896654,
+          "GB": 106.3799907892406
+        },
+        "s1c2dn4": {
+          "percentage": 55.287905041526265,
+          "GB": 103.94126147806938
+        },
+        "s1c2dn5": {
+          "percentage": 52.01789191804922,
+          "GB": 97.79363680593255
+        },
+        "s1c2dn6": {
+          "percentage": 54.189774581220355,
+          "GB": 101.87677621269428
+        },
+        "s1c2pn1": {
+          "percentage": 45.34895138146351,
+          "GB": 85.2560285971514
+        },
+        "s1c2pn2": {
+          "percentage": 54.68652101008877,
+          "GB": 102.81065949896688
+        },
+        "s1c2pn3": {
+          "percentage": 54.526575354930415,
+          "GB": 102.50996166726918
+        },
+        "s1c2pn4": {
+          "percentage": 54.02493799451917,
+          "GB": 101.56688342969605
+        },
+        "s1c2pn5": {
+          "percentage": 55.73705925332191,
+          "GB": 104.78567139624519
+        },
+        "s1c2pn6": {
+          "percentage": 54.037524293610566,
+          "GB": 101.59054567198785
+        },
+        "s1cloudquery": {
+          "percentage": 3.80921493081519,
+          "GB": 1.180856628552709
+        },
+        "s1configdb1": {
+          "percentage": 2.1183545908530843,
+          "GB": 3.982506630803799
+        },
+        "s1configdb2": {
+          "percentage": 13.417886283915356,
+          "GB": 25.22562621376087
+        },
+        "s1elasticsearch": {
+          "percentage": 26.533563190742303,
+          "GB": 16.45080917826023
+        },
+        "s1kibana": {
+          "percentage": 4.3813071998699975,
+          "GB": 1.358205231959699
+        },
+        "s1logstash1": {
+          "percentage": 16.542884645262045,
+          "GB": 10.256588480062469
+        },
+        "s1logstash2": {
+          "percentage": 16.547481429395415,
+          "GB": 10.259438486225157
+        },
+        "s1mlnode1": {
+          "percentage": 13.057354679413448,
+          "GB": 8.095559901236339
+        },
+        "s1mlnode2": {
+          "percentage": 6.5375239965229905,
+          "GB": 4.053264877844254
+        },
+        "s1monitor": {
+          "percentage": 4.424424805667242,
+          "GB": 2.7431433795136906
+        },
+        "s1stsnode1": {
+          "percentage": 6.717110828705321,
+          "GB": 3.157042089491501
+        },
+        "s1stsnode2": {
+          "percentage": 13.930060528324297,
+          "GB": 6.54712844831242
+        },
+        "s1stsnode3": {
+          "percentage": 8.635295722760729,
+          "GB": 4.058588989697543
         }
+      },
+      "rule-engine": {
+        "s1c1pn1": {
+          "percentage": 7.116818500350455,
+          "GB": 13.379618780658854
+        },
+        "s1c1pn2": {
+          "percentage": 6.99063690800215,
+          "GB": 13.142397387044044
+        },
+        "s1c1pn3": {
+          "percentage": 6.987119771863148,
+          "GB": 13.135785171102718
+        },
+        "s1c1pn4": {
+          "percentage": 7.013786848072512,
+          "GB": 13.185919274376324
+        },
+        "s1c1pn5": {
+          "percentage": 6.846384720327378,
+          "GB": 12.87120327421547
+        },
+        "s1c1pn6": {
+          "percentage": 7.242082046757905,
+          "GB": 13.615114247904863
+        },
+        "s1c2pn1": {
+          "percentage": 7.123589222165845,
+          "GB": 13.39234773767179
+        },
+        "s1c2pn2": {
+          "percentage": 7.183404660009386,
+          "GB": 13.504800760817645
+        },
+        "s1c2pn3": {
+          "percentage": 7.0959846219564575,
+          "GB": 13.34045108927814
+        },
+        "s1c2pn4": {
+          "percentage": 6.855480682838987,
+          "GB": 12.888303683737295
+        },
+        "s1c2pn5": {
+          "percentage": 6.860902094912452,
+          "GB": 12.89849593843541
+        },
+        "s1c2pn6": {
+          "percentage": 7.046015308419667,
+          "GB": 13.246508779828975
+        }
+      },
+      "osquery-ingestion": {
+        "s1c1dn1": {
+          "percentage": 6.699258867125505,
+          "GB": 16.815139756485017
+        },
+        "s1c1dn2": {
+          "percentage": 6.0344755536982655,
+          "GB": 15.146533639782646
+        },
+        "s1c1dn3": {
+          "percentage": 6.489633173843733,
+          "GB": 16.28897926634777
+        },
+        "s1c1dn4": {
+          "percentage": 8.93541442411198,
+          "GB": 16.798579117330522
+        },
+        "s1c1dn5": {
+          "percentage": 8.904938927243766,
+          "GB": 16.741285183218277
+        },
+        "s1c1dn6": {
+          "percentage": 8.696228391828184,
+          "GB": 16.348909376636986
+        },
+        "s1c2dn1": {
+          "percentage": 6.204297037964138,
+          "GB": 15.572785565289987
+        },
+        "s1c2dn2": {
+          "percentage": 6.6504420176807555,
+          "GB": 16.692609464378698
+        },
+        "s1c2dn3": {
+          "percentage": 6.7672773536896225,
+          "GB": 16.985866157760952
+        },
+        "s1c2dn4": {
+          "percentage": 8.868296614723269,
+          "GB": 16.672397635679744
+        },
+        "s1c2dn5": {
+          "percentage": 8.89899311075783,
+          "GB": 16.73010704822472
+        },
+        "s1c2dn6": {
+          "percentage": 8.88775944651411,
+          "GB": 16.708987759446526
+        }
+      },
+      "kafka": {
+        "s1c1pn1": {
+          "percentage": 2.9236082187976464,
+          "GB": 5.496383451339575
+        },
+        "s1c1pn2": {
+          "percentage": 3.3067528136724533,
+          "GB": 6.216695289704212
+        },
+        "s1c1pn3": {
+          "percentage": 3.3000000000001264,
+          "GB": 6.204000000000238
+        },
+        "s1c1pn4": {
+          "percentage": 3.3358065860775676,
+          "GB": 6.2713163818258275
+        },
+        "s1c1pn5": {
+          "percentage": 3.399999999999851,
+          "GB": 6.39199999999972
+        },
+        "s1c1pn6": {
+          "percentage": 3.325572678050813,
+          "GB": 6.252076634735529
+        },
+        "s1c2pn1": {
+          "percentage": 2.9028113286129944,
+          "GB": 5.4572852977924295
+        },
+        "s1c2pn2": {
+          "percentage": 3.3885880882964075,
+          "GB": 6.370545605997246
+        },
+        "s1c2pn3": {
+          "percentage": 3.399999999999851,
+          "GB": 6.39199999999972
+        },
+        "s1c2pn4": {
+          "percentage": 3.3800916284880755,
+          "GB": 6.354572261557582
+        },
+        "s1c2pn5": {
+          "percentage": 3.399999999999851,
+          "GB": 6.39199999999972
+        },
+        "s1c2pn6": {
+          "percentage": 3.3000000000001264,
+          "GB": 6.204000000000238
+        }
+      },
+      "trino": {
+        "s1c1dn1": {
+          "percentage": 11.316638900457464,
+          "GB": 28.404763640148236
+        },
+        "s1c1dn2": {
+          "percentage": 15.099999999999321,
+          "GB": 37.90099999999829
+        },
+        "s1c1dn3": {
+          "percentage": 14.525197834235762,
+          "GB": 36.45824656393176
+        },
+        "s1c1dn4": {
+          "percentage": 15.400000000000698,
+          "GB": 28.952000000001313
+        },
+        "s1c1dn5": {
+          "percentage": 15.202540608080277,
+          "GB": 28.58077634319092
+        },
+        "s1c1dn6": {
+          "percentage": 14.948604748021623,
+          "GB": 28.103376926280653
+        },
+        "s1c2dn1": {
+          "percentage": 24.400000000000976,
+          "GB": 61.24400000000245
+        },
+        "s1c2dn2": {
+          "percentage": 17.174635568513715,
+          "GB": 43.10833527696942
+        },
+        "s1c2dn3": {
+          "percentage": 17.060058309038446,
+          "GB": 42.820746355686495
+        },
+        "s1c2dn4": {
+          "percentage": 18.735152019991094,
+          "GB": 35.22208579758326
+        },
+        "s1c2dn5": {
+          "percentage": 18.393169512702837,
+          "GB": 34.57915868388133
+        },
+        "s1c2dn6": {
+          "percentage": 18.536234902124498,
+          "GB": 34.84812161599405
+        }
+      },
+      "tls": {
+        "s1c1pn1": {
+          "percentage": 0.9312682215743294,
+          "GB": 1.7507842565597393
+        },
+        "s1c1pn2": {
+          "percentage": 0.9036734055856752,
+          "GB": 1.6989060025010694
+        },
+        "s1c1pn3": {
+          "percentage": 0.9634995835068716,
+          "GB": 1.8113792169929186
+        },
+        "s1c1pn4": {
+          "percentage": 0.9227353186172397,
+          "GB": 1.7347423990004105
+        },
+        "s1c1pn5": {
+          "percentage": 0.9652905039566791,
+          "GB": 1.814746147438557
+        },
+        "s1c1pn6": {
+          "percentage": 0.9610995418575571,
+          "GB": 1.8068671386922075
+        },
+        "s1c2pn1": {
+          "percentage": 0.9602717617659222,
+          "GB": 1.8053109121199338
+        },
+        "s1c2pn2": {
+          "percentage": 0.9364639733444439,
+          "GB": 1.7605522698875544
+        },
+        "s1c2pn3": {
+          "percentage": 0.9564727494496282,
+          "GB": 1.7981687689653012
+        },
+        "s1c2pn4": {
+          "percentage": 0.9210224906289084,
+          "GB": 1.7315222823823477
+        },
+        "s1c2pn5": {
+          "percentage": 1.0249687630153905,
+          "GB": 1.9269412744689343
+        },
+        "s1c2pn6": {
+          "percentage": 1.0048833819242111,
+          "GB": 1.8891807580175168
+        }
+      },
+      "eventsdb-ingestion": {},
+      "logger": {
+        "s1c1pn4": {
+          "percentage": 0.653966907085278,
+          "GB": 1.2294577853203228
+        },
+        "s1c1pn5": {
+          "percentage": 0.6472068230277171,
+          "GB": 1.2167488272921083
+        },
+        "s1c1pn6": {
+          "percentage": 0.7041898247114169,
+          "GB": 1.3238768704574637
+        },
+        "s1c2pn2": {
+          "percentage": 0.5679504205400621,
+          "GB": 1.0677467906153166
+        },
+        "s1c2pn3": {
+          "percentage": 0.6309059384482013,
+          "GB": 1.1861031642826183
+        },
+        "s1c2pn4": {
+          "percentage": 0.7315498938428888,
+          "GB": 1.375313800424631
+        },
+        "s1c2pn5": {
+          "percentage": 0.4496740547588006,
+          "GB": 0.8453872229465452
+        },
+        "s1c2pn6": {
+          "percentage": 0.5150894025294384,
+          "GB": 0.9683680767553442
+        }
+      }
     },
     "node_level_average_cpu_usage": {
-        "Host": {
-            "s1c1dn1": {
-                "percentage": 15.22952936276549,
-                "cores": 4.873449396084957
-            },
-            "s1c1dn2": {
-                "percentage": 15.10329029571009,
-                "cores": 4.833052894627229
-            },
-            "s1c1dn3": {
-                "percentage": 13.26039150354018,
-                "cores": 4.243325281132858
-            },
-            "s1c1dn4": {
-                "percentage": 13.27526030820496,
-                "cores": 4.248083298625587
-            },
-            "s1c1dn5": {
-                "percentage": 14.589837567680165,
-                "cores": 4.6687480216576525
-            },
-            "s1c1dn6": {
-                "percentage": 14.865597667638491,
-                "cores": 4.756991253644317
-            },
-            "s1c1pn1": {
-                "percentage": 39.59312786339031,
-                "cores": 12.669800916284899
-            },
-            "s1c1pn2": {
-                "percentage": 47.18154935443573,
-                "cores": 15.098095793419434
-            },
-            "s1c1pn3": {
-                "percentage": 44.67451062057477,
-                "cores": 14.295843398583926
-            },
-            "s1c1pn4": {
-                "percentage": 59.157101207830124,
-                "cores": 18.93027238650564
-            },
-            "s1c1pn5": {
-                "percentage": 58.77559350270731,
-                "cores": 18.80818992086634
-            },
-            "s1c1pn6": {
-                "percentage": 58.37092877967527,
-                "cores": 18.678697209496086
-            },
-            "s1c2dn1": {
-                "percentage": 15.525239483548535,
-                "cores": 4.968076634735532
-            },
-            "s1c2dn2": {
-                "percentage": 12.866638900458154,
-                "cores": 4.11732444814661
-            },
-            "s1c2dn3": {
-                "percentage": 13.034235735110387,
-                "cores": 4.170955435235324
-            },
-            "s1c2dn4": {
-                "percentage": 12.94706372344855,
-                "cores": 4.143060391503536
-            },
-            "s1c2dn5": {
-                "percentage": 16.49337775926699,
-                "cores": 5.277880882965437
-            },
-            "s1c2dn6": {
-                "percentage": 12.544148271553523,
-                "cores": 4.0141274468971275
-            },
-            "s1c2pn1": {
-                "percentage": 45.17172011661815,
-                "cores": 14.454950437317807
-            },
-            "s1c2pn2": {
-                "percentage": 57.73144523115368,
-                "cores": 18.474062473969177
-            },
-            "s1c2pn3": {
-                "percentage": 59.97413577675963,
-                "cores": 19.19172344856308
-            },
-            "s1c2pn4": {
-                "percentage": 58.96076634735507,
-                "cores": 18.86744523115362
-            },
-            "s1c2pn5": {
-                "percentage": 58.542065805914326,
-                "cores": 18.733461057892583
-            },
-            "s1c2pn6": {
-                "percentage": 60.37650978758859,
-                "cores": 19.320483132028347
-            },
-            "s1cloudquery": {
-                "percentage": 6.90412328196585,
-                "cores": 0.276164931278634
-            },
-            "s1configdb1": {
-                "percentage": 1.8382757184506537,
-                "cores": 0.5882482299042092
-            },
-            "s1configdb2": {
-                "percentage": 96.80399833402683,
-                "cores": 30.977279466888586
-            },
-            "s1elasticsearch": {
-                "percentage": 4.899999999999785,
-                "cores": 0.7839999999999656
-            },
-            "s1kibana": {
-                "percentage": 4.978675551853397,
-                "cores": 0.19914702207413587
-            },
-            "s1logstash1": {
-                "percentage": 13.438983756768005,
-                "cores": 1.0751187005414404
-            },
-            "s1logstash2": {
-                "percentage": 13.514993752603091,
-                "cores": 1.0811995002082473
-            },
-            "s1mlnode1": {
-                "percentage": 11.415535193669289,
-                "cores": 1.8264856309870863
-            },
-            "s1mlnode2": {
-                "percentage": 6.517159516867983,
-                "cores": 1.042745522698877
-            },
-            "s1monitor": {
-                "percentage": 1.9235735110370735,
-                "cores": 0.30777176176593174
-            },
-            "s1stsnode1": {
-                "percentage": 2.797251145356108,
-                "cores": 0.44756018325697733
-            },
-            "s1stsnode2": {
-                "percentage": 3.17496876301541,
-                "cores": 0.5079950020824656
-            },
-            "s1stsnode3": {
-                "percentage": 2.912244897959182,
-                "cores": 0.4659591836734691
-            }
+      "Host": {
+        "s1c1dn1": {
+          "percentage": 15.283090379008716,
+          "cores": 4.890588921282789
         },
-        "rule-engine": {
-            "s1c1pn1": {
-                "percentage": 26.95323636363612,
-                "cores": 0.2695323636363612
-            },
-            "s1c1pn2": {
-                "percentage": 24.151765063907312,
-                "cores": 0.24151765063907313
-            },
-            "s1c1pn3": {
-                "percentage": 18.77782158698841,
-                "cores": 0.18777821586988408
-            },
-            "s1c1pn4": {
-                "percentage": 15.006716023267874,
-                "cores": 0.15006716023267874
-            },
-            "s1c1pn5": {
-                "percentage": 17.226136931533908,
-                "cores": 0.17226136931533909
-            },
-            "s1c1pn6": {
-                "percentage": 16.552469135802227,
-                "cores": 0.16552469135802228
-            },
-            "s1c2pn1": {
-                "percentage": 18.18554666666637,
-                "cores": 0.1818554666666637
-            },
-            "s1c2pn2": {
-                "percentage": 19.125546218487163,
-                "cores": 0.19125546218487163
-            },
-            "s1c2pn3": {
-                "percentage": 16.33866881621355,
-                "cores": 0.16338668816213547
-            },
-            "s1c2pn4": {
-                "percentage": 18.066056812710492,
-                "cores": 0.18066056812710493
-            },
-            "s1c2pn5": {
-                "percentage": 17.435304136252864,
-                "cores": 0.17435304136252863
-            },
-            "s1c2pn6": {
-                "percentage": 16.828642619838384,
-                "cores": 0.16828642619838383
-            }
+        "s1c1dn2": {
+          "percentage": 15.485089546022508,
+          "cores": 4.955228654727202
         },
-        "osquery-ingestion": {
-            "s1c1dn1": {
-                "percentage": 28.695191815857207,
-                "cores": 0.2869519181585721
-            },
-            "s1c1dn2": {
-                "percentage": 19.622296824730807,
-                "cores": 0.19622296824730806
-            },
-            "s1c1dn3": {
-                "percentage": 30.782755102041506,
-                "cores": 0.30782755102041504
-            },
-            "s1c1dn4": {
-                "percentage": 35.59668626403057,
-                "cores": 0.35596686264030575
-            },
-            "s1c1dn5": {
-                "percentage": 32.43430263866524,
-                "cores": 0.32434302638665236
-            },
-            "s1c1dn6": {
-                "percentage": 32.80774686306664,
-                "cores": 0.3280774686306664
-            },
-            "s1c2dn1": {
-                "percentage": 29.012019566736765,
-                "cores": 0.29012019566736763
-            },
-            "s1c2dn2": {
-                "percentage": 31.880354351225144,
-                "cores": 0.31880354351225143
-            },
-            "s1c2dn3": {
-                "percentage": 33.08581046090171,
-                "cores": 0.3308581046090171
-            },
-            "s1c2dn4": {
-                "percentage": 28.287997817785524,
-                "cores": 0.28287997817785526
-            },
-            "s1c2dn5": {
-                "percentage": 33.3236828377679,
-                "cores": 0.333236828377679
-            },
-            "s1c2dn6": {
-                "percentage": 30.897808658472005,
-                "cores": 0.30897808658472004
-            }
+        "s1c1dn3": {
+          "percentage": 17.2770512286546,
+          "cores": 5.528656393169472
         },
-        "kafka": {
-            "s1c1pn1": {
-                "percentage": 44.064542551714496,
-                "cores": 0.440645425517145
-            },
-            "s1c1pn2": {
-                "percentage": 88.6681799250314,
-                "cores": 0.886681799250314
-            },
-            "s1c1pn3": {
-                "percentage": 42.81974177426078,
-                "cores": 0.4281974177426078
-            },
-            "s1c1pn4": {
-                "percentage": 51.449354435652005,
-                "cores": 0.5144935443565201
-            },
-            "s1c1pn5": {
-                "percentage": 51.39645980841317,
-                "cores": 0.5139645980841316
-            },
-            "s1c1pn6": {
-                "percentage": 43.96397334443992,
-                "cores": 0.4396397334443992
-            },
-            "s1c2pn1": {
-                "percentage": 46.17469804248231,
-                "cores": 0.4617469804248231
-            },
-            "s1c2pn2": {
-                "percentage": 43.464556434818824,
-                "cores": 0.43464556434818824
-            },
-            "s1c2pn3": {
-                "percentage": 41.34856309870874,
-                "cores": 0.41348563098708735
-            },
-            "s1c2pn4": {
-                "percentage": 43.96863806747182,
-                "cores": 0.4396863806747182
-            },
-            "s1c2pn5": {
-                "percentage": 47.91207830070816,
-                "cores": 0.4791207830070816
-            },
-            "s1c2pn6": {
-                "percentage": 85.15597667638497,
-                "cores": 0.8515597667638497
-            }
+        "s1c1dn4": {
+          "percentage": 13.543773427738403,
+          "cores": 4.334007496876289
         },
-        "trino": {
-            "s1c1dn1": {
-                "percentage": 3.8881160627516342,
-                "cores": 0.03888116062751634
-            },
-            "s1c1dn2": {
-                "percentage": 3.917201166180806,
-                "cores": 0.03917201166180806
-            },
-            "s1c1dn3": {
-                "percentage": 1.9695543523531933,
-                "cores": 0.019695543523531932
-            },
-            "s1c1dn4": {
-                "percentage": 2.2802998750520693,
-                "cores": 0.022802998750520692
-            },
-            "s1c1dn5": {
-                "percentage": 1.8016659725114592,
-                "cores": 0.01801665972511459
-            },
-            "s1c1dn6": {
-                "percentage": 2.5844231570179237,
-                "cores": 0.025844231570179236
-            },
-            "s1c2dn1": {
-                "percentage": 28.719700124947902,
-                "cores": 0.287197001249479
-            },
-            "s1c2dn2": {
-                "percentage": 19.478092461474386,
-                "cores": 0.19478092461474386
-            },
-            "s1c2dn3": {
-                "percentage": 18.350229071220355,
-                "cores": 0.18350229071220356
-            },
-            "s1c2dn4": {
-                "percentage": 19.73281965847567,
-                "cores": 0.1973281965847567
-            },
-            "s1c2dn5": {
-                "percentage": 19.19291961682639,
-                "cores": 0.1919291961682639
-            },
-            "s1c2dn6": {
-                "percentage": 18.59579341940863,
-                "cores": 0.1859579341940863
-            }
+        "s1c1dn5": {
+          "percentage": 13.384173261141202,
+          "cores": 4.282935443565185
         },
-        "tls": {
-            "s1c1pn1": {
-                "percentage": 86.88930653894232,
-                "cores": 0.8688930653894232
-            },
-            "s1c1pn2": {
-                "percentage": 91.41134943773407,
-                "cores": 0.9141134943773408
-            },
-            "s1c1pn3": {
-                "percentage": 92.42310495626813,
-                "cores": 0.9242310495626813
-            },
-            "s1c1pn4": {
-                "percentage": 91.12232403165333,
-                "cores": 0.9112232403165333
-            },
-            "s1c1pn5": {
-                "percentage": 90.34504893794237,
-                "cores": 0.9034504893794236
-            },
-            "s1c1pn6": {
-                "percentage": 90.78529779258632,
-                "cores": 0.9078529779258632
-            },
-            "s1c2pn1": {
-                "percentage": 88.99019158683863,
-                "cores": 0.8899019158683863
-            },
-            "s1c2pn2": {
-                "percentage": 89.7310079133696,
-                "cores": 0.897310079133696
-            },
-            "s1c2pn3": {
-                "percentage": 100.50999062890466,
-                "cores": 1.0050999062890467
-            },
-            "s1c2pn4": {
-                "percentage": 94.3529779258639,
-                "cores": 0.943529779258639
-            },
-            "s1c2pn5": {
-                "percentage": 93.00806434818827,
-                "cores": 0.9300806434818827
-            },
-            "s1c2pn6": {
-                "percentage": 96.02079341940843,
-                "cores": 0.9602079341940843
-            }
+        "s1c1dn6": {
+          "percentage": 13.567388588088313,
+          "cores": 4.34156434818826
         },
-        "eventsdb-ingestion": {},
-        "logger": {
-            "s1c1pn1": {
-                "percentage": 4.444973544973551,
-                "cores": 0.04444973544973551
-            },
-            "s1c1pn2": {
-                "percentage": 6.252468680913784,
-                "cores": 0.06252468680913785
-            },
-            "s1c1pn3": {
-                "percentage": 6.045082467929158,
-                "cores": 0.06045082467929158
-            },
-            "s1c1pn4": {
-                "percentage": 8.458175930922847,
-                "cores": 0.08458175930922847
-            },
-            "s1c1pn5": {
-                "percentage": 7.724554776038828,
-                "cores": 0.07724554776038828
-            },
-            "s1c1pn6": {
-                "percentage": 8.172516726711288,
-                "cores": 0.08172516726711289
-            },
-            "s1c2pn1": {
-                "percentage": 6.731438812083986,
-                "cores": 0.06731438812083985
-            },
-            "s1c2pn2": {
-                "percentage": 7.177409453652533,
-                "cores": 0.07177409453652533
-            },
-            "s1c2pn3": {
-                "percentage": 7.885943345804388,
-                "cores": 0.07885943345804387
-            },
-            "s1c2pn4": {
-                "percentage": 8.298735457764296,
-                "cores": 0.08298735457764296
-            },
-            "s1c2pn5": {
-                "percentage": 5.951259583789718,
-                "cores": 0.059512595837897184
-            },
-            "s1c2pn6": {
-                "percentage": 6.286496163682852,
-                "cores": 0.06286496163682852
-            }
+        "s1c1pn1": {
+          "percentage": 43.084339858392376,
+          "cores": 13.78698875468556
+        },
+        "s1c1pn2": {
+          "percentage": 59.64935443565168,
+          "cores": 19.087793419408538
+        },
+        "s1c1pn3": {
+          "percentage": 58.91899208663063,
+          "cores": 18.8540774677218
+        },
+        "s1c1pn4": {
+          "percentage": 90.3526863806746,
+          "cores": 28.91285964181587
+        },
+        "s1c1pn5": {
+          "percentage": 90.53835901707662,
+          "cores": 28.97227488546452
+        },
+        "s1c1pn6": {
+          "percentage": 91.5056226572261,
+          "cores": 29.28179925031235
+        },
+        "s1c2dn1": {
+          "percentage": 15.570387338608906,
+          "cores": 4.98252394835485
+        },
+        "s1c2dn2": {
+          "percentage": 14.002332361516064,
+          "cores": 4.480746355685141
+        },
+        "s1c2dn3": {
+          "percentage": 14.314327363598421,
+          "cores": 4.580584756351495
+        },
+        "s1c2dn4": {
+          "percentage": 12.912328196584737,
+          "cores": 4.131945022907115
+        },
+        "s1c2dn5": {
+          "percentage": 13.230487296959625,
+          "cores": 4.23375593502708
+        },
+        "s1c2dn6": {
+          "percentage": 12.759933361099563,
+          "cores": 4.08317867555186
+        },
+        "s1c2pn1": {
+          "percentage": 57.35081216159907,
+          "cores": 18.352259891711704
+        },
+        "s1c2pn2": {
+          "percentage": 90.82640566430638,
+          "cores": 29.06444981257804
+        },
+        "s1c2pn3": {
+          "percentage": 91.22365680966267,
+          "cores": 29.191570179092054
+        },
+        "s1c2pn4": {
+          "percentage": 91.57763431903344,
+          "cores": 29.3048429820907
+        },
+        "s1c2pn5": {
+          "percentage": 91.56838817159506,
+          "cores": 29.30188421491042
+        },
+        "s1c2pn6": {
+          "percentage": 91.82265722615587,
+          "cores": 29.383250312369878
+        },
+        "s1cloudquery": {
+          "percentage": 6.928696376509813,
+          "cores": 0.2771478550603925
+        },
+        "s1configdb1": {
+          "percentage": 1.872802998750523,
+          "cores": 0.5992969596001674
+        },
+        "s1configdb2": {
+          "percentage": 94.56168263223604,
+          "cores": 30.259738442315534
+        },
+        "s1elasticsearch": {
+          "percentage": 4.899999999999785,
+          "cores": 0.7839999999999656
+        },
+        "s1kibana": {
+          "percentage": 4.87551020408166,
+          "cores": 0.1950204081632664
+        },
+        "s1logstash1": {
+          "percentage": 14.93823406913787,
+          "cores": 1.1950587255310297
+        },
+        "s1logstash2": {
+          "percentage": 14.795751770095771,
+          "cores": 1.1836601416076618
+        },
+        "s1mlnode1": {
+          "percentage": 11.074718867138689,
+          "cores": 1.7719550187421902
+        },
+        "s1mlnode2": {
+          "percentage": 6.228321532694704,
+          "cores": 0.9965314452311526
+        },
+        "s1monitor": {
+          "percentage": 2.123990004164933,
+          "cores": 0.33983840066638926
+        },
+        "s1stsnode1": {
+          "percentage": 2.564473136193259,
+          "cores": 0.4103157017909214
+        },
+        "s1stsnode2": {
+          "percentage": 3.018284048313206,
+          "cores": 0.4829254477301129
+        },
+        "s1stsnode3": {
+          "percentage": 2.803790087463555,
+          "cores": 0.4486064139941688
         }
+      },
+      "rule-engine": {
+        "s1c1pn1": {
+          "percentage": 26.54358794674119,
+          "cores": 0.26543587946741193
+        },
+        "s1c1pn2": {
+          "percentage": 22.616004354926368,
+          "cores": 0.22616004354926367
+        },
+        "s1c1pn3": {
+          "percentage": 23.09049429657765,
+          "cores": 0.2309049429657765
+        },
+        "s1c1pn4": {
+          "percentage": 16.533333333333168,
+          "cores": 0.16533333333333167
+        },
+        "s1c1pn5": {
+          "percentage": 18.846566621191222,
+          "cores": 0.18846566621191221
+        },
+        "s1c1pn6": {
+          "percentage": 15.697000441111472,
+          "cores": 0.15697000441111472
+        },
+        "s1c2pn1": {
+          "percentage": 13.959583121504657,
+          "cores": 0.13959583121504657
+        },
+        "s1c2pn2": {
+          "percentage": 17.18578221588189,
+          "cores": 0.1718578221588189
+        },
+        "s1c2pn3": {
+          "percentage": 15.308714224690144,
+          "cores": 0.15308714224690145
+        },
+        "s1c2pn4": {
+          "percentage": 15.456289308175906,
+          "cores": 0.15456289308175905
+        },
+        "s1c2pn5": {
+          "percentage": 15.308144506199111,
+          "cores": 0.15308144506199112
+        },
+        "s1c2pn6": {
+          "percentage": 16.502386312471643,
+          "cores": 0.16502386312471642
+        }
+      },
+      "osquery-ingestion": {
+        "s1c1dn1": {
+          "percentage": 31.374801482266303,
+          "cores": 0.313748014822663
+        },
+        "s1c1dn2": {
+          "percentage": 20.26133166179148,
+          "cores": 0.20261331661791482
+        },
+        "s1c1dn3": {
+          "percentage": 30.80419989367415,
+          "cores": 0.3080419989367415
+        },
+        "s1c1dn4": {
+          "percentage": 32.76001076426328,
+          "cores": 0.32760010764263275
+        },
+        "s1c1dn5": {
+          "percentage": 33.0949017525232,
+          "cores": 0.330949017525232
+        },
+        "s1c1dn6": {
+          "percentage": 34.94028287061364,
+          "cores": 0.3494028287061364
+        },
+        "s1c2dn1": {
+          "percentage": 27.21757752746521,
+          "cores": 0.2721757752746521
+        },
+        "s1c2dn2": {
+          "percentage": 28.89477379095206,
+          "cores": 0.2889477379095206
+        },
+        "s1c2dn3": {
+          "percentage": 30.963613231552745,
+          "cores": 0.30963613231552745
+        },
+        "s1c2dn4": {
+          "percentage": 32.1536808167658,
+          "cores": 0.321536808167658
+        },
+        "s1c2dn5": {
+          "percentage": 32.95718071012277,
+          "cores": 0.3295718071012277
+        },
+        "s1c2dn6": {
+          "percentage": 30.148536455562013,
+          "cores": 0.30148536455562014
+        }
+      },
+      "kafka": {
+        "s1c1pn1": {
+          "percentage": 44.20215882271266,
+          "cores": 0.4420215882271266
+        },
+        "s1c1pn2": {
+          "percentage": 95.73268028345144,
+          "cores": 0.9573268028345144
+        },
+        "s1c1pn3": {
+          "percentage": 46.97351103706802,
+          "cores": 0.4697351103706802
+        },
+        "s1c1pn4": {
+          "percentage": 59.86115047936644,
+          "cores": 0.5986115047936643
+        },
+        "s1c1pn5": {
+          "percentage": 59.808204914618884,
+          "cores": 0.5980820491461888
+        },
+        "s1c1pn6": {
+          "percentage": 50.85381091212001,
+          "cores": 0.5085381091212001
+        },
+        "s1c2pn1": {
+          "percentage": 50.30964181591001,
+          "cores": 0.5030964181591001
+        },
+        "s1c2pn2": {
+          "percentage": 52.0470637234484,
+          "cores": 0.5204706372344841
+        },
+        "s1c2pn3": {
+          "percentage": 47.2453977509371,
+          "cores": 0.472453977509371
+        },
+        "s1c2pn4": {
+          "percentage": 48.64618908787989,
+          "cores": 0.4864618908787989
+        },
+        "s1c2pn5": {
+          "percentage": 56.893919200333215,
+          "cores": 0.5689391920033322
+        },
+        "s1c2pn6": {
+          "percentage": 90.92786339025412,
+          "cores": 0.9092786339025412
+        }
+      },
+      "trino": {
+        "s1c1dn1": {
+          "percentage": 4.799840344301,
+          "cores": 0.04799840344301
+        },
+        "s1c1dn2": {
+          "percentage": 3.424656393169537,
+          "cores": 0.03424656393169537
+        },
+        "s1c1dn3": {
+          "percentage": 3.3361516034985623,
+          "cores": 0.033361516034985626
+        },
+        "s1c1dn4": {
+          "percentage": 4.515743440233243,
+          "cores": 0.045157434402332434
+        },
+        "s1c1dn5": {
+          "percentage": 3.671220324864658,
+          "cores": 0.03671220324864658
+        },
+        "s1c1dn6": {
+          "percentage": 5.25593502707208,
+          "cores": 0.0525593502707208
+        },
+        "s1c2dn1": {
+          "percentage": 29.060558100791365,
+          "cores": 0.29060558100791367
+        },
+        "s1c2dn2": {
+          "percentage": 20.20483132028324,
+          "cores": 0.2020483132028324
+        },
+        "s1c2dn3": {
+          "percentage": 21.153186172428093,
+          "cores": 0.21153186172428093
+        },
+        "s1c2dn4": {
+          "percentage": 19.455268638067515,
+          "cores": 0.19455268638067516
+        },
+        "s1c2dn5": {
+          "percentage": 19.35655976676384,
+          "cores": 0.1935655976676384
+        },
+        "s1c2dn6": {
+          "percentage": 19.51928363182009,
+          "cores": 0.19519283631820092
+        }
+      },
+      "tls": {
+        "s1c1pn1": {
+          "percentage": 93.96998646397323,
+          "cores": 0.9396998646397323
+        },
+        "s1c1pn2": {
+          "percentage": 99.99461754897895,
+          "cores": 0.9999461754897895
+        },
+        "s1c1pn3": {
+          "percentage": 101.39195127030422,
+          "cores": 1.0139195127030423
+        },
+        "s1c1pn4": {
+          "percentage": 107.07920137442734,
+          "cores": 1.0707920137442735
+        },
+        "s1c1pn5": {
+          "percentage": 105.97262078300689,
+          "cores": 1.0597262078300689
+        },
+        "s1c1pn6": {
+          "percentage": 106.08986880466503,
+          "cores": 1.0608986880466502
+        },
+        "s1c2pn1": {
+          "percentage": 97.26322365680947,
+          "cores": 0.9726322365680947
+        },
+        "s1c2pn2": {
+          "percentage": 104.30897022074173,
+          "cores": 1.0430897022074173
+        },
+        "s1c2pn3": {
+          "percentage": 114.1793017790206,
+          "cores": 1.141793017790206
+        },
+        "s1c2pn4": {
+          "percentage": 106.86372344856281,
+          "cores": 1.068637234485628
+        },
+        "s1c2pn5": {
+          "percentage": 109.40320988939804,
+          "cores": 1.0940320988939805
+        },
+        "s1c2pn6": {
+          "percentage": 106.62224593919237,
+          "cores": 1.0662224593919236
+        }
+      },
+      "eventsdb-ingestion": {},
+      "logger": {
+        "s1c1pn1": {
+          "percentage": 4.575795564127312,
+          "cores": 0.04575795564127312
+        },
+        "s1c1pn2": {
+          "percentage": 7.268452655889136,
+          "cores": 0.07268452655889136
+        },
+        "s1c1pn3": {
+          "percentage": 7.896675415573037,
+          "cores": 0.07896675415573037
+        },
+        "s1c1pn4": {
+          "percentage": 12.633856597369487,
+          "cores": 0.12633856597369486
+        },
+        "s1c1pn5": {
+          "percentage": 12.376162046908266,
+          "cores": 0.12376162046908266
+        },
+        "s1c1pn6": {
+          "percentage": 13.277041470713968,
+          "cores": 0.13277041470713968
+        },
+        "s1c2pn1": {
+          "percentage": 10.048042105263141,
+          "cores": 0.10048042105263141
+        },
+        "s1c2pn2": {
+          "percentage": 10.98459495351919,
+          "cores": 0.1098459495351919
+        },
+        "s1c2pn3": {
+          "percentage": 11.766796705678336,
+          "cores": 0.11766796705678337
+        },
+        "s1c2pn4": {
+          "percentage": 13.77622080679404,
+          "cores": 0.1377622080679404
+        },
+        "s1c2pn5": {
+          "percentage": 8.29009126466753,
+          "cores": 0.0829009126466753
+        },
+        "s1c2pn6": {
+          "percentage": 9.581072830353241,
+          "cores": 0.0958107283035324
+        }
+      }
     },
     "container_level_average_memory_usage": {
-        "container": {
-            "admiring_sanderson": {
-                "GB": 0.07521435600000001
-            },
-            "adoring_leavitt": {
-                "GB": 0.07020216300000001
-            },
-            "affectionate_knuth": {
-                "GB": 0.08965324800000002
-            },
-            "agitated_kalam": {
-                "GB": 0.069950504
-            },
-            "airflow-redis": {
-                "GB": 0.008183120655976575
-            },
-            "airflow_airflow-scheduler_1": {
-                "GB": 0.38046272128237957
-            },
-            "airflow_airflow-triggerer_1": {
-                "GB": 0.29208217640525275
-            },
-            "airflow_airflow-webserver_1": {
-                "GB": 1.0054665185606058
-            },
-            "airflow_airflow-worker_1": {
-                "GB": 4.339022014262405
-            },
-            "airflow_elasticsearch": {
-                "GB": 1.83798930566172
-            },
-            "airflow_flower_1": {
-                "GB": 0.2906309402340738
-            },
-            "alluxio-master": {
-                "GB": 8.745050706824804
-            },
-            "alluxio-worker": {
-                "GB": 9.67175072051406
-            },
-            "angry_antonelli": {
-                "GB": 0.096143933
-            },
-            "ask-uptycs-server": {
-                "GB": 6.10595224755728
-            },
-            "asset-catalog-db": {
-                "GB": 0.07550763867388452
-            },
-            "awesome_rhodes": {
-                "GB": 0.095661588
-            },
-            "bold_davinci": {
-                "GB": 0.067087892
-            },
-            "brave_kapitsa": {
-                "GB": 0.069258444
-            },
-            "busy_sammet": {
-                "GB": 0.069751275
-            },
-            "charming_blackwell": {
-                "GB": 0.082837504
-            },
-            "checksum-validator": {
-                "GB": 0.06797826010453985
-            },
-            "cloud-compliance-manager": {
-                "GB": 2.778727748708843
-            },
-            "cloud-crossaccount-processor": {
-                "GB": 0.5743813174106662
-            },
-            "cloud-graph-processor": {
-                "GB": 0.6563794014864668
-            },
-            "cloud-graph-synchronizer": {
-                "GB": 0.4703534856784682
-            },
-            "cloudinstancemapper-consumer": {
-                "GB": 0.633527742365263
-            },
-            "cloudpreprocessor": {
-                "GB": 0.953376478064553
-            },
-            "cloudquery-consumer": {
-                "GB": 1.2606772844643963
-            },
-            "cloudquery-launcher": {
-                "GB": 0.6154821203802587
-            },
-            "cloudquery-logger": {
-                "GB": 0.8334267345980986
-            },
-            "cloudriskprocessor": {
-                "GB": 0.7468155134714677
-            },
-            "cloudvuln-consumer": {
-                "GB": 0.842922740573921
-            },
-            "compliance-check-runner": {
-                "GB": 0.7917042658917116
-            },
-            "compliance-summary-consumer": {
-                "GB": 6.5545499409129455
-            },
-            "condescending_keller": {
-                "GB": 0.09632219100000003
-            },
-            "confident_feynman": {
-                "GB": 0.07836008400000002
-            },
-            "consul": {
-                "GB": 1.2027754200624745
-            },
-            "cool_archimedes": {
-                "GB": 0.09637461999999998
-            },
-            "data-archival": {
-                "GB": 110.82586479206292
-            },
-            "dazzling_margulis": {
-                "GB": 0.096427048
-            },
-            "debezium": {
-                "GB": 0.6799972993552921
-            },
-            "debezium-consumer": {
-                "GB": 0.8145234542161581
-            },
-            "debezium-statedb": {
-                "GB": 0.8270415007701044
-            },
-            "decorators-consumer": {
-                "GB": 2.92443050667973
-            },
-            "dreamy_bouman": {
-                "GB": 0.076000788
-            },
-            "dreamy_thompson": {
-                "GB": 0.07094665199999997
-            },
-            "effective-permissions": {
-                "GB": 1.667232446988754
-            },
-            "elasticsearch": {
-                "GB": 38.51395872487836
-            },
-            "eloquent_cartwright": {
-                "GB": 0.09611247600000003
-            },
-            "epic_diffie": {
-                "GB": 0.07836008400000002
-            },
-            "etl-db": {
-                "GB": 0.07536561998333993
-            },
-            "event-alert-throttler": {
-                "GB": 0.5604082799733447
-            },
-            "filebeat": {
-                "GB": 68.70241250028037
-            },
-            "focused_torvalds": {
-                "GB": 0.09573498800000001
-            },
-            "friendly_ishizaka": {
-                "GB": 0.08136949700000001
-            },
-            "gifted_kalam": {
-                "GB": 0.09583984600000003
-            },
-            "granulate-gprofiler": {
-                "GB": 3.3946779812819643
-            },
-            "graph-query-runner": {
-                "GB": 78.88227807493944
-            },
-            "graph-redis": {
-                "GB": 3.271097894739281
-            },
-            "great_kare": {
-                "GB": 0.07652507600000001
-            },
-            "great_leakey": {
-                "GB": 0.08079277999999997
-            },
-            "happy_driscoll": {
-                "GB": 0.09590275999999999
-            },
-            "happy_kirch": {
-                "GB": 0.069593989
-            },
-            "happy_williams": {
-                "GB": 0.07692353499999999
-            },
-            "haproxy": {
-                "GB": 5.58794293298542
-            },
-            "hardcore_booth": {
-                "GB": 0.06698303399999997
-            },
-            "hdfs-dn": {
-                "GB": 53.98721692776839
-            },
-            "hdfs-jn": {
-                "GB": 14.267918921263066
-            },
-            "hdfs-nn": {
-                "GB": 43.31703934590667
-            },
-            "hdfs-wrapper": {
-                "GB": 19.303917884986358
-            },
-            "heuristic_boyd": {
-                "GB": 0.069677875
-            },
-            "infallible_diffie": {
-                "GB": 0.09564061600000003
-            },
-            "ingestion": {
-                "GB": 21.902196977838862
-            },
-            "intelligent_bohr": {
-                "GB": 0.06290407399999999
-            },
-            "jolly_chandrasekhar": {
-                "GB": 0.09613344699999997
-            },
-            "kafka": {
-                "GB": 505.7578451248483
-            },
-            "kibana": {
-                "GB": 0.41927330972386584
-            },
-            "kubernetes-state-manager": {
-                "GB": 0.5427107582453149
-            },
-            "latest-snapshot-consumer": {
-                "GB": 0.622068951046648
-            },
-            "logger": {
-                "GB": 15.034418178990022
-            },
-            "logstash": {
-                "GB": 19.919543136768546
-            },
-            "loving_goldwasser": {
-                "GB": 0.09623830499999998
-            },
-            "loving_taussig": {
-                "GB": 0.09102688199999999
-            },
-            "lucid_mestorf": {
-                "GB": 0.058300825
-            },
-            "metastore": {
-                "GB": 15.83138808412993
-            },
-            "metricbeat": {
-                "GB": 0.9844854415160567
-            },
-            "mongo": {
-                "GB": 1.3898696683944105
-            },
-            "musing_morse": {
-                "GB": 0.09589227499999999
-            },
-            "musing_tereshkova": {
-                "GB": 0.09520021499999999
-            },
-            "nervous_kowalevski": {
-                "GB": 0.05579472799999998
-            },
-            "nginx": {
-                "GB": 7.644553183254518
-            },
-            "node-apps": {
-                "GB": 196.9118763233266
-            },
-            "notification-consumer": {
-                "GB": 0.6391176088442321
-            },
-            "notification-dst-consumer": {
-                "GB": 0.6025591702723886
-            },
-            "optimistic_curran": {
-                "GB": 0.07271874499999999
-            },
-            "optimistic_sanderson": {
-                "GB": 0.096563363
-            },
-            "orc-compactor": {
-                "GB": 172.5386882240584
-            },
-            "osquery-state-manager": {
-                "GB": 0.44550330857642595
-            },
-            "pgbouncer-6542": {
-                "GB": 0.007191752996251617
-            },
-            "pgbouncer-6543": {
-                "GB": 0.4195117626705537
-            },
-            "pgbouncer-6545": {
-                "GB": 0.21851291479716764
-            },
-            "pgbouncer-statedb": {
-                "GB": 0.02778278657850875
-            },
-            "pgbouncer-threatdb": {
-                "GB": 0.16009548179508487
-            },
-            "postgres-airflowdb": {
-                "GB": 0.9721133223815092
-            },
-            "postgres-configdb": {
-                "GB": 51.13629026607328
-            },
-            "postgres-metastoredb": {
-                "GB": 4.368907819210737
-            },
-            "postgres-prestogatewaydb": {
-                "GB": 0.4433893345339428
-            },
-            "postgres-statedb": {
-                "GB": 1.459092193024583
-            },
-            "postgres-threatdb": {
-                "GB": 0.8268624429162703
-            },
-            "postgres-vaultdb": {
-                "GB": 0.854199488132862
-            },
-            "presto": {
-                "GB": 479.3021032313157
-            },
-            "prestogateway": {
-                "GB": 4.290070387778447
-            },
-            "query-runner": {
-                "GB": 98.58421207109961
-            },
-            "quirky_pare": {
-                "GB": 0.09578741699999997
-            },
-            "quirky_ramanujan": {
-                "GB": 0.055910072
-            },
-            "quizzical_hermann": {
-                "GB": 0.095588188
-            },
-            "ranger_admin": {
-                "GB": 4.093979909034973
-            },
-            "rate-limiter": {
-                "GB": 5.668035200748827
-            },
-            "redis-7000": {
-                "GB": 4.702364356326943
-            },
-            "redis-7002": {
-                "GB": 4.275423164989151
-            },
-            "redis-7004": {
-                "GB": 4.468248386594337
-            },
-            "registry-listener": {
-                "GB": 0.6765182658475687
-            },
-            "registry-scanner": {
-                "GB": 0.9891923840074938
-            },
-            "relaxed_bassi": {
-                "GB": 0.09429843899999996
-            },
-            "relaxed_mestorf": {
-                "GB": 0.07184842699999999
-            },
-            "rule-engine": {
-                "GB": 173.27814349587564
-            },
-            "rule-enginecc": {
-                "GB": 174.0438721248388
-            },
-            "ruleconverter": {
-                "GB": 0.12702680737775915
-            },
-            "sad_kepler": {
-                "GB": 0.09599713199999997
-            },
-            "side-query-decorator": {
-                "GB": 0.8182581277317779
-            },
-            "side-query-pipeline": {
-                "GB": 0.7627763686780504
-            },
-            "silly_jennings": {
-                "GB": 0.069122129
-            },
-            "spark-master": {
-                "GB": 6.155502984151601
-            },
-            "spark-worker": {
-                "GB": 839.0298414619269
-            },
-            "stoic_robinson": {
-                "GB": 0.07805599700000004
-            },
-            "sts-detection": {
-                "GB": 1.3524230068525587
-            },
-            "suspicious_buck": {
-                "GB": 0.06942621600000003
-            },
-            "suspicious_clarke": {
-                "GB": 0.078664171
-            },
-            "sweet_wing": {
-                "GB": 0.06259998700000001
-            },
-            "tls": {
-                "GB": 149.1187601574142
-            },
-            "upbeat_kowalevski": {
-                "GB": 0.08474591200000002
-            },
-            "user-mgmt": {
-                "GB": 0.15686696900000005
-            },
-            "vault": {
-                "GB": 2.2314065218509165
-            },
-            "vibrant_hodgkin": {
-                "GB": 0.09504292800000001
-            },
-            "windows-state-manager": {
-                "GB": 0.52500029669138
-            },
-            "wine": {
-                "GB": 0.4125191298184107
-            },
-            "wizardly_cori": {
-                "GB": 0.07088373699999996
-            },
-            "wonderful_panini": {
-                "GB": 0.08579448799999996
-            },
-            "xenodochial_sinoussi": {
-                "GB": 0.07599030199999997
-            },
-            "xenodochial_yalow": {
-                "GB": 0.09520021499999999
-            },
-            "youthful_cohen": {
-                "GB": 0.09002024899999997
-            },
-            "youthful_swanson": {
-                "GB": 0.07254048699999999
-            },
-            "youthful_wing": {
-                "GB": 0.09612296100000003
-            },
-            "zealous_turing": {
-                "GB": 0.068765614
-            },
-            "zen_babbage": {
-                "GB": 0.04928307200000001
-            },
-            "zookeeper": {
-                "GB": 3.683144332171184
-            }
+      "container": {
+        "admiring_rhodes": {
+          "GB": 0.09596567499999999
+        },
+        "affectionate_yonath": {
+          "GB": 0.05045747700000001
+        },
+        "agitated_grothendieck": {
+          "GB": 0.08694792099999998
+        },
+        "agitated_panini": {
+          "GB": 0.09291431899999997
+        },
+        "airflow-redis": {
+          "GB": 0.0083389663227822
+        },
+        "airflow_airflow-scheduler_1": {
+          "GB": 0.3846701707605147
+        },
+        "airflow_airflow-triggerer_1": {
+          "GB": 0.2934298651536935
+        },
+        "airflow_airflow-webserver_1": {
+          "GB": 1.0067788029137732
+        },
+        "airflow_airflow-worker_1": {
+          "GB": 4.503933285027485
+        },
+        "airflow_elasticsearch": {
+          "GB": 1.8384906237717007
+        },
+        "airflow_flower_1": {
+          "GB": 0.2910719448150752
+        },
+        "alluxio-master": {
+          "GB": 8.73178836218292
+        },
+        "alluxio-worker": {
+          "GB": 9.496202652543955
+        },
+        "amazing_agnesi": {
+          "GB": 0.09552527300000001
+        },
+        "ask-uptycs-server": {
+          "GB": 6.468140339480182
+        },
+        "asset-catalog-db": {
+          "GB": 0.07551844300000041
+        },
+        "charming_wozniak": {
+          "GB": 0.08191475700000003
+        },
+        "checksum-validator": {
+          "GB": 0.06854805045855894
+        },
+        "cloud-compliance-manager": {
+          "GB": 2.7751511486980416
+        },
+        "cloud-crossaccount-processor": {
+          "GB": 0.5774716855772557
+        },
+        "cloud-graph-processor": {
+          "GB": 0.6825814943923356
+        },
+        "cloud-graph-synchronizer": {
+          "GB": 0.4746436510628869
+        },
+        "cloudinstancemapper-consumer": {
+          "GB": 0.6347765696738853
+        },
+        "cloudpreprocessor": {
+          "GB": 0.9844177999333619
+        },
+        "cloudquery-consumer": {
+          "GB": 1.2664759356363993
+        },
+        "cloudquery-launcher": {
+          "GB": 0.6241323004044159
+        },
+        "cloudquery-logger": {
+          "GB": 0.8285182105156047
+        },
+        "cloudriskprocessor": {
+          "GB": 0.75101784019242
+        },
+        "cloudvuln-consumer": {
+          "GB": 0.8375043578009129
+        },
+        "compliance-check-runner": {
+          "GB": 0.7921184422415649
+        },
+        "compliance-summary-consumer": {
+          "GB": 7.5874047867634085
+        },
+        "consul": {
+          "GB": 1.2332868902686382
+        },
+        "cool_ptolemy": {
+          "GB": 0.09220128699999998
+        },
+        "cranky_curran": {
+          "GB": 0.09622781900000005
+        },
+        "cranky_feynman": {
+          "GB": 0.038681968000000004
+        },
+        "cranky_ganguly": {
+          "GB": 0.06444548000000003
+        },
+        "crazy_aryabhata": {
+          "GB": 0.096280248
+        },
+        "data-archival": {
+          "GB": 113.577120488874
+        },
+        "debezium": {
+          "GB": 0.6814852204706359
+        },
+        "debezium-consumer": {
+          "GB": 0.8080916563215308
+        },
+        "debezium-statedb": {
+          "GB": 0.8314872271528547
+        },
+        "decorators-consumer": {
+          "GB": 2.9121149138783835
+        },
+        "dreamy_mendel": {
+          "GB": 0.09575595999999999
+        },
+        "effective-permissions": {
+          "GB": 1.7228074256031003
+        },
+        "elasticsearch": {
+          "GB": 38.52026030491698
+        },
+        "epic_jepsen": {
+          "GB": 0.09592373199999997
+        },
+        "epic_shockley": {
+          "GB": 0.09603907499999999
+        },
+        "etl-db": {
+          "GB": 0.07205949174094148
+        },
+        "event-alert-throttler": {
+          "GB": 0.5636784744464819
+        },
+        "fervent_lovelace": {
+          "GB": 0.04326424500000001
+        },
+        "festive_hopper": {
+          "GB": 0.07903117299999998
+        },
+        "filebeat": {
+          "GB": 155.90392350603366
+        },
+        "flamboyant_chaplygin": {
+          "GB": 0.09546235899999994
+        },
+        "flamboyant_cohen": {
+          "GB": 0.06770655199999999
+        },
+        "focused_edison": {
+          "GB": 0.07177502699999999
+        },
+        "frosty_jemison": {
+          "GB": 0.09616490400000004
+        },
+        "gallant_kowalevski": {
+          "GB": 0.06928990199999999
+        },
+        "gifted_kilby": {
+          "GB": 0.09065988000000001
+        },
+        "gracious_booth": {
+          "GB": 0.09625927600000003
+        },
+        "granulate-gprofiler": {
+          "GB": 3.429060055490202
+        },
+        "graph-query-runner": {
+          "GB": 78.77529698716185
+        },
+        "graph-redis": {
+          "GB": 3.2759156459446688
+        },
+        "great_beaver": {
+          "GB": 0.06663700399999996
+        },
+        "great_hypatia": {
+          "GB": 0.08102346700000002
+        },
+        "haproxy": {
+          "GB": 5.579532094499351
+        },
+        "hdfs-dn": {
+          "GB": 56.63832350359757
+        },
+        "hdfs-jn": {
+          "GB": 14.270519424821059
+        },
+        "hdfs-nn": {
+          "GB": 44.73027767370988
+        },
+        "hdfs-wrapper": {
+          "GB": 18.6846814507378
+        },
+        "heuristic_montalcini": {
+          "GB": 0.08067743700000002
+        },
+        "infallible_mayer": {
+          "GB": 0.06917455800000002
+        },
+        "infallible_nightingale": {
+          "GB": 0.07132413899999998
+        },
+        "infallible_rhodes": {
+          "GB": 0.07989100499999997
+        },
+        "ingestion": {
+          "GB": 22.030508529785976
+        },
+        "kafka": {
+          "GB": 531.1594507099884
+        },
+        "kibana": {
+          "GB": 0.4188190723977534
+        },
+        "kubernetes-state-manager": {
+          "GB": 0.545113141523533
+        },
+        "latest-snapshot-consumer": {
+          "GB": 0.6240635030312371
+        },
+        "laughing_sanderson": {
+          "GB": 0.08046772200000002
+        },
+        "logger": {
+          "GB": 14.902585056359765
+        },
+        "logstash": {
+          "GB": 19.951273750452803
+        },
+        "lucid_snyder": {
+          "GB": 0.09630121899999995
+        },
+        "metastore": {
+          "GB": 16.079620110587097
+        },
+        "metricbeat": {
+          "GB": 0.9845499449999927
+        },
+        "mongo": {
+          "GB": 1.421566317204078
+        },
+        "musing_ardinghelli": {
+          "GB": 0.096070533
+        },
+        "musing_tesla": {
+          "GB": 0.09160359899999997
+        },
+        "mystifying_blackburn": {
+          "GB": 0.06477053899999997
+        },
+        "mystifying_dijkstra": {
+          "GB": 0.096007618
+        },
+        "mystifying_ishizaka": {
+          "GB": 0.06965690300000003
+        },
+        "mystifying_thompson": {
+          "GB": 0.09604956100000003
+        },
+        "naughty_wescoff": {
+          "GB": 0.09557770199999997
+        },
+        "nginx": {
+          "GB": 7.303254185626015
+        },
+        "nice_wing": {
+          "GB": 0.06946816
+        },
+        "nifty_beaver": {
+          "GB": 0.09634316199999997
+        },
+        "node-apps": {
+          "GB": 215.7255682393276
+        },
+        "notification-consumer": {
+          "GB": 0.646537181441484
+        },
+        "notification-dst-consumer": {
+          "GB": 0.6061935191674309
+        },
+        "objective_dewdney": {
+          "GB": 0.09643753400000005
+        },
+        "objective_raman": {
+          "GB": 0.09637461999999998
+        },
+        "optimistic_allen": {
+          "GB": 0.06841958399999999
+        },
+        "optimistic_darwin": {
+          "GB": 0.09547284400000004
+        },
+        "orc-compactor": {
+          "GB": 177.29437170803592
+        },
+        "osquery-state-manager": {
+          "GB": 0.44856363939899935
+        },
+        "pensive_dubinsky": {
+          "GB": 0.06710886399999999
+        },
+        "pgbouncer-6542": {
+          "GB": 0.007368901205331162
+        },
+        "pgbouncer-6543": {
+          "GB": 0.42889337650437365
+        },
+        "pgbouncer-6545": {
+          "GB": 0.22445177275426828
+        },
+        "pgbouncer-statedb": {
+          "GB": 0.028394026556018036
+        },
+        "pgbouncer-threatdb": {
+          "GB": 0.16519128493044416
+        },
+        "postgres-airflowdb": {
+          "GB": 1.0662694502478016
+        },
+        "postgres-configdb": {
+          "GB": 50.62341196075002
+        },
+        "postgres-metastoredb": {
+          "GB": 4.5622686362952125
+        },
+        "postgres-prestogatewaydb": {
+          "GB": 0.4461342802482289
+        },
+        "postgres-statedb": {
+          "GB": 1.501680057015402
+        },
+        "postgres-threatdb": {
+          "GB": 0.8276754060999585
+        },
+        "postgres-vaultdb": {
+          "GB": 0.8598285200433203
+        },
+        "presto": {
+          "GB": 491.25645868496895
+        },
+        "prestogateway": {
+          "GB": 4.472354273226631
+        },
+        "priceless_nash": {
+          "GB": 0.07130316800000001
+        },
+        "query-runner": {
+          "GB": 104.17616065727007
+        },
+        "ranger_admin": {
+          "GB": 4.129515352058325
+        },
+        "rate-limiter": {
+          "GB": 5.641637507441056
+        },
+        "redis-7000": {
+          "GB": 4.866379873565198
+        },
+        "redis-7002": {
+          "GB": 4.452066068243637
+        },
+        "redis-7004": {
+          "GB": 4.6691638023956665
+        },
+        "registry-listener": {
+          "GB": 0.6766526857301114
+        },
+        "registry-scanner": {
+          "GB": 1.1788724018367347
+        },
+        "relaxed_gauss": {
+          "GB": 0.095934218
+        },
+        "rule-engine": {
+          "GB": 171.4203062886875
+        },
+        "rule-enginecc": {
+          "GB": 172.0874393911071
+        },
+        "ruleconverter": {
+          "GB": 0.1273206652078301
+        },
+        "side-query-decorator": {
+          "GB": 0.8159157460857942
+        },
+        "side-query-pipeline": {
+          "GB": 0.7600382315326921
+        },
+        "silly_poitras": {
+          "GB": 0.09435086800000002
+        },
+        "spark-master": {
+          "GB": 6.207270320514379
+        },
+        "spark-worker": {
+          "GB": 915.6408889856286
+        },
+        "strange_mirzakhani": {
+          "GB": 0.080530636
+        },
+        "strange_wozniak": {
+          "GB": 0.09594470400000005
+        },
+        "sts-detection": {
+          "GB": 1.3361173039562457
+        },
+        "tls": {
+          "GB": 185.50017862773504
+        },
+        "trusting_wu": {
+          "GB": 0.09606004699999997
+        },
+        "upbeat_lalande": {
+          "GB": 0.076000788
+        },
+        "user-mgmt": {
+          "GB": 0.15193866200000003
+        },
+        "vault": {
+          "GB": 2.2332328648608786
+        },
+        "vibrant_roentgen": {
+          "GB": 0.09624879100000001
+        },
+        "vigilant_brahmagupta": {
+          "GB": 0.076902563
+        },
+        "windows-state-manager": {
+          "GB": 0.527556878456476
+        },
+        "wine": {
+          "GB": 0.40913541627113664
+        },
+        "wonderful_torvalds": {
+          "GB": 0.07515144100000001
+        },
+        "xenodochial_montalcini": {
+          "GB": 0.08062500799999997
+        },
+        "zookeeper": {
+          "GB": 3.4704460409071314
         }
+      }
     },
     "container_level_average_cpu_usage": {
-        "container": {
-            "admiring_sanderson": {
-                "cores": 1.5521999999999994
-            },
-            "adoring_leavitt": {
-                "cores": 2.025300000000001
-            },
-            "affectionate_knuth": {
-                "cores": 1.0083999999999997
-            },
-            "agitated_kalam": {
-                "cores": 2.092399999999999
-            },
-            "airflow-redis": {
-                "cores": 0.004083215326947111
-            },
-            "airflow_airflow-scheduler_1": {
-                "cores": 0.20203552686380596
-            },
-            "airflow_airflow-triggerer_1": {
-                "cores": 0.10693265306122274
-            },
-            "airflow_airflow-webserver_1": {
-                "cores": 0.032151770095793356
-            },
-            "airflow_airflow-worker_1": {
-                "cores": 0.943566305705961
-            },
-            "airflow_elasticsearch": {
-                "cores": 0.005637859225322831
-            },
-            "airflow_flower_1": {
-                "cores": 0.00596647230320694
-            },
-            "alluxio-master": {
-                "cores": 0.026359017076218322
-            },
-            "alluxio-worker": {
-                "cores": 0.01210395668471466
-            },
-            "angry_antonelli": {
-                "cores": 0.8973
-            },
-            "ask-uptycs-server": {
-                "cores": 0.1113659308621411
-            },
-            "asset-catalog-db": {
-                "cores": 9.995835068721336e-06
-            },
-            "awesome_rhodes": {
-                "cores": 0.4723000000000001
-            },
-            "bold_davinci": {
-                "cores": 1.9586000000000003
-            },
-            "brave_kapitsa": {
-                "cores": 1.8102
-            },
-            "busy_sammet": {
-                "cores": 1.5673999999999995
-            },
-            "charming_blackwell": {
-                "cores": 0.9965000000000004
-            },
-            "checksum-validator": {
-                "cores": 0.023312328196584433
-            },
-            "cloud-compliance-manager": {
-                "cores": 0.1602823406913783
-            },
-            "cloud-crossaccount-processor": {
-                "cores": 0.06880049979175305
-            },
-            "cloud-graph-processor": {
-                "cores": 0.0995633902540608
-            },
-            "cloud-graph-synchronizer": {
-                "cores": 0.05695289462723865
-            },
-            "cloudinstancemapper-consumer": {
-                "cores": 0.12643369429404464
-            },
-            "cloudpreprocessor": {
-                "cores": 0.07547217825905873
-            },
-            "cloudquery-consumer": {
-                "cores": 0.3997394835485202
-            },
-            "cloudquery-launcher": {
-                "cores": 0.022801291128696353
-            },
-            "cloudquery-logger": {
-                "cores": 0.06786051645147884
-            },
-            "cloudriskprocessor": {
-                "cores": 0.09786130778842139
-            },
-            "cloudvuln-consumer": {
-                "cores": 0.24881107871720132
-            },
-            "compliance-check-runner": {
-                "cores": 0.07922461474385648
-            },
-            "compliance-summary-consumer": {
-                "cores": 0.29999083715118646
-            },
-            "condescending_keller": {
-                "cores": 0.6973999999999999
-            },
-            "confident_feynman": {
-                "cores": 1.7442999999999995
-            },
-            "consul": {
-                "cores": 0.23187505206164163
-            },
-            "cool_archimedes": {
-                "cores": 0.5817999999999999
-            },
-            "data-archival": {
-                "cores": 24.422047563515058
-            },
-            "dazzling_margulis": {
-                "cores": 0.13370000000000004
-            },
-            "debezium": {
-                "cores": 0.014826280716368012
-            },
-            "debezium-consumer": {
-                "cores": 0.14122136609745975
-            },
-            "debezium-statedb": {
-                "cores": 0.06800120783007114
-            },
-            "decorators-consumer": {
-                "cores": 0.15368075801749256
-            },
-            "dreamy_bouman": {
-                "cores": 1.3202
-            },
-            "dreamy_thompson": {
-                "cores": 1.5471000000000001
-            },
-            "effective-permissions": {
-                "cores": 0.02809875052061666
-            },
-            "elasticsearch": {
-                "cores": 6.190722157434319
-            },
-            "eloquent_cartwright": {
-                "cores": 0.2632
-            },
-            "epic_diffie": {
-                "cores": 1.0056999999999996
-            },
-            "etl-db": {
-                "cores": 8.329862557267812e-06
-            },
-            "event-alert-throttler": {
-                "cores": 0.014021782590587258
-            },
-            "filebeat": {
-                "cores": 66.8749736776343
-            },
-            "focused_torvalds": {
-                "cores": 0.8051
-            },
-            "friendly_ishizaka": {
-                "cores": 0.9976999999999999
-            },
-            "gifted_kalam": {
-                "cores": 0.4010000000000001
-            },
-            "granulate-gprofiler": {
-                "cores": 0.5577776343190323
-            },
-            "graph-query-runner": {
-                "cores": 0.11826101624323185
-            },
-            "graph-redis": {
-                "cores": 0.006690670553935725
-            },
-            "great_kare": {
-                "cores": 1.2846999999999997
-            },
-            "great_leakey": {
-                "cores": 1.1104999999999998
-            },
-            "happy_driscoll": {
-                "cores": 0.43889999999999996
-            },
-            "happy_kirch": {
-                "cores": 1.965300000000001
-            },
-            "happy_williams": {
-                "cores": 1.0185999999999995
-            },
-            "haproxy": {
-                "cores": 0.0914212827988341
-            },
-            "hardcore_booth": {
-                "cores": 1.1757999999999997
-            },
-            "hdfs-dn": {
-                "cores": 0.17264723032069998
-            },
-            "hdfs-jn": {
-                "cores": 0.013801041232819746
-            },
-            "hdfs-nn": {
-                "cores": 0.2508089546022479
-            },
-            "hdfs-wrapper": {
-                "cores": 0.04221790920449826
-            },
-            "heuristic_boyd": {
-                "cores": 1.6238999999999992
-            },
-            "infallible_diffie": {
-                "cores": 0.7852
-            },
-            "ingestion": {
-                "cores": 2.4544147438567374
-            },
-            "intelligent_bohr": {
-                "cores": 1.3611000000000006
-            },
-            "jolly_chandrasekhar": {
-                "cores": 0.6071000000000002
-            },
-            "kafka": {
-                "cores": 7.934811995002081
-            },
-            "kibana": {
-                "cores": 0.054680966264056746
-            },
-            "kubernetes-state-manager": {
-                "cores": 0.08489208663056996
-            },
-            "latest-snapshot-consumer": {
-                "cores": 0.1252694294044151
-            },
-            "logger": {
-                "cores": 1.6919588504789658
-            },
-            "logstash": {
-                "cores": 1.7796437317784108
-            },
-            "loving_goldwasser": {
-                "cores": 0.5486999999999999
-            },
-            "loving_taussig": {
-                "cores": 0.9985999999999996
-            },
-            "lucid_mestorf": {
-                "cores": 1.4867999999999997
-            },
-            "metastore": {
-                "cores": 1.0227104539775076
-            },
-            "metricbeat": {
-                "cores": 0.01823698458975434
-            },
-            "mongo": {
-                "cores": 0.15281378592253153
-            },
-            "musing_morse": {
-                "cores": 0.6947000000000001
-            },
-            "musing_tereshkova": {
-                "cores": 0.9945000000000003
-            },
-            "nervous_kowalevski": {
-                "cores": 1.3271000000000002
-            },
-            "nginx": {
-                "cores": 4.342249979175347
-            },
-            "node-apps": {
-                "cores": 18.260502998750574
-            },
-            "notification-consumer": {
-                "cores": 0.09994177426072508
-            },
-            "notification-dst-consumer": {
-                "cores": 0.02673665139525202
-            },
-            "optimistic_curran": {
-                "cores": 1.6809999999999996
-            },
-            "optimistic_sanderson": {
-                "cores": 0.47149999999999986
-            },
-            "orc-compactor": {
-                "cores": 1.7152224489795906
-            },
-            "osquery-state-manager": {
-                "cores": 0.08562128279883381
-            },
-            "pgbouncer-6542": {
-                "cores": 0.00036434818825489113
-            },
-            "pgbouncer-6543": {
-                "cores": 1.4367829237817638
-            },
-            "pgbouncer-6545": {
-                "cores": 0.0082432319866722
-            },
-            "pgbouncer-statedb": {
-                "cores": 0.0020187838400667164
-            },
-            "pgbouncer-threatdb": {
-                "cores": 0.005060308204914609
-            },
-            "postgres-airflowdb": {
-                "cores": 0.14390249895876658
-            },
-            "postgres-configdb": {
-                "cores": 28.77387292794669
-            },
-            "postgres-metastoredb": {
-                "cores": 0.36153298625572733
-            },
-            "postgres-prestogatewaydb": {
-                "cores": 0.05475343606830542
-            },
-            "postgres-statedb": {
-                "cores": 0.021363598500624775
-            },
-            "postgres-threatdb": {
-                "cores": 0.0048138275718450285
-            },
-            "postgres-vaultdb": {
-                "cores": 0.1499897542690547
-            },
-            "presto": {
-                "cores": 1.268862973760929
-            },
-            "prestogateway": {
-                "cores": 0.030929237817576203
-            },
-            "query-runner": {
-                "cores": 0.4281289046230727
-            },
-            "quirky_pare": {
-                "cores": 0.046500000000000014
-            },
-            "quirky_ramanujan": {
-                "cores": 1.3096
-            },
-            "quizzical_hermann": {
-                "cores": 0.805
-            },
-            "ranger_admin": {
-                "cores": 0.06006272386505638
-            },
-            "rate-limiter": {
-                "cores": 0.02825835068721364
-            },
-            "redis-7000": {
-                "cores": 1.9661731361932455
-            },
-            "redis-7002": {
-                "cores": 0.2829875468554767
-            },
-            "redis-7004": {
-                "cores": 0.2863716784673054
-            },
-            "registry-listener": {
-                "cores": 0.05943860891295307
-            },
-            "registry-scanner": {
-                "cores": 0.13399591836734645
-            },
-            "relaxed_bassi": {
-                "cores": 1.0068000000000004
-            },
-            "relaxed_mestorf": {
-                "cores": 2.010500000000001
-            },
-            "rule-engine": {
-                "cores": 1.4670294044148275
-            },
-            "rule-enginecc": {
-                "cores": 1.3527932111620191
-            },
-            "ruleconverter": {
-                "cores": 0.0003922532278217436
-            },
-            "sad_kepler": {
-                "cores": 0.49
-            },
-            "side-query-decorator": {
-                "cores": 0.17838983756768034
-            },
-            "side-query-pipeline": {
-                "cores": 0.010148604748021681
-            },
-            "silly_jennings": {
-                "cores": 1.3847999999999998
-            },
-            "spark-master": {
-                "cores": 0.03279729279466888
-            },
-            "spark-worker": {
-                "cores": 17.341990753852507
-            },
-            "stoic_robinson": {
-                "cores": 0.9936999999999995
-            },
-            "sts-detection": {
-                "cores": 0.005819325281132849
-            },
-            "suspicious_buck": {
-                "cores": 1.9788999999999997
-            },
-            "suspicious_clarke": {
-                "cores": 1.9436999999999995
-            },
-            "sweet_wing": {
-                "cores": 1.3734
-            },
-            "tls": {
-                "cores": 91.14631940857986
-            },
-            "upbeat_kowalevski": {
-                "cores": 1.0092000000000003
-            },
-            "user-mgmt": {
-                "cores": 1.0561999999999996
-            },
-            "vault": {
-                "cores": 0.5394850895460227
-            },
-            "vibrant_hodgkin": {
-                "cores": 1.0073999999999999
-            },
-            "windows-state-manager": {
-                "cores": 0.08714960433152846
-            },
-            "wine": {
-                "cores": 0.03404468971261983
-            },
-            "wizardly_cori": {
-                "cores": 2.005300000000001
-            },
-            "wonderful_panini": {
-                "cores": 0.9994000000000003
-            },
-            "xenodochial_sinoussi": {
-                "cores": 1.6205999999999998
-            },
-            "xenodochial_yalow": {
-                "cores": 0.9956999999999997
-            },
-            "youthful_cohen": {
-                "cores": 1.0004999999999997
-            },
-            "youthful_swanson": {
-                "cores": 1.7317000000000005
-            },
-            "youthful_wing": {
-                "cores": 0.7480999999999998
-            },
-            "zealous_turing": {
-                "cores": 1.5357999999999998
-            },
-            "zen_babbage": {
-                "cores": 1.6478000000000006
-            },
-            "zookeeper": {
-                "cores": 0.02865201999167017
-            }
+      "container": {
+        "admiring_rhodes": {
+          "cores": 0.8368000000000003
+        },
+        "affectionate_yonath": {
+          "cores": 1.0026000000000002
+        },
+        "agitated_grothendieck": {
+          "cores": 1.0051
+        },
+        "agitated_panini": {
+          "cores": 1.0057999999999998
+        },
+        "airflow-redis": {
+          "cores": 0.004094543940025001
+        },
+        "airflow_airflow-scheduler_1": {
+          "cores": 0.19436555601832406
+        },
+        "airflow_airflow-triggerer_1": {
+          "cores": 0.11369958350687184
+        },
+        "airflow_airflow-webserver_1": {
+          "cores": 0.02385426905456058
+        },
+        "airflow_airflow-worker_1": {
+          "cores": 1.0040578925447674
+        },
+        "airflow_elasticsearch": {
+          "cores": 0.005876468138275764
+        },
+        "airflow_flower_1": {
+          "cores": 0.006162349021241083
+        },
+        "alluxio-master": {
+          "cores": 0.10832111620158245
+        },
+        "alluxio-worker": {
+          "cores": 0.012534527280299914
+        },
+        "amazing_agnesi": {
+          "cores": 0.9463000000000004
+        },
+        "ask-uptycs-server": {
+          "cores": 0.1887924198250728
+        },
+        "asset-catalog-db": {
+          "cores": 0.000006747188671386927
+        },
+        "charming_wozniak": {
+          "cores": 1.0968000000000004
+        },
+        "checksum-validator": {
+          "cores": 0.02534473136193234
+        },
+        "cloud-compliance-manager": {
+          "cores": 0.1799834235735119
+        },
+        "cloud-crossaccount-processor": {
+          "cores": 0.07305210329029596
+        },
+        "cloud-graph-processor": {
+          "cores": 0.11076776343190349
+        },
+        "cloud-graph-synchronizer": {
+          "cores": 0.05946955435235333
+        },
+        "cloudinstancemapper-consumer": {
+          "cores": 0.13853419408579762
+        },
+        "cloudpreprocessor": {
+          "cores": 0.08160458142440666
+        },
+        "cloudquery-consumer": {
+          "cores": 0.49126134943773453
+        },
+        "cloudquery-launcher": {
+          "cores": 0.023976468138275683
+        },
+        "cloudquery-logger": {
+          "cores": 0.07127688463140365
+        },
+        "cloudriskprocessor": {
+          "cores": 0.10301553519366932
+        },
+        "cloudvuln-consumer": {
+          "cores": 0.321965930862141
+        },
+        "compliance-check-runner": {
+          "cores": 0.0823302374010829
+        },
+        "compliance-summary-consumer": {
+          "cores": 0.3642210329029578
+        },
+        "consul": {
+          "cores": 0.22341295293627603
+        },
+        "cool_ptolemy": {
+          "cores": 1.0030999999999997
+        },
+        "cranky_curran": {
+          "cores": 0.6217999999999999
+        },
+        "cranky_feynman": {
+          "cores": 1.3994000000000002
+        },
+        "cranky_ganguly": {
+          "cores": 1.9673999999999991
+        },
+        "crazy_aryabhata": {
+          "cores": 0.7153999999999999
+        },
+        "data-archival": {
+          "cores": 24.4208161599334
+        },
+        "debezium": {
+          "cores": 0.01432744689712617
+        },
+        "debezium-consumer": {
+          "cores": 0.16615068721365997
+        },
+        "debezium-statedb": {
+          "cores": 0.07141407746772226
+        },
+        "decorators-consumer": {
+          "cores": 0.18352832153269513
+        },
+        "dreamy_mendel": {
+          "cores": 0.47899999999999987
+        },
+        "effective-permissions": {
+          "cores": 0.04075510204081654
+        },
+        "elasticsearch": {
+          "cores": 6.191015951686744
+        },
+        "epic_jepsen": {
+          "cores": 0.6078999999999999
+        },
+        "epic_shockley": {
+          "cores": 0.7913000000000003
+        },
+        "etl-db": {
+          "cores": 0.000006497292794668892
+        },
+        "event-alert-throttler": {
+          "cores": 0.01639083715118702
+        },
+        "fervent_lovelace": {
+          "cores": 1.3255999999999997
+        },
+        "festive_hopper": {
+          "cores": 1.0064000000000004
+        },
+        "filebeat": {
+          "cores": 148.93441299458576
+        },
+        "flamboyant_chaplygin": {
+          "cores": 0.8049
+        },
+        "flamboyant_cohen": {
+          "cores": 1.9421000000000002
+        },
+        "focused_edison": {
+          "cores": 1.7015999999999998
+        },
+        "frosty_jemison": {
+          "cores": 0.9454999999999997
+        },
+        "gallant_kowalevski": {
+          "cores": 1.8044999999999993
+        },
+        "gifted_kilby": {
+          "cores": 1.0056999999999996
+        },
+        "gracious_booth": {
+          "cores": 0.8606999999999997
+        },
+        "granulate-gprofiler": {
+          "cores": 0.49002415660141985
+        },
+        "graph-query-runner": {
+          "cores": 0.13244098292378206
+        },
+        "graph-redis": {
+          "cores": 0.006214577259475213
+        },
+        "great_beaver": {
+          "cores": 1.4757000000000005
+        },
+        "great_hypatia": {
+          "cores": 1.0039000000000005
+        },
+        "haproxy": {
+          "cores": 0.09136197417742625
+        },
+        "hdfs-dn": {
+          "cores": 0.2202267388588092
+        },
+        "hdfs-jn": {
+          "cores": 0.013527738442315654
+        },
+        "hdfs-nn": {
+          "cores": 0.290758808829655
+        },
+        "hdfs-wrapper": {
+          "cores": 0.032130362349021134
+        },
+        "heuristic_montalcini": {
+          "cores": 0.9902
+        },
+        "infallible_mayer": {
+          "cores": 1.8419999999999994
+        },
+        "infallible_nightingale": {
+          "cores": 1.9648999999999992
+        },
+        "infallible_rhodes": {
+          "cores": 0.9911999999999996
+        },
+        "ingestion": {
+          "cores": 2.4839815077051215
+        },
+        "kafka": {
+          "cores": 8.847101416076622
+        },
+        "kibana": {
+          "cores": 0.04613965014577246
+        },
+        "kubernetes-state-manager": {
+          "cores": 0.09306768013327814
+        },
+        "latest-snapshot-consumer": {
+          "cores": 0.13907201166180724
+        },
+        "laughing_sanderson": {
+          "cores": 1.1651000000000002
+        },
+        "logger": {
+          "cores": 2.1516703040399783
+        },
+        "logstash": {
+          "cores": 2.1269050395668514
+        },
+        "lucid_snyder": {
+          "cores": 0.7316000000000001
+        },
+        "metastore": {
+          "cores": 1.0438734693877532
+        },
+        "metricbeat": {
+          "cores": 0.02012453144523119
+        },
+        "mongo": {
+          "cores": 0.15190299875052082
+        },
+        "musing_ardinghelli": {
+          "cores": 0.0325
+        },
+        "musing_tesla": {
+          "cores": 0.9899
+        },
+        "mystifying_blackburn": {
+          "cores": 1.1330999999999996
+        },
+        "mystifying_dijkstra": {
+          "cores": 0.9985999999999996
+        },
+        "mystifying_ishizaka": {
+          "cores": 0.9979999999999997
+        },
+        "mystifying_thompson": {
+          "cores": 0.03909999999999998
+        },
+        "naughty_wescoff": {
+          "cores": 0.34730000000000005
+        },
+        "nginx": {
+          "cores": 4.359618908788007
+        },
+        "nice_wing": {
+          "cores": 1.9948
+        },
+        "nifty_beaver": {
+          "cores": 0.31880000000000003
+        },
+        "node-apps": {
+          "cores": 19.56637659308624
+        },
+        "notification-consumer": {
+          "cores": 0.10838421491045377
+        },
+        "notification-dst-consumer": {
+          "cores": 0.02777517700957937
+        },
+        "objective_dewdney": {
+          "cores": 0.4208000000000001
+        },
+        "objective_raman": {
+          "cores": 0.6194000000000003
+        },
+        "optimistic_allen": {
+          "cores": 0.9908999999999998
+        },
+        "optimistic_darwin": {
+          "cores": 0.9507999999999996
+        },
+        "orc-compactor": {
+          "cores": 1.61807996668055
+        },
+        "osquery-state-manager": {
+          "cores": 0.09269158683881709
+        },
+        "pensive_dubinsky": {
+          "cores": 1.3822999999999999
+        },
+        "pgbouncer-6542": {
+          "cores": 0.00043660974593917904
+        },
+        "pgbouncer-6543": {
+          "cores": 1.4035792169929184
+        },
+        "pgbouncer-6545": {
+          "cores": 0.009214618908787971
+        },
+        "pgbouncer-statedb": {
+          "cores": 0.002173261141191223
+        },
+        "pgbouncer-threatdb": {
+          "cores": 0.0050436068304872675
+        },
+        "postgres-airflowdb": {
+          "cores": 0.13193869221157745
+        },
+        "postgres-configdb": {
+          "cores": 29.268616284881297
+        },
+        "postgres-metastoredb": {
+          "cores": 0.3777240733027922
+        },
+        "postgres-prestogatewaydb": {
+          "cores": 0.07172011661807524
+        },
+        "postgres-statedb": {
+          "cores": 0.02500932944606382
+        },
+        "postgres-threatdb": {
+          "cores": 0.0045541024573094915
+        },
+        "postgres-vaultdb": {
+          "cores": 0.16220974593919127
+        },
+        "presto": {
+          "cores": 1.582229279466893
+        },
+        "prestogateway": {
+          "cores": 0.030887963348604726
+        },
+        "priceless_nash": {
+          "cores": 0.9833999999999997
+        },
+        "query-runner": {
+          "cores": 0.43892578092461393
+        },
+        "ranger_admin": {
+          "cores": 0.0631788004997918
+        },
+        "rate-limiter": {
+          "cores": 0.028515368596418077
+        },
+        "redis-7000": {
+          "cores": 1.854064056643059
+        },
+        "redis-7002": {
+          "cores": 0.3766578092461473
+        },
+        "redis-7004": {
+          "cores": 0.2919206164098297
+        },
+        "registry-listener": {
+          "cores": 0.06341799250312351
+        },
+        "registry-scanner": {
+          "cores": 0.16348804664723024
+        },
+        "relaxed_gauss": {
+          "cores": 0.9122000000000001
+        },
+        "rule-engine": {
+          "cores": 1.2317128696376496
+        },
+        "rule-enginecc": {
+          "cores": 1.5229980841316106
+        },
+        "ruleconverter": {
+          "cores": 0.00028379841732611386
+        },
+        "side-query-decorator": {
+          "cores": 0.2101952103290298
+        },
+        "side-query-pipeline": {
+          "cores": 0.010896709704289914
+        },
+        "silly_poitras": {
+          "cores": 1.0004999999999997
+        },
+        "spark-master": {
+          "cores": 0.04446089129529364
+        },
+        "spark-worker": {
+          "cores": 16.598586797167837
+        },
+        "strange_mirzakhani": {
+          "cores": 1.0153999999999999
+        },
+        "strange_wozniak": {
+          "cores": 0.9368000000000003
+        },
+        "sts-detection": {
+          "cores": 0.005233111203665172
+        },
+        "tls": {
+          "cores": 100.44757955018731
+        },
+        "trusting_wu": {
+          "cores": 1.0070000000000003
+        },
+        "upbeat_lalande": {
+          "cores": 1.0197
+        },
+        "user-mgmt": {
+          "cores": 1.0836
+        },
+        "vault": {
+          "cores": 0.43586434818825515
+        },
+        "vibrant_roentgen": {
+          "cores": 0.9176000000000001
+        },
+        "vigilant_brahmagupta": {
+          "cores": 1.0247
+        },
+        "windows-state-manager": {
+          "cores": 0.09356072469804255
+        },
+        "wine": {
+          "cores": 0.03409550187421902
+        },
+        "wonderful_torvalds": {
+          "cores": 2.0953000000000013
+        },
+        "xenodochial_montalcini": {
+          "cores": 1.0022000000000002
+        },
+        "zookeeper": {
+          "cores": 0.06300287380258233
         }
+      }
+    },
+    "charts": {
+      "Live assets": [
+        {
+          "$oid": "64fdbfc78f2439c74a811833"
+        }
+      ],
+      "Kafka lag for all groups": [
+        {
+          "$oid": "64fdbfc78f2439c74a811835"
+        }
+      ],
+      "Process node ram used percent": [
+        {
+          "$oid": "64fdbfc78f2439c74a81183a"
+        }
+      ],
+      "Data node ram used percent": [
+        {
+          "$oid": "64fdbfc78f2439c74a81183e"
+        }
+      ],
+      "Postgres node ram used percentage": [
+        {
+          "$oid": "64fdbfc78f2439c74a811840"
+        }
+      ],
+      "Memory consumed by eventsdbingestion": [
+        {
+          "$oid": "64fdbfc78f2439c74a811842"
+        }
+      ],
+      "Kafka disk used percentage": [
+        {
+          "$oid": "64fdbfc78f2439c74a811844"
+        }
+      ],
+      "Memory consumed by orc-compaction": [
+        {
+          "$oid": "64fdbfc78f2439c74a811846"
+        }
+      ],
+      "Compliance summary consumer memory consumption": [
+        {
+          "$oid": "64fdbfc78f2439c74a811848"
+        }
+      ],
+      "Memory consumed by logger": [
+        {
+          "$oid": "64fdbfc78f2439c74a81184a"
+        }
+      ],
+      "Kafka memory used percentage": [
+        {
+          "$oid": "64fdbfc78f2439c74a811856"
+        }
+      ],
+      "Memory consumed by trino": [
+        {
+          "$oid": "64fdbfc78f2439c74a81185b"
+        }
+      ],
+      "Memory consumed by osqueryingestion": [
+        {
+          "$oid": "64fdbfc78f2439c74a81185e"
+        }
+      ],
+      "Memory consumed by spark-worker": [
+        {
+          "$oid": "64fdbfc78f2439c74a811865"
+        }
+      ],
+      "Memory consumed by ruleengine": [
+        {
+          "$oid": "64fdbfc78f2439c74a811868"
+        }
+      ],
+      "Memory consumed by configdb": [
+        {
+          "$oid": "64fdbfc78f2439c74a811872"
+        }
+      ],
+      "Memory consumed by data archival": [
+        {
+          "$oid": "64fdbfc78f2439c74a811876"
+        }
+      ],
+      "Debezium memory usage": [
+        {
+          "$oid": "64fdbfc88f2439c74a811878"
+        }
+      ],
+      "Memory consumed by redis server": [
+        {
+          "$oid": "64fdbfc88f2439c74a81187a"
+        }
+      ],
+      "Memory consumed by tls": [
+        {
+          "$oid": "64fdbfc88f2439c74a81187d"
+        }
+      ],
+      "Airflow memory usage": [
+        {
+          "$oid": "64fdbfc88f2439c74a811882"
+        }
+      ],
+      "Postgres node cpu busy percent": [
+        {
+          "$oid": "64fdbfc88f2439c74a811884"
+        }
+      ],
+      "Process node cpu busy percent": [
+        {
+          "$oid": "64fdbfc88f2439c74a811888"
+        }
+      ],
+      "Data node cpu busy percent": [
+        {
+          "$oid": "64fdbfc88f2439c74a811896"
+        }
+      ],
+      "Postgres-configdb cpu used percentage": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118a0"
+        }
+      ],
+      "Pgbouncer cpu used percentage": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118a5"
+        }
+      ],
+      "Cpu consumed by eventsdbingestion": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118b0"
+        }
+      ],
+      "Cpu consumed by pushgateway": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118b2"
+        }
+      ],
+      "Cpu consumed by ruleengine": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118b8"
+        }
+      ],
+      "Kafka cpu used percentage": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118bf"
+        }
+      ],
+      "Cpu used by data-archival": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118c9"
+        }
+      ],
+      "Cpu consumed by osqueryingestion": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118cd"
+        }
+      ],
+      "Cpu consumed by redis server": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118d5"
+        }
+      ],
+      "Cpu consumed by orc-compaction": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118db"
+        }
+      ],
+      "Cpu consumed by spark-worker": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118df"
+        }
+      ],
+      "Cpu consumed by logger": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118e1"
+        }
+      ],
+      "Compliance summary consumer cpu consumption": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118ed"
+        }
+      ],
+      "Cpu consumed by trino": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118f5"
+        }
+      ],
+      "Debezium cpu usage": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118f8"
+        }
+      ],
+      "Cpu consumed by spark-master": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118fa"
+        }
+      ],
+      "Cpu consumed by tls": [
+        {
+          "$oid": "64fdbfc88f2439c74a8118fd"
+        }
+      ],
+      "Airflow cpu usage": [
+        {
+          "$oid": "64fdbfc88f2439c74a811909"
+        }
+      ],
+      "Spark inject and drain rate agent osquery": [
+        {
+          "$oid": "64fdbfc88f2439c74a81190b"
+        }
+      ],
+      "Spark lag for agent osquery": [
+        {
+          "$oid": "64fdbfc88f2439c74a811910"
+        }
+      ],
+      "Spark inject and drain rate events": [
+        {
+          "$oid": "64fdbfc88f2439c74a811913"
+        }
+      ],
+      "Spark lag for events": [
+        {
+          "$oid": "64fdbfc88f2439c74a811915"
+        }
+      ],
+      "Inject and drain rate db-alerts group": [
+        {
+          "$oid": "64fdbfc88f2439c74a811917"
+        }
+      ],
+      "Kafka lag for db-alerts group": [
+        {
+          "$oid": "64fdbfc88f2439c74a811919"
+        }
+      ],
+      "Inject drain rates for ruleengine group": [
+        {
+          "$oid": "64fdbfc88f2439c74a81191b"
+        }
+      ],
+      "Kafka lag for ruleengine group": [
+        {
+          "$oid": "64fdbfc88f2439c74a81191e"
+        }
+      ],
+      "Kafka inject and drain rates for debezium group": [
+        {
+          "$oid": "64fdbfc88f2439c74a811922"
+        }
+      ],
+      "Aggregate lag": [
+        {
+          "$oid": "64fdbfc88f2439c74a811924"
+        }
+      ],
+      "Loading failed : panel 154 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a811926"
+        }
+      ],
+      "Active client connections": [
+        {
+          "$oid": "64fdbfc88f2439c74a811928"
+        }
+      ],
+      "Loading failed : panel 130 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a811932"
+        }
+      ],
+      "Loading failed : panel 128 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a811934"
+        }
+      ],
+      "Redis client connections for tls": [
+        {
+          "$oid": "64fdbfc88f2439c74a811936"
+        }
+      ],
+      "Loading failed : panel 108 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a811938"
+        }
+      ],
+      "Loading failed : panel 110 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a81193a"
+        }
+      ],
+      "Top 10 redis client connections by app": [
+        {
+          "$oid": "64fdbfc88f2439c74a81193c"
+        }
+      ],
+      "Loading failed : panel 112 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a81193e"
+        }
+      ],
+      "Loading failed : panel 78 not loaded in given time": [
+        {
+          "$oid": "64fdbfc88f2439c74a811940"
+        }
+      ],
+      "Overall container memory and cpu usage": [
+        {
+          "$oid": "64fdbfc88f2439c74a811942"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811945"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811948"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a81194b"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a81194e"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811951"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811954"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811957"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a81195a"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a81195d"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811960"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811963"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811966"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a811969"
+        }
+      ],
+      "Overall memory and cpu usages": [
+        {
+          "$oid": "64fdbfc88f2439c74a81196c"
+        },
+        {
+          "$oid": "64fdbfc88f2439c74a81196f"
+        }
+      ],
+      "Compaction status": [
+        {
+          "$oid": "64fdbfc88f2439c74a811971"
+        }
+      ]
     }
-}
+  }

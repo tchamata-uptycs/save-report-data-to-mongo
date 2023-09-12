@@ -87,10 +87,10 @@ class take_screenshots:
 				screenshot_image = Image.open(io.BytesIO(screenshot))
 				average_pixel_value = np.mean(np.array(screenshot_image))
 				if average_pixel_value < 84:
-					title = f"LOADING FAILED : panel {t_id} failed to display data"
+					title = f"BLANK CHART ERROR : panel {t_id} failed to display data"
 					print("url : " , url)
 			except Exception as e:
-				title = f"LOADING FAILED : panel {t_id} not loaded in given time"
+				title = f"LOADING TIMEOUT : panel {t_id} not loaded in given time"
 				print("url : " , url)
 			print(f"{title} : {t_id}")
 			try:driver.save_screenshot(f'{self.SCREENSHOT_DIR}/{t_id}_1_{title}.png')
