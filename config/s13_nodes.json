@@ -1,5 +1,6 @@
 {
     "stack": "S13",
+    "domain":"alphacentauri",
     "stack_url": "https://alphacentauri.uptycs.net/",
     "elk_url": "192.168.140.73",
     "grafana_table_ids": [
