@@ -1,5 +1,6 @@
 {
     "stack": "S1",
+    "domain":"jupiter",
     "stack_url": "https://jupiter.uptycs.net/",
     "elk_url": "192.168.134.50",
     "grafana_table_ids": [

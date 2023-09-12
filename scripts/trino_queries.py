@@ -23,11 +23,18 @@ class TRINO:
         save_dict = {}
         ssh_client = paramiko.SSHClient()
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        n = self.stack_details['dnodes'][0]
+
+        ist_time_format = '%Y-%m-%d %H:%M'
+        start_time_utc = (datetime.strptime(self.curr_ist_start_time, ist_time_format))
+        end_time_utc = (datetime.strptime(self.curr_ist_end_time, ist_time_format))
+        
 
         try:
-            ssh_client.connect("s4c1dn1", 22, "abacus", "abacus")
+            ssh_client.connect(n, 22, "abacus", "abacus")
+            command = f"sudo -u monkey TRINO_PASSWORD=ac11a741-42b8-45ba-87e0-3d0b5113a0f5 /opt/uptycs/cloud/utilities/trino-cli --insecure --server https://localhost:5665 --schema upt_system --user upt_read_{self.stack_details['domain']} --catalog uptycs --password --truststore-password sslpassphrase --truststore-path /opt/uptycs/etc/presto/presto.jks --execute \"select source,query_operation,count(*) from presto_query_logs where upt_time > timestamp '{start_time_utc}' and upt_time< timestamp '{end_time_utc}' group by source,query_operation order by source;\""
 
-            stdin, stdout, stderr = ssh_client.exec_command("sudo -u monkey TRINO_PASSWORD=ac11a741-42b8-45ba-87e0-3d0b5113a0f5 /opt/uptycs/cloud/utilities/trino-cli --insecure --server https://localhost:5665 --schema upt_system --user upt_read_mercury --catalog uptycs --password --truststore-password sslpassphrase --truststore-path /opt/uptycs/etc/presto/presto.jks --execute \"select source,query_operation,count(*) from presto_query_logs where upt_time > timestamp '2023-09-04 18:53:19' and upt_time< timestamp '2023-09-05 06:53:47' group by source,query_operation order by source;\"")
+            stdin, stdout, stderr = ssh_client.exec_command(command)
 
             output = stdout.read().decode('utf-8')
             errors = stderr.read().decode('utf-8')

@@ -1,6 +1,7 @@
 {
     "stack": "S4",
     "stack_url": "https://mercury.uptycs.net/",
+    "domain":"mercury",
     "elk_url": "192.168.136.53",
     "grafana_table_ids": [
         116,
