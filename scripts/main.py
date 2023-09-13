@@ -69,7 +69,7 @@ if __name__ == "__main__":
             complete_charts_data_dict=charts_obj.capture_charts_and_save()
         #----------------Saving the json data to mongo--------------------
         print("Saving data to mongoDB ...")
-        details_for_report =  {
+        load_details =  {
             "stack":test_env_json_details["stack"],
             "sprint": variables['sprint'],
             "build": variables['build'],
@@ -81,11 +81,11 @@ if __name__ == "__main__":
             "run":run,
             }
         with open(f"{prom_con_obj.base_stack_config_path}/load_specific_details.json" , 'r') as file:
-            load_specific_details = json.load(file)        
+            load_specific_details = json.load(file)
+        load_details.update(load_specific_details[variables['load_name']])
 
         final_data_to_save = {
-            "details":details_for_report,
-            "load_specific_details":load_specific_details[variables['load_name']],
+            "load_details":load_details,
             "test_environment_details":test_env_json_details,
             "disk_space_usages":disk_space_usage_dict,
             "charts":complete_charts_data_dict

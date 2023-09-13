@@ -71,15 +71,18 @@ def create_input_form():
     for key,val in details.items():
         print(f"{key} : {val}")
 
-    user_input = input("Are you sure you want to continue with these details (y/n): ").strip().lower()
+    user_input = input("Are you sure you want to continue with these details? This will make permenant changes in the database (y/n): ").strip().lower()
 
     if user_input =='y':
         print("Continuing ...")
         prom_con_obj = configuration(test_env_file_name=details['test_env_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
         return details,prom_con_obj
     elif user_input =='n':
-        print("OK! Enter the details again ...")
+        print("OK! Enter the modified details ...")
         return create_input_form()
+    else:
+        print("INVALID INPUT!")
+        return None,None
     
 
 if __name__ == "__main__":

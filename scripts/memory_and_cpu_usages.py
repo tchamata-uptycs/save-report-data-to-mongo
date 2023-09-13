@@ -136,11 +136,18 @@ class MC_comparisions:
         container_memory_data =  self.extract_container_data(container_memory_queries,memory_tag,memory_unit)
         container_cpu_data =  self.extract_container_data(container_cpu_queries,cpu_tag,cpu_unit)
         
-        current_build_data={}
-        current_build_data["overall_nodes_average_memory_usage"]=overall_memory_data
-        current_build_data["overall_nodes_average_cpu_usage"]=overall_cpu_data
-        current_build_data["node_level_average_memory_usage"]=memory_data
-        current_build_data["node_level_average_cpu_usage"]=cpu_data
-        current_build_data["container_level_average_memory_usage"] = container_memory_data
-        current_build_data["container_level_average_cpu_usage"] = container_cpu_data
+        current_build_data={
+            "node_level_resource_utilization": {
+                "memory":memory_data,
+                "cpu" : cpu_data,
+            },
+            "container_level_resource_utilization":{
+                "memory":container_memory_data,
+                "cpu" : container_cpu_data,
+            },
+            "node_level_total_average_resource_utilization":{
+                "memory":overall_memory_data,
+                "cpu":overall_cpu_data
+            }
+        }
         return current_build_data
