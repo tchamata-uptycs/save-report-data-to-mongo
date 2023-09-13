@@ -4,10 +4,9 @@ import json
 import paramiko
 
 class DISK:
-    def __init__(self,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,prom_con_obj):
+    def __init__(self,curr_ist_start_time,curr_ist_end_time,prom_con_obj):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
-        self.save_current_build_data_path=save_current_build_data_path
         self.test_env_file_path=prom_con_obj.test_env_file_path
         self.PROMETHEUS = prom_con_obj.prometheus_path
         self.API_PATH = prom_con_obj.prom_point_api_path
@@ -115,13 +114,8 @@ class DISK:
         return current_build_data
     
     def make_calculations(self):
-        with open(self.save_current_build_data_path, 'r') as file:
-            current_build_data = json.load(file)
-        
+        current_build_data={}
         current_build_data=self.save(self.calculate_disk_usage('kafka'),current_build_data)
         current_build_data=self.save(self.calculate_disk_usage('hdfs'),current_build_data)
-        #current_build_data=self.save(self.pg_disk_calc(),current_build_data)
-
-        with open(self.save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4)  
+        return current_build_data
     

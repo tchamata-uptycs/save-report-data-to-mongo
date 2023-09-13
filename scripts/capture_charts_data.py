@@ -25,10 +25,9 @@ lag_chart_queries={}
 other_chart_queries={}
 
 class Charts:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,add_extra_time_for_charts_at_end_in_min):
+    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,add_extra_time_for_charts_at_end_in_min):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
-        self.save_current_build_data_path=save_current_build_data_path
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_api_path

@@ -2,9 +2,8 @@ import paramiko
 import json
 
 class kafka_topics:
-    def __init__(self,save_path,root_path,prom_con_obj):
-        self.save_path = save_path
-        self.local_script_path = f'{root_path}/other/kafka_topics.py'
+    def __init__(self,prom_con_obj):
+        self.local_script_path = f'{prom_con_obj.ROOT_PATH}/other/kafka_topics.py'
         self.host = prom_con_obj.execute_kafka_topics_script_in
         self.port=prom_con_obj.ssh_port
         self.username = prom_con_obj.abacus_username
@@ -28,16 +27,10 @@ class kafka_topics:
             stdin, stdout, stderr = ssh.exec_command(remote_command)
             exit_status = stdout.channel.recv_exit_status()
             output = stdout.read().decode()
-
             output_list = [line for line in output.split('\n') if line.strip()]
-
-            with open(self.save_path, 'r') as file:
-                current_build_data = json.load(file)
-            current_build_data["kafka_topics"] = output_list
-            print("Saving kafka topics ...")
-            with open(self.save_path, 'w') as file:
-                json.dump(current_build_data, file, indent=4)  
         except Exception as e:
             print("ERROR : " , str(e))
+            return []
         finally:
             ssh.close()
+            return output_list

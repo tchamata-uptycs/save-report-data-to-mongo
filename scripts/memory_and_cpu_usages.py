@@ -32,10 +32,9 @@ container_memory_queries = {'container' : "sum(uptycs_docker_mem_used{}/(1000*10
 container_cpu_queries = {'container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",}
 
 class MC_comparisions:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path):
+    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
-        self.save_current_build_data_path=save_current_build_data_path
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_api_path
@@ -137,13 +136,11 @@ class MC_comparisions:
         container_memory_data =  self.extract_container_data(container_memory_queries,memory_tag,memory_unit)
         container_cpu_data =  self.extract_container_data(container_cpu_queries,cpu_tag,cpu_unit)
         
-        with open(self.save_current_build_data_path, 'r') as file:
-            current_build_data = json.load(file)
+        current_build_data={}
         current_build_data["overall_nodes_average_memory_usage"]=overall_memory_data
         current_build_data["overall_nodes_average_cpu_usage"]=overall_cpu_data
         current_build_data["node_level_average_memory_usage"]=memory_data
         current_build_data["node_level_average_cpu_usage"]=cpu_data
         current_build_data["container_level_average_memory_usage"] = container_memory_data
         current_build_data["container_level_average_cpu_usage"] = container_cpu_data
-        with open(self.save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4)  # indent for pretty formatting
+        return current_build_data

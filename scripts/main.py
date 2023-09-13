@@ -1,5 +1,4 @@
 import sys
-from pathlib import Path
 import time
 import pymongo
 from datetime import datetime, timedelta
@@ -8,7 +7,6 @@ from datetime import datetime
 from memory_and_cpu_usages import MC_comparisions
 from osquery.add_kafka_topics import kafka_topics
 from disk_space import DISK
-from helper import push_data_to_mongo
 from input import create_input_form
 from capture_charts_data import Charts
 
@@ -47,7 +45,30 @@ if __name__ == "__main__":
                 max_run = max(document['details']['run'] , max_run)
             run=max_run+1
             print(f"you have already saved the details for this load in this sprint, setting run value to {run}")
-        #------------------------------------------------------------------------
+        #-------------------------disk space--------------------------
+        if variables["load_name"] != "ControlPlane":
+            print("Performing disk space calculations ...")
+            calc = DISK(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+            disk_space_usage_dict=calc.make_calculations()
+        #--------------------------------- add kafka topics ---------------------------------------
+        kafka_topics_list=None
+        if variables["load_type"]=="Osquery":
+            print("Add kafka topics ...")
+            kafka_obj = kafka_topics(prom_con_obj=prom_con_obj)
+            kafka_topics_list = kafka_obj.add_topics_to_report()
+        #--------------------------------cpu and mem node-wise---------------------------------------
+        if variables["make_cpu_mem_comparisions"]==True:
+            print("Fetching resource usages data ...")
+            comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+            mem_cpu_usages_dict=comp.make_comparisions()
+        #--------------------------------Capture charts data---------------------------------------
+        if variables["add_screenshots"]==True:
+            print("Fetching charts data ...")
+            charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
+                    add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
+            complete_charts_data_dict=charts_obj.capture_charts_and_save()
+        #----------------Saving the json data to mongo--------------------
+        print("Saving data to mongoDB ...")
         details_for_report =  {
             "stack":test_env_json_details["stack"],
             "sprint": variables['sprint'],
@@ -59,49 +80,26 @@ if __name__ == "__main__":
             "load_end_time_ist" : f"{end_time_str}",
             "run":run,
             }
-        #------------------------- Add details, Load specific details, test environment details -------------------
-
         with open(f"{prom_con_obj.base_stack_config_path}/load_specific_details.json" , 'r') as file:
             load_specific_details = json.load(file)        
-        current_build_data = {"details":details_for_report , "load_specific_details":load_specific_details[variables['load_name']] ,"test_environment_details":test_env_json_details}
-        ROOT_PATH = prom_con_obj.ROOT_PATH
-        save_current_build_data_path = Path(f'{prom_con_obj.base_stack_config_path}/current_report_data.json')
-        with open(save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4) 
 
-        #-------------------------disk space--------------------------
+        final_data_to_save = {
+            "details":details_for_report,
+            "load_specific_details":load_specific_details[variables['load_name']],
+            "test_environment_details":test_env_json_details,
+            "disk_space_usages":disk_space_usage_dict,
+            "charts":complete_charts_data_dict
+        }
+        if kafka_topics_list:
+            final_data_to_save.update({"kafka_topics":kafka_topics_list})
+        final_data_to_save.update(mem_cpu_usages_dict)
 
-        if variables["load_name"] != "ControlPlane":
-            print("Performing disk space calculations ...")
-            calc = DISK(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
-                        save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
-            
-            calc.make_calculations()
-
-        #--------------------------------- add kafka topics ---------------------------------------
-
-        if variables["load_type"]=="Osquery":
-            print("Add kafka topics ...")
-            kafka_obj = kafka_topics(save_path=save_current_build_data_path,prom_con_obj=prom_con_obj,root_path=ROOT_PATH)
-            kafka_obj.add_topics_to_report()
-
-        #--------------------------------cpu and mem node-wise---------------------------------------
-
-        if variables["make_cpu_mem_comparisions"]==True:
-            print("Fetching resource usages data ...")
-            comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
-                    save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
-            comp.make_comparisions()
-        #--------------------------------Capture charts data---------------------------------------
-        if variables["add_screenshots"]==True:
-            print("Fetching charts data ...")
-            charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
-                    save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj,
-                    add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
-            complete_charts_data_dict=charts_obj.capture_charts_and_save()
-        #----------------Saving the json data to mongo--------------------
-        print("Saving data to mongoDB ...")
-        push_data_to_mongo(variables['load_name'],variables['load_type'],save_current_build_data_path,mongo_connection_string,complete_charts_data_dict)
+        try:
+            inserted_id = collection.insert_one(final_data_to_save).inserted_id
+            print(f"Document pushed to mongo successfully into database:{variables['load_type']}, collection:{variables['load_name']} with id {inserted_id}")
+        except Exception as e:
+            print(f"ERROR : Failed to insert document into database {variables['load_name']}, collection:{variables['load_name']} , {str(e)}")
+        client.close()
         #-----------------------------------------------------------------
         f3_at = time.perf_counter()
         print(f"Collecting the report data took : {round(f3_at - s_at,2)} seconds in total")
