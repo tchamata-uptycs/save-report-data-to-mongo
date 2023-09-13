@@ -3,13 +3,6 @@
     "domain":"mercury",
     "stack_url": "https://mercury.uptycs.net/",
     "elk_url": "192.168.136.53",
-    "grafana_table_ids": [
-        116,
-        118,
-        122
-    ],
-    "dashboard_uid": "flZtYNq4z",
-    "dashboard_name": "load_test",
     "pnodes": [
         "s4c1pn1",
         "s4c1pn2",

@@ -1,46 +1,8 @@
 import os
 import json
-from collections import defaultdict
-import shutil,socket,paramiko
+import socket,paramiko
 import concurrent.futures
 import pymongo
-from bson import ObjectId
-from gridfs import GridFS
-
-def save_screenshots_to_mongo(directory_path, grafana_ids, table_ids,collection,inserted_id,db):
-    all_shots = os.listdir(directory_path)
-    mapping = defaultdict(lambda: defaultdict(lambda: []))
-    for shot in all_shots:
-        panel_id, n, file_name = shot.split('_')
-        panel_id,n = int(panel_id),int(n)
-        title, _ = file_name.split('.')
-        mapping[panel_id]['title'] = [title]
-        mapping[panel_id]['images'].append(shot)
-    
-    for index, panel in enumerate(grafana_ids):
-        if panel in table_ids:
-            mapping[panel]['images'].sort(key=lambda s: int(s.split('_')[1]))
-        if panel not in mapping:continue
-        title = mapping[panel]['title'][0].capitalize()
-        print(f'{index+1}:({panel}){title}')            
-        fs = GridFS(db)
-        filter = {"_id": ObjectId(inserted_id)} 
-        collection.update_one(filter, {"$set": {f"charts.{title}": []}})
-        for filename in mapping[panel]['images']:     
-            image_file_path = os.path.join(directory_path, filename)
-            try:
-                with open(image_file_path, "rb") as image_file:
-                    image_data = image_file.read()
-                file_id = fs.put(image_data, filename=f"{title}.png")
-                update = {"$push": {f"charts.{title}": file_id}}
-                collection.update_one(filter, update)
-            except Exception as e:
-                print(f"Error processing image {filename}: {e}")
-    try:
-        shutil.rmtree(directory_path)
-        print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
-    except Exception as e:
-        print(f"Error deleting screenshots folder: {str(e)}")
 
 def extract_node_detail(data,node_type,prom_con_obj):
     port=prom_con_obj.ssh_port
@@ -123,17 +85,16 @@ def extract_stack_details(nodes_file_path,prom_con_obj):
     with open(nodes_file_path,'w') as file:
         json.dump(data,file,indent=4)
 
-def push_data_to_mongo(load_name,load_type,json_path, connection_string,directory_path, grafana_ids, table_ids):
+def push_data_to_mongo(load_name,load_type,json_path, connection_string,complete_charts_data_dict):
     try:
         client = pymongo.MongoClient(connection_string)
         db=client[load_type+"_LoadTests"]
         collection = db[load_name]
         with open(json_path,'r') as file:
             doc_to_insert=json.load(file)
+        doc_to_insert["charts"] = complete_charts_data_dict
         inserted_id = collection.insert_one(doc_to_insert).inserted_id
-        if grafana_ids is not None:
-            save_screenshots_to_mongo(directory_path, grafana_ids, table_ids,collection,inserted_id,db)
         client.close()
         print(f"Document pushed to mongo successfully into database:{load_type}, collection:{load_name} with id {inserted_id}")
-    except:
-        print(f"ERROR : Failed to insert document into database {load_name}, collection:{load_name}")
+    except Exception as e:
+        print(f"ERROR : Failed to insert document into database {load_name}, collection:{load_name} , {str(e)}")

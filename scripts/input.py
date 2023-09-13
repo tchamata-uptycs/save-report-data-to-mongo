@@ -23,12 +23,9 @@ def create_input_form():
             "sprint": 111,
             "build": 111111,
             "add_extra_time_for_charts_at_end_in_min": 10,
-            "add_disk_space_usage": True,
             "add_screenshots": True,
-            "add_kafka_topics": True,
             "make_cpu_mem_comparisions": True,
             "fetch_node_parameters_before_generating_report" :  False,
-            "save_report_data_to_database" :  False
             }
 
     print("Please enter the following load details ...")

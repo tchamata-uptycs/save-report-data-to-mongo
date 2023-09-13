@@ -3,13 +3,6 @@
     "domain":"alphacentauri",
     "stack_url": "https://alphacentauri.uptycs.net/",
     "elk_url": "192.168.140.73",
-    "grafana_table_ids": [
-        106,
-        108,
-        110
-    ],
-    "dashboard_uid": "xBggOCkIk",
-    "dashboard_name": "kubequeryload",
     "pnodes": [
         "s13pn1",
         "s13pn2",

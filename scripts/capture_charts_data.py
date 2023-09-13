@@ -1,10 +1,8 @@
 import requests
 from datetime import datetime
 import json
-#-------------------------------------------------------------
-HOST = 'Host'
 
-memory_chart_queries = {f"{HOST}" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100) by (host_name)',
+memory_chart_queries = {f"Host" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100) by (host_name)',
            'rule-engine' : "avg(uptycs_app_memory{app_name=~'.*ruleEngine.*'}) by (host_name)",
            'osquery-ingestion' : "sum(uptycs_app_memory{app_name=~'osqueryIngestion'}) by (host_name)",
            "kafka" : "avg(uptycs_app_memory{app_name=~'kafka'}) by (host_name)",
@@ -14,7 +12,7 @@ memory_chart_queries = {f"{HOST}" : 'avg((uptycs_memory_used/uptycs_total_memory
            "logger" : "sum(uptycs_app_memory{app_name=~'.*osqLogger-1.*'}) by (host_name)"
            }
 
-cpu_chart_queries = {f"{HOST}" : 'avg(100-uptycs_idle_cpu) by (host_name)',
+cpu_chart_queries = {f"Host" : 'avg(100-uptycs_idle_cpu) by (host_name)',
            'rule-engine' : "avg(uptycs_app_cpu{app_name=~'.*ruleEngine.*'}) by (host_name)",
            'osquery-ingestion' : "avg(uptycs_app_cpu{app_name=~'osqueryIngestion'}) by (host_name)",
            "kafka" : "avg(uptycs_app_cpu{app_name=~'kafka'}) by (host_name)",
@@ -55,20 +53,10 @@ class Charts:
             final[query] = result
         return final
             
-    
-    def capture_charts_and_save(self):
-        memory_charts_data =  self.extract_charts_data(memory_chart_queries)
-        cpu_charts_data =  self.extract_charts_data(cpu_chart_queries)
-        lag_charts_data =  self.extract_charts_data(lag_chart_queries)
-        other_charts_data =  self.extract_charts_data(other_chart_queries)
-        
-        with open(self.save_current_build_data_path, 'r') as file:
-            current_build_data = json.load(file)
-        current_build_data['charts']={
-            "memory_charts_data":memory_charts_data,
-            "cpu_charts_data":cpu_charts_data,
-            "lag_charts_data":lag_charts_data,
-            "other_charts_data":other_charts_data
+    def capture_charts_and_save(self): 
+        return {
+            "memory_charts_data":self.extract_charts_data(memory_chart_queries),
+            "cpu_charts_data":self.extract_charts_data(cpu_chart_queries),
+            "lag_charts_data":self.extract_charts_data(lag_chart_queries),
+            "other_charts_data":self.extract_charts_data(other_chart_queries)
         }
-        with open(self.save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4)  

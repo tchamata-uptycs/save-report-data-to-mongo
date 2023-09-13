@@ -3,13 +3,6 @@
     "domain":"jupiter",
     "stack_url": "https://jupiter.uptycs.net/",
     "elk_url": "192.168.134.50",
-    "grafana_table_ids": [
-        78,
-        80,
-        82
-    ],
-    "dashboard_uid": "0xQAxECVk",
-    "dashboard_name": "osqueryloadtest",
     "pnodes": [
         "s1c1pn1",
         "s1c1pn2",
