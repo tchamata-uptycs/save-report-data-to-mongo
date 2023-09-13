@@ -25,13 +25,15 @@ lag_chart_queries={}
 other_chart_queries={}
 
 class Charts:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path):
+    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,add_extra_time_for_charts_at_end_in_min):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
         self.save_current_build_data_path=save_current_build_data_path
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_api_path
+        self.add_extra_time_for_charts_at_end_in_min=add_extra_time_for_charts_at_end_in_min
+        self.add_extra_time_for_charts_at_start_in_min=10
 
     def extract_charts_data(self,queries):
         final=dict()
@@ -40,12 +42,14 @@ class Charts:
         end_time = (datetime.strptime(self.curr_ist_end_time, ist_time_format))
         stu = int(start_time.timestamp())
         etu = int(end_time.timestamp())
+        ste = stu - (self.add_extra_time_for_charts_at_start_in_min * (60))
+        ete = etu + (self.add_extra_time_for_charts_at_end_in_min * (60))
 
         for query in queries:
             PARAMS = {
                 'query': queries[query],
-                'start': stu,
-                'end': etu,
+                'start': ste,
+                'end': ete,
                 'step':15
             }
             response = requests.get(self.PROMETHEUS + self.API_PATH, params=PARAMS)

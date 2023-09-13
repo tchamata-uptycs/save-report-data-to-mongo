@@ -12,7 +12,6 @@ load_type_options = {
 all_files = os.listdir(configuration().base_stack_config_path)
 test_env_path_options = sorted([file for file in all_files if file.endswith('.json') and '_nodes' in file])
 
-
 def create_input_form():
     details = {
             "test_env_file_name":'s1_nodes.json',
@@ -37,34 +36,34 @@ def create_input_form():
                 for i,val in enumerate(load_type_options.keys()):
                     helper_text += f"\n {i} : {val}"
                 helper_text += "\n select one option " 
-                input_index = int(input(f"Enter {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
+                input_index = int(input(f"Enter : {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
                 input_value = list(load_type_options.keys())[input_index]
             elif key == "load_name":
                 helper_text=''
                 for i,val in enumerate(load_type_options[details["load_type"]]):
                     helper_text += f"\n {i} : {val}"
                 helper_text += "\n select one option "
-                input_index = int(input(f"Enter {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
+                input_index = int(input(f"Enter : {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
                 input_value = load_type_options[details["load_type"]][input_index]
             elif key == "test_env_file_name":
                 helper_text=''
                 for i,val in enumerate(test_env_path_options):
                     helper_text += f"\n {i} : {val}"
                 helper_text += "\n select one option " 
-                input_index = int(input(f"Enter {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
+                input_index = int(input(f"Enter : {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
                 input_value = test_env_path_options[input_index]
             else:
-                input_value=str(input(f"Enter {' '.join(str(key).split('_')).title()}  (example: {value}) : ").strip())
+                input_value=str(input(f"Enter : {' '.join(str(key).split('_')).title()}  (example: {value}) : ").strip())
         
         elif Type==bool:
             helper_text=''
             for i,val in enumerate(bool_options):
                 helper_text += f"\n {i} : {val}"
             helper_text += "\n select one option " 
-            input_index = int(input(f"Enter {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
+            input_index = int(input(f"Enter : {' '.join(str(key).split('_')).title()} {helper_text} : ").strip())
             input_value = bool_options[input_index]
         elif Type == int:
-            input_value=int(input(f"Enter {' '.join(str(key).split('_')).title()}  (example: {value}) : ").strip())
+            input_value=int(input(f"Enter : {' '.join(str(key).split('_')).title()}  (example: {value}) : ").strip())
 
         details[key] = Type(input_value)
 

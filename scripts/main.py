@@ -19,7 +19,7 @@ if __name__ == "__main__":
         print("Received NoneType objects, terminating the program ...")
         sys.exit()
     TEST_ENV_FILE_PATH   = prom_con_obj.test_env_file_path
-    print("Test environment file path : " + TEST_ENV_FILE_PATH)
+    print("Test environment file path is : " + TEST_ENV_FILE_PATH)
     #-------------------------------------------------------------------------------------------------
     start_time = datetime.strptime(variables["start_time_str_ist"], "%Y-%m-%d %H:%M")
     end_time = start_time + timedelta(hours=variables["load_duration_in_hrs"])
@@ -88,15 +88,16 @@ if __name__ == "__main__":
         #--------------------------------cpu and mem node-wise---------------------------------------
 
         if variables["make_cpu_mem_comparisions"]==True:
-            print("Fetching resource usages ...")
+            print("Fetching resource usages data ...")
             comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
                     save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
             comp.make_comparisions()
         #--------------------------------Capture charts data---------------------------------------
         if variables["add_screenshots"]==True:
-            print("Capturing charts data ...")
+            print("Fetching charts data ...")
             charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
-                    save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
+                    save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj,
+                    add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
             complete_charts_data_dict=charts_obj.capture_charts_and_save()
         #----------------Saving the json data to mongo--------------------
         print("Saving data to mongoDB ...")
