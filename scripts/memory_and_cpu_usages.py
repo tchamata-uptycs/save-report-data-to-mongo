@@ -1,8 +1,6 @@
 import requests
 from datetime import datetime
 import json
-from docx import Document
-from collections import defaultdict
 #-------------------------------------------------------------
 HOST = 'Host'
 memory_tag = "Memory"
@@ -34,10 +32,9 @@ container_memory_queries = {'container' : "sum(uptycs_docker_mem_used{}/(1000*10
 container_cpu_queries = {'container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",}
 
 class MC_comparisions:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,show_gb_cores=True):
+    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
-        self.show_gb_cores=show_gb_cores
         self.save_current_build_data_path=save_current_build_data_path
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
@@ -71,21 +68,36 @@ class MC_comparisions:
                     hostname = str(hostname)[:-1]
                 values = [float(i[1]) for i in res['values']]   
                 avg = sum(values) / len(values)
-                final[query][hostname] = {"percentage":avg}
+                minimum = min(values)
+                maximum = max(values)
+                final[query][hostname] = {"percentage":{"average":avg , "minimum":minimum , "maximum":maximum}}
+                final[query][hostname][unit]={}
                 if tag == memory_tag:
-                    final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['ram']) / 100
+                    final[query][hostname][unit]={
+                        'average':avg * float(self.nodes_data[hostname]['ram']) / 100,
+                        'minimum':minimum * float(self.nodes_data[hostname]['ram']) / 100,
+                        'maximum':maximum * float(self.nodes_data[hostname]['ram']) / 100
+                    }
                 else:
                     if query == HOST:
-                        final[query][hostname][unit] = avg * float(self.nodes_data[hostname]['cores']) / 100
+                        final[query][hostname][unit]={
+                            'average':avg * float(self.nodes_data[hostname]['cores']) / 100,
+                            'minimum':minimum * float(self.nodes_data[hostname]['cores']) / 100,
+                            'maximum':maximum * float(self.nodes_data[hostname]['cores']) / 100
+                        }
                     else:
-                        final[query][hostname][unit] = avg/100
+                        final[query][hostname][unit]={
+                            'average':avg/100,
+                            'minimum': minimum/100,
+                            'maximum': maximum/100
+                        }
 
         #calculate overall pnodes,dnodes,pgnodes usage
         new_data = final[HOST]
         for node_type in ["pnodes" , "dnodes" , "pgnodes"]:
             new_sum=0
             for node in self.nodes_data[node_type]:
-                new_sum+=new_data[node][unit]
+                new_sum+=new_data[node][unit]["average"]
             return_overall[node_type] = {f"{unit}":new_sum}
         return final,return_overall
 
@@ -110,35 +122,28 @@ class MC_comparisions:
                 container_name = res['metric']['container_name']
                 values = [float(i[1]) for i in res['values']]   
                 avg = sum(values) / len(values)
-                if tag == memory_tag:
-                    final[query][container_name] = {f"{unit}":avg}
-                else:
-                    final[query][container_name] = {f"{unit}":avg/100}
-
+                minimum = min(values)
+                maximum = max(values)
+                if tag == cpu_tag:
+                    avg = avg/100
+                    minimum = minimum/100
+                    maximum = maximum/100
+                final[query][container_name] = {f"{unit}":{"average":avg , "minimum":minimum , "maximum":maximum}}
         return final 
     
     def make_comparisions(self):
-        memory_data =  {'tag':memory_tag,'unit':memory_unit}
-        cpu_data   =   {'tag':cpu_tag,'unit':cpu_unit}
-        
-        memory_data["current"] , memory_data["overall_current"] = self.extract_data(memory_queries,memory_tag,memory_unit)
-        cpu_data["current"] , cpu_data["overall_current"] = self.extract_data(cpu_queries,cpu_tag,cpu_unit)
-        
-        container_memory_data = {'current' : self.extract_container_data(container_memory_queries,memory_tag,memory_unit),
-                                'tag':memory_tag,'unit':memory_unit}
-
-        container_cpu_data = {'current' : self.extract_container_data(container_cpu_queries,cpu_tag,cpu_unit),
-                            'tag':cpu_tag,'unit':cpu_unit}
+        memory_data,overall_memory_data = self.extract_data(memory_queries,memory_tag,memory_unit)
+        cpu_data,overall_cpu_data = self.extract_data(cpu_queries,cpu_tag,cpu_unit)
+        container_memory_data =  self.extract_container_data(container_memory_queries,memory_tag,memory_unit)
+        container_cpu_data =  self.extract_container_data(container_cpu_queries,cpu_tag,cpu_unit)
         
         with open(self.save_current_build_data_path, 'r') as file:
             current_build_data = json.load(file)
-
-        current_build_data["overall_nodes_average_memory_usage"]=memory_data["overall_current"]
-        current_build_data["overall_nodes_average_cpu_usage"]=cpu_data["overall_current"]
-        current_build_data["node_level_average_memory_usage"]=memory_data["current"]
-        current_build_data["node_level_average_cpu_usage"]=cpu_data["current"]
-        current_build_data["container_level_average_memory_usage"] = container_memory_data["current"]
-        current_build_data["container_level_average_cpu_usage"] = container_cpu_data["current"]
-
+        current_build_data["overall_nodes_average_memory_usage"]=overall_memory_data
+        current_build_data["overall_nodes_average_cpu_usage"]=overall_cpu_data
+        current_build_data["node_level_average_memory_usage"]=memory_data
+        current_build_data["node_level_average_cpu_usage"]=cpu_data
+        current_build_data["container_level_average_memory_usage"] = container_memory_data
+        current_build_data["container_level_average_cpu_usage"] = container_cpu_data
         with open(self.save_current_build_data_path, 'w') as file:
             json.dump(current_build_data, file, indent=4)  # indent for pretty formatting

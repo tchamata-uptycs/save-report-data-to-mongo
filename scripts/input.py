@@ -82,7 +82,7 @@ def create_input_form():
         prom_con_obj = configuration(test_env_file_name=details['test_env_file_name'] , fetch_node_parameters_before_generating_report=details['fetch_node_parameters_before_generating_report'])
         return details,prom_con_obj
     elif user_input =='n':
-        print("Enter the details again to continue ...")
+        print("OK! Enter the details again ...")
         return create_input_form()
     
 

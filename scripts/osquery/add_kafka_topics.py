@@ -22,7 +22,9 @@ class kafka_topics:
             sftp.put(self.local_script_path, remote_script_path)
             print(f"The script '{remote_script_path}' has been uploaded to the remote server.")
             remote_command = f'python3 {remote_script_path}'
-            ssh.exec_command("pip install kafka-python")
+            pip_command="pip install kafka-python"
+            stdin, stdout, stderr = ssh.exec_command(pip_command)
+            print(stdout.read().decode('utf-8'))
             stdin, stdout, stderr = ssh.exec_command(remote_command)
             exit_status = stdout.channel.recv_exit_status()
             output = stdout.read().decode()

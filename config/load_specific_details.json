@@ -1,7 +1,7 @@
 {
     "MultiCustomer" : {
-        "total_number_of_customers": "120",
-        "number_of_customers_with_auto_exception_enabled": "0",
+        "total_number_of_customers": 120,
+        "number_of_customers_with_auto_exception_enabled": 0,
         "test_title": "Multiple Customer Rule Engine and Control Plane Load",
         "total_assets": "80K Control Plane +15K Multi customer",
         "records_sent_per_hour_per_customer": 8164800,
@@ -10,8 +10,8 @@
         "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
     },
     "SingleCustomer":{
-        "total_number_of_customers": "1",
-        "number_of_customers_with_auto_exception_enabled": "1",
+        "total_number_of_customers": 1,
+        "number_of_customers_with_auto_exception_enabled": 1,
         "test_title": "Single Customer Rule Engine Load",
         "total_assets": 24576,
         "records_sent_per_hour": "1.592 B",
@@ -19,16 +19,17 @@
         "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
     },
     "ControlPlane":{
+        "total_number_of_customers": 1,
         "test_title": "Single Customer Control Plane Load",
         "total_assets": "200K"
     },
 
     "Osquery+CloudQuery":{},
     "kubequery_SingleCustomer":{
-        "Number of Customers": "1",
-        "Test type": "Kubequery and K8sosquery Load",
-        "Total Assets": "1200",
-        "Total Clusters": "4"
+        "total_number_of_customers": 1,
+        "test_title": "Kubequery and K8sosquery Load",
+        "total_assets": 1200,
+        "total_number_of_clusters": 4
     },
     "AWS_MultiCustomer":{
         "total_number_of_customers": "25",

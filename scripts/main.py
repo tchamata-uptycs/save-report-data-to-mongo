@@ -11,6 +11,7 @@ from osquery.add_kafka_topics import kafka_topics
 from disk_space import DISK
 from helper import push_data_to_mongo
 from input import create_input_form
+from capture_charts_data import Charts
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
@@ -19,7 +20,7 @@ if __name__ == "__main__":
         print("Received NoneType objects, terminating the program ...")
         sys.exit()
     TEST_ENV_FILE_PATH   = prom_con_obj.test_env_file_path
-    print("test environment file path : " + TEST_ENV_FILE_PATH)
+    print("Test environment file path : " + TEST_ENV_FILE_PATH)
     #-------------------------------------------------------------------------------------------------
     start_time = datetime.strptime(variables["start_time_str_ist"], "%Y-%m-%d %H:%M")
     end_time = start_time + timedelta(hours=variables["load_duration_in_hrs"])
@@ -41,7 +42,7 @@ if __name__ == "__main__":
             skip_fetching_data=True
     if skip_fetching_data == False:
         run=1
-        documents_with_same_sprint = list(collection.find({"details.sprint":139} , {"details.run":1}))
+        documents_with_same_sprint = list(collection.find({"details.sprint":variables['sprint']}))
         if len(documents_with_same_sprint)>0:
             max_run = 0
             for document in documents_with_same_sprint :
@@ -92,32 +93,37 @@ if __name__ == "__main__":
 
         #---------------------------take screenshots and add to report------------------------------
         grafana_ids=None
-        if variables["add_screenshots"]==True and variables['save_report_data_to_database'] == True:
-            print("Collecting screenshots ...")
-            dash_board_path= f'/d/{test_env_json_details["dashboard_uid"]}/{test_env_json_details["dashboard_name"]}'
-            ss_object = take_screenshots(start_time_str_ist=variables["start_time_str_ist"],end_time_str=end_time_str,
-                                SCREENSHOT_DIR=SCREENSHOT_DIR,table_ids=test_env_json_details["grafana_table_ids"],
-                                start_margin=10,
-                                end_margin=variables["add_extra_time_for_charts_at_end_in_min"],
-                                elk_url = test_env_json_details["elk_url"],
-                                prom_con_obj=prom_con_obj,
-                                dash_board_path=dash_board_path
-                                )
-            grafana_ids=ss_object.capture_screenshots_add_get_ids()
-            f_at = time.perf_counter()
-            print(f"Collecting the Screenshots took : {round(f_at - s_at,2)} seconds in total")     
+        # if variables["add_screenshots"]==True and variables['save_report_data_to_database'] == True:
+        #     print("Collecting screenshots ...")
+        #     dash_board_path= f'/d/{test_env_json_details["dashboard_uid"]}/{test_env_json_details["dashboard_name"]}'
+        #     ss_object = take_screenshots(start_time_str_ist=variables["start_time_str_ist"],end_time_str=end_time_str,
+        #                         SCREENSHOT_DIR=SCREENSHOT_DIR,table_ids=test_env_json_details["grafana_table_ids"],
+        #                         start_margin=10,
+        #                         end_margin=variables["add_extra_time_for_charts_at_end_in_min"],
+        #                         elk_url = test_env_json_details["elk_url"],
+        #                         prom_con_obj=prom_con_obj,
+        #                         dash_board_path=dash_board_path
+        #                         )
+        #     grafana_ids=ss_object.capture_screenshots_add_get_ids()
+        #     f_at = time.perf_counter()
+        #     print(f"Collecting the Screenshots took : {round(f_at - s_at,2)} seconds in total")     
 
         #--------------------------------cpu and mem node-wise---------------------------------------
 
         if variables["make_cpu_mem_comparisions"]==True:
             print("Fetching resource usages ...")
             comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
-                    save_current_build_data_path=save_current_build_data_path,show_gb_cores=False,prom_con_obj=prom_con_obj)
+                    save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
             comp.make_comparisions()
-
+        #--------------------------------Capture charts data---------------------------------------
+        if variables["add_screenshots"]==True:
+            print("Capturing charts data ...")
+            charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,
+                    save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
+            charts_obj.capture_charts_and_save()
         #----------------Saving the json data to mongo--------------------
         if variables['save_report_data_to_database'] == True:
-            print("Savig data to mongoDB ...")
+            print("Saving data to mongoDB ...")
             push_data_to_mongo(variables['load_name'],variables['load_type'],save_current_build_data_path,mongo_connection_string,SCREENSHOT_DIR, grafana_ids,test_env_json_details["grafana_table_ids"])
         #-----------------------------------------------------------------
         f3_at = time.perf_counter()
