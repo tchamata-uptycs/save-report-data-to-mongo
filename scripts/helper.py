@@ -1,36 +1,6 @@
-import os
 import json
-from collections import defaultdict
-import shutil,socket,paramiko
+import socket,paramiko
 import concurrent.futures
-import pymongo
-
-def add_screenshots_to_docx(directory_path, grafana_ids, table_ids):
-    all_shots = os.listdir(directory_path)
-    mapping = defaultdict(lambda: defaultdict(lambda: []))
-    for shot in all_shots:
-        panel_id, n, topic = shot.split('_')
-        panel_id,n = int(panel_id),int(n)
-        title, _ = topic.split('.')
-        mapping[panel_id]['title'] = [title]
-        mapping[panel_id]['images'].append(shot)
-    
-    for index, panel in enumerate(grafana_ids):
-        if panel in table_ids:
-            mapping[panel]['images'].sort(key=lambda s: int(s.split('_')[1]))
-        if panel not in mapping:continue
-        title = mapping[panel]['title'][0].capitalize()
-        print(f'{index+1}:({panel}){title}')            
-        for filename in mapping[panel]['images']:
-            file_path = os.path.join(directory_path, filename)
-            try:pass 
-            except Exception as e:
-                print(f"Error processing image {filename}: {e}")
-    try:
-        shutil.rmtree(directory_path)
-        print(f"Folder '{directory_path}' and its contents have been deleted successfully.")
-    except Exception as e:
-        print(f"Error deleting folder: {str(e)}")
 
 def extract_node_detail(data,node_type,prom_con_obj):
     port=prom_con_obj.ssh_port
@@ -41,16 +11,12 @@ def extract_node_detail(data,node_type,prom_con_obj):
         return_dict[hostname] = {}
         return_dict[hostname]['storage'] = {}
         try:
-            # ip_address = socket.gethostbyname(hostname)
-            # return_dict[hostname]['lan_ip'] = ip_address
-            # print(f"The IP address of {hostname} is {ip_address}")
             client = paramiko.SSHClient()
             client.load_system_host_keys() 
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             try:
                 client.connect(hostname, port, username, password)
                 commands = {"ram" : "free -g | awk '/Mem:/ {print $2}'" , "cores":"lscpu | awk '/^CPU\(s\):/ {print $2}'"}
-
                 for label,command in commands.items():
                     stdin, stdout, stderr = client.exec_command(command)
                     out = stdout.read().decode('utf-8').strip()
@@ -80,33 +46,26 @@ def extract_node_detail(data,node_type,prom_con_obj):
 
             except Exception as e:
                 print(f'ERROR : Unable connect to {hostname}' , e)
-
             finally:
                 client.close()
         except socket.gaierror:
             print(f"Could not resolve {hostname}")
-
         if 'c2' in hostname:return_dict[hostname]['clst'] = "2"
         else:return_dict[hostname]['clst'] = "1"
-
     return return_dict
 
 def extract_stack_details(nodes_file_path,prom_con_obj):
     with open(nodes_file_path,'r') as file:
         data = json.load(file)
-    
     def extract_node_detail_wrapper(data, node_type, prom_con_obj):
         return extract_node_detail(data, node_type, prom_con_obj)
-
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         future1 = executor.submit(extract_node_detail_wrapper, data, 'pnodes', prom_con_obj)
         future2 = executor.submit(extract_node_detail_wrapper, data, 'dnodes', prom_con_obj)
         future3 = executor.submit(extract_node_detail_wrapper, data, 'pgnodes', prom_con_obj)
         future4 = executor.submit(extract_node_detail_wrapper, data, 'monitoring_node', prom_con_obj)
         future5 = executor.submit(extract_node_detail_wrapper, data, 'other_nodes', prom_con_obj)
-
         completed_futures, _ = concurrent.futures.wait([future1, future2, future3, future4 , future5])
-
     pnodes = future1.result()
     dnodes = future2.result()
     pgnodes = future3.result()
@@ -118,18 +77,5 @@ def extract_stack_details(nodes_file_path,prom_con_obj):
     data.update(pgnodes)
     data.update(monitoring_node)
     data.update(other_nodes)
-
     with open(nodes_file_path,'w') as file:
         json.dump(data,file,indent=4)
-
-def push_data_to_mongo(load_name,load_type,json_path, connection_string):
-    try:
-        client = pymongo.MongoClient(connection_string)
-        db=client[load_type+"_LoadTests"]
-        collection = db[load_name]
-        with open(json_path,'r') as file:
-            doc_to_insert=json.load(file)
-        inserted_id = collection.insert_one(doc_to_insert).inserted_id
-        print(f"Document pushed to mongo successfully into database:{load_type}, collection:{load_name} with id {inserted_id}")
-    except:
-        print(f"Failed to insert document into database {load_name}, collection:{load_name}")

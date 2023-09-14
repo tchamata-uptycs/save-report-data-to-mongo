@@ -12,7 +12,7 @@ class configuration:
         self.ssh_port = 22  # SSH port (default is 22)
         self.abacus_username = 'abacus'  
         self.abacus_password = 'abacus' 
-        self.panel_loading_time_threshold_sec=45
+        self.panel_loading_time_threshold_sec=120
         self.thread_len=10
         self.ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         self.base_stack_config_path = f"{self.ROOT_PATH}/config"

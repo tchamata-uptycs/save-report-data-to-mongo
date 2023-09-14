@@ -4,17 +4,15 @@ import json
 import paramiko
 
 class DISK:
-    def __init__(self,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,prom_con_obj):
+    def __init__(self,curr_ist_start_time,curr_ist_end_time,prom_con_obj):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
-        self.save_current_build_data_path=save_current_build_data_path
         self.test_env_file_path=prom_con_obj.test_env_file_path
         self.PROMETHEUS = prom_con_obj.prometheus_path
         self.API_PATH = prom_con_obj.prom_point_api_path
         self.port=prom_con_obj.ssh_port
         self.username = prom_con_obj.abacus_username
         self.password  = prom_con_obj.abacus_password
-
         with open(self.test_env_file_path, 'r') as file:
             self.stack_details = json.load(file)
 
@@ -80,9 +78,7 @@ class DISK:
             elif TYPE=='kafka':
                 percentage_used_before_load=used_space_before_load[node]
                 percentage_used_after_load=used_space_after_load[node]
-
             used_space=(percentage_used_after_load-percentage_used_before_load)*total*(1024/100)
-
             save_dict[node] = {f"{TYPE}_total_space_configured_in_tb" : total , f"{TYPE}_disk_used_percentage_before_load" :percentage_used_before_load,f"{TYPE}_disk_used_percentage_after_load":percentage_used_after_load,f"{TYPE} used_space_during_load_in_gb":used_space}
 
         return TYPE,save_dict
@@ -104,12 +100,12 @@ class DISK:
                     if errors:
                         print("Errors:")
                         print(errors)
-                except:
+                except Exception as e:
+                    print("ERROR : ",str(e))
                     output=0
                 finally:
                     ssh_client.close()
                 save_dict[partition][config_node]=output
-
         return 'pg',save_dict
 
     def save(self,_ ,current_build_data):
@@ -118,13 +114,8 @@ class DISK:
         return current_build_data
     
     def make_calculations(self):
-        with open(self.save_current_build_data_path, 'r') as file:
-            current_build_data = json.load(file)
-        
+        current_build_data={}
         current_build_data=self.save(self.calculate_disk_usage('kafka'),current_build_data)
         current_build_data=self.save(self.calculate_disk_usage('hdfs'),current_build_data)
-        current_build_data=self.save(self.pg_disk_calc(),current_build_data)
-
-        with open(self.save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4)  
+        return current_build_data
     
