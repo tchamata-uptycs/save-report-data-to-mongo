@@ -32,17 +32,17 @@ if __name__ == "__main__":
     db=client[variables['load_type']+"_LoadTests"]
     collection = db[variables["load_name"]]
 
-    documents_with_same_load_time_and_stack = collection.find({"details.sprint":variables['sprint'] ,"details.stack":test_env_json_details["stack"] , "details.load_start_time_ist":f"{variables['start_time_str_ist']}" , "details.load_duration_in_hrs":variables['load_duration_in_hrs']})
+    documents_with_same_load_time_and_stack = collection.find({"load_details.sprint":variables['sprint'] ,"load_details.stack":test_env_json_details["stack"] , "load_details.load_start_time_ist":f"{variables['start_time_str_ist']}" , "load_details.load_duration_in_hrs":variables['load_duration_in_hrs']})
     if len(list(documents_with_same_load_time_and_stack)) > 0:
         print(f"ERROR! A document with load time ({variables['start_time_str_ist']}) - ({end_time_str}) on {test_env_json_details['stack']} for this sprint for {variables['load_type']}-{variables['load_name']} load is already available.")
         skip_fetching_data=True
     if skip_fetching_data == False:
         run=1
-        documents_with_same_sprint = list(collection.find({"details.sprint":variables['sprint']}))
+        documents_with_same_sprint = list(collection.find({"load_details.sprint":variables['sprint']}))
         if len(documents_with_same_sprint)>0:
             max_run = 0
             for document in documents_with_same_sprint :
-                max_run = max(document['details']['run'] , max_run)
+                max_run = max(document['load_details']['run'] , max_run)
             run=max_run+1
             print(f"you have already saved the details for this load in this sprint, setting run value to {run}")
         #-------------------------disk space--------------------------
@@ -57,16 +57,14 @@ if __name__ == "__main__":
             kafka_obj = kafka_topics(prom_con_obj=prom_con_obj)
             kafka_topics_list = kafka_obj.add_topics_to_report()
         #--------------------------------cpu and mem node-wise---------------------------------------
-        if variables["make_cpu_mem_comparisions"]==True:
-            print("Fetching resource usages data ...")
-            comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
-            mem_cpu_usages_dict=comp.make_comparisions()
+        print("Fetching resource usages data ...")
+        comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+        mem_cpu_usages_dict=comp.make_comparisions()
         #--------------------------------Capture charts data---------------------------------------
-        if variables["add_screenshots"]==True:
-            print("Fetching charts data ...")
-            charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
-                    add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
-            complete_charts_data_dict=charts_obj.capture_charts_and_save()
+        print("Fetching charts data ...")
+        charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
+                add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
+        complete_charts_data_dict=charts_obj.capture_charts_and_save()
         #----------------Saving the json data to mongo--------------------
         print("Saving data to mongoDB ...")
         load_details =  {

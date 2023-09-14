@@ -22,8 +22,6 @@ def create_input_form():
             "sprint": 111,
             "build": 111111,
             "add_extra_time_for_charts_at_end_in_min": 10,
-            "add_screenshots": True,
-            "make_cpu_mem_comparisions": True,
             "fetch_node_parameters_before_generating_report" :  False,
             }
 
@@ -83,7 +81,6 @@ def create_input_form():
     else:
         print("INVALID INPUT!")
         return None,None
-    
 
 if __name__ == "__main__":
     details = create_input_form()

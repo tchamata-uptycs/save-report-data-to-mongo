@@ -1,8 +1,6 @@
-import os
 import json
 import socket,paramiko
 import concurrent.futures
-import pymongo
 
 def extract_node_detail(data,node_type,prom_con_obj):
     port=prom_con_obj.ssh_port
@@ -54,13 +52,11 @@ def extract_node_detail(data,node_type,prom_con_obj):
             print(f"Could not resolve {hostname}")
         if 'c2' in hostname:return_dict[hostname]['clst'] = "2"
         else:return_dict[hostname]['clst'] = "1"
-
     return return_dict
 
 def extract_stack_details(nodes_file_path,prom_con_obj):
     with open(nodes_file_path,'r') as file:
         data = json.load(file)
-    
     def extract_node_detail_wrapper(data, node_type, prom_con_obj):
         return extract_node_detail(data, node_type, prom_con_obj)
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
@@ -81,20 +77,5 @@ def extract_stack_details(nodes_file_path,prom_con_obj):
     data.update(pgnodes)
     data.update(monitoring_node)
     data.update(other_nodes)
-
     with open(nodes_file_path,'w') as file:
         json.dump(data,file,indent=4)
-
-def push_data_to_mongo(load_name,load_type,json_path, connection_string,complete_charts_data_dict):
-    try:
-        client = pymongo.MongoClient(connection_string)
-        db=client[load_type+"_LoadTests"]
-        collection = db[load_name]
-        with open(json_path,'r') as file:
-            doc_to_insert=json.load(file)
-        doc_to_insert["charts"] = complete_charts_data_dict
-        inserted_id = collection.insert_one(doc_to_insert).inserted_id
-        client.close()
-        print(f"Document pushed to mongo successfully into database:{load_type}, collection:{load_name} with id {inserted_id}")
-    except Exception as e:
-        print(f"ERROR : Failed to insert document into database {load_name}, collection:{load_name} , {str(e)}")
