@@ -1,6 +1,5 @@
 import requests
 from datetime import datetime
-import json
 
 memory_chart_queries = {f"Host" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100) by (host_name)',
            'rule-engine' : "avg(uptycs_app_memory{app_name=~'.*ruleEngine.*'}) by (host_name)",
@@ -25,7 +24,7 @@ lag_chart_queries={}
 other_chart_queries={}
 
 class Charts:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,add_extra_time_for_charts_at_end_in_min):
+    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,add_extra_time_for_charts_at_end_in_min,fs):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
         self.prom_con_obj=prom_con_obj
@@ -33,6 +32,7 @@ class Charts:
         self.API_PATH = self.prom_con_obj.prom_api_path
         self.add_extra_time_for_charts_at_end_in_min=add_extra_time_for_charts_at_end_in_min
         self.add_extra_time_for_charts_at_start_in_min=10
+        self.fs=fs
 
     def extract_charts_data(self,queries):
         final=dict()
@@ -53,6 +53,9 @@ class Charts:
             }
             response = requests.get(self.PROMETHEUS + self.API_PATH, params=PARAMS)
             result = response.json()['data']['result']
+            for host in result:
+                file_id = self.fs.put(str(host["values"]).encode('utf-8'), filename='array.json')
+                host["values"] = file_id
             final[query] = result
         return final
             

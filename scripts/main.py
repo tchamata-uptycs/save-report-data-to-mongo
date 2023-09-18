@@ -9,6 +9,7 @@ from osquery.add_kafka_topics import kafka_topics
 from disk_space import DISK
 from input import create_input_form
 from capture_charts_data import Charts
+from gridfs import GridFS
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
@@ -29,12 +30,14 @@ if __name__ == "__main__":
     #---------------------Check for previous runs------------------------------------
     mongo_connection_string=prom_con_obj.mongo_connection_string
     client = pymongo.MongoClient(mongo_connection_string)
-    db=client[variables['load_type']+"_LoadTests"]
-    collection = db[variables["load_name"]]
+    database_name = variables['load_type']+"_LoadTests"
+    collection_name = variables["load_name"]
+    db=client[database_name]
+    collection = db[collection_name]
 
     documents_with_same_load_time_and_stack = collection.find({"load_details.sprint":variables['sprint'] ,"load_details.stack":test_env_json_details["stack"] , "load_details.load_start_time_ist":f"{variables['start_time_str_ist']}" , "load_details.load_duration_in_hrs":variables['load_duration_in_hrs']})
     if len(list(documents_with_same_load_time_and_stack)) > 0:
-        print(f"ERROR! A document with load time ({variables['start_time_str_ist']}) - ({end_time_str}) on {test_env_json_details['stack']} for this sprint for {variables['load_type']}-{variables['load_name']} load is already available.")
+        print(f"ERROR! A document with load time ({variables['start_time_str_ist']}) - ({end_time_str}) on {test_env_json_details['stack']} for this sprint for {database_name}-{collection_name} load is already available.")
         skip_fetching_data=True
     if skip_fetching_data == False:
         run=1
@@ -61,9 +64,10 @@ if __name__ == "__main__":
         comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
         mem_cpu_usages_dict=comp.make_comparisions()
         #--------------------------------Capture charts data---------------------------------------
+        fs = GridFS(db)
         print("Fetching charts data ...")
         charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
-                add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
+                add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"],fs=fs)
         complete_charts_data_dict=charts_obj.capture_charts_and_save()
         #----------------Saving the json data to mongo--------------------
         print("Saving data to mongoDB ...")
@@ -94,9 +98,9 @@ if __name__ == "__main__":
 
         try:
             inserted_id = collection.insert_one(final_data_to_save).inserted_id
-            print(f"Document pushed to mongo successfully into database:{variables['load_type']}, collection:{variables['load_name']} with id {inserted_id}")
+            print(f"Document pushed to mongo successfully into database:{database_name}, collection:{collection_name} with id {inserted_id}")
         except Exception as e:
-            print(f"ERROR : Failed to insert document into database {variables['load_name']}, collection:{variables['load_name']} , {str(e)}")
+            print(f"ERROR : Failed to insert document into database {database_name}, collection:{collection_name} , {str(e)}")
         client.close()
         #-----------------------------------------------------------------
         f3_at = time.perf_counter()
