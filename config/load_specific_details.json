@@ -24,7 +24,15 @@
         "total_assets": "200K"
     },
 
-    "Osquery+CloudQuery":{},
+    "Osquery+CloudQuery":{
+        "total_number_of_customers":120,
+        "test_title": "MultiCustoemr Rule Engine Load, Control Plane Load and Cloud Query Load",
+        "total_assets": "52k (12k Multicustomer + 40 k Control plane)",
+        "records_sent_per_hour_per_customer": 6480000,
+        "input_file": "rhel7-6tab_12rec.log",
+        "events_table_name": "dns_lookup_events, socket_events, process_events, process_file_events"
+    },
+
     "kubequery_SingleCustomer":{
         "total_number_of_customers": 1,
         "test_title": "Kubequery and K8sosquery Load",

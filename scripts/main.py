@@ -106,4 +106,3 @@ if __name__ == "__main__":
         f3_at = time.perf_counter()
         print(f"Collecting the report data took : {round(f3_at - s_at,2)} seconds in total")
     
-
