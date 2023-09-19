@@ -63,14 +63,14 @@ if __name__ == "__main__":
         #--------------------------------cpu and mem node-wise---------------------------------------
         print("Fetching resource usages data ...")
         comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
-        mem_cpu_usages_dict=comp.make_comparisions()
+        mem_cpu_usages_dict,overall_usage_dict=comp.make_comparisions()
         #--------------------------------Capture charts data---------------------------------------
         fs = GridFS(db)
         print("Fetching charts data ...")
         charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
                 add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"],fs=fs)
         complete_charts_data_dict=charts_obj.capture_charts_and_save()
-        #----------------Saving the json data to mongo--------------------
+        #-------------------------- Saving the json data to mongo -------------------------
         print("Saving data to mongoDB ...")
         load_details =  {
             "stack":test_env_json_details["stack"],
@@ -89,12 +89,17 @@ if __name__ == "__main__":
 
         final_data_to_save = {
             "load_details":load_details,
-            "test_environment_details":test_env_json_details,
-            "disk_space_usages":disk_space_usage_dict,
-            "charts":complete_charts_data_dict
+            "test_environment_details":test_env_json_details
         }
+
+        final_data_to_save.update(overall_usage_dict)
+
+        if disk_space_usage_dict:
+            final_data_to_save.update({"disk_space_usages":disk_space_usage_dict})
         if kafka_topics_list:
             final_data_to_save.update({"kafka_topics":kafka_topics_list})
+
+        final_data_to_save.update({"charts":complete_charts_data_dict})
         final_data_to_save.update(mem_cpu_usages_dict)
 
         try:
