@@ -1,32 +1,23 @@
 import requests
 from datetime import datetime
 import json
-#-------------------------------------------------------------
+
 HOST = 'Host'
 memory_tag = "Memory"
 cpu_tag = "CPU"
 memory_unit = "GB"
 cpu_unit = "cores"
 
-memory_queries = {f"{HOST}" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100) by (host_name)',
-           'rule-engine' : "avg(uptycs_app_memory{app_name=~'.*ruleEngine.*'}) by (host_name)",
-           'osquery-ingestion' : "sum(uptycs_app_memory{app_name=~'osqueryIngestion'}) by (host_name)",
-           "kafka" : "avg(uptycs_app_memory{app_name=~'kafka'}) by (host_name)",
-           "trino" : "avg(uptycs_app_memory{app_name='trino'}) by (host_name)",
-           "tls" : "avg(uptycs_app_memory{app_name='tls'}) by (host_name)",
-           "eventsdb-ingestion" : "avg(uptycs_app_memory{app_name=~'eventsDbIngestion'}) by (host_name)",
-           "logger" : "sum(uptycs_app_memory{app_name=~'.*osqLogger-1.*'}) by (host_name)"
-           }
+app_names={
+            "sum":[ ".*osqLogger.*", "kafka",".*ruleEngine.*","tls","eventsDbIngestion"  , "trino" , "osqueryIngestion"],
+            "avg":[]
+          }
 
-cpu_queries = {f"{HOST}" : 'avg(100-uptycs_idle_cpu) by (host_name)',
-           'rule-engine' : "avg(uptycs_app_cpu{app_name=~'.*ruleEngine.*'}) by (host_name)",
-           'osquery-ingestion' : "avg(uptycs_app_cpu{app_name=~'osqueryIngestion'}) by (host_name)",
-           "kafka" : "avg(uptycs_app_cpu{app_name=~'kafka'}) by (host_name)",
-           "trino" : "avg(uptycs_app_cpu{app_name='trino'}) by (host_name)",
-           "tls" : "avg(uptycs_app_cpu{app_name='tls'}) by (host_name)",
-           "eventsdb-ingestion" : "avg(uptycs_app_cpu{app_name=~'eventsDbIngestion'}) by (host_name)",
-           "logger" : "sum(uptycs_app_cpu{app_name=~'.*osqLogger-1.*'}) by (host_name)"
-           }
+memory_queries = {f"{HOST}" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100)  by (host_name)',}
+memory_queries.update(dict([(app,f"{key}(uptycs_app_memory{{app_name=~'{app}'}}) by (host_name)") for key,app_list in app_names.items() for app in app_list]))
+
+cpu_queries = {f"{HOST}" : 'avg(100-uptycs_idle_cpu) by (host_name)',}
+cpu_queries.update(dict([(app,f"{key}(uptycs_app_cpu{{app_name=~'{app}'}}) by (host_name)") for key,app_list in app_names.items() for app in app_list]))
 
 container_memory_queries = {'container' : "sum(uptycs_docker_mem_used{}/(1000*1000*1000)) by (container_name)",}
 container_cpu_queries = {'container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",}
@@ -144,10 +135,9 @@ class MC_comparisions:
             "container_level_resource_utilization":{
                 "memory":container_memory_data,
                 "cpu" : container_cpu_data,
-            },
-            "node_level_total_average_resource_utilization":{
-                "memory":overall_memory_data,
-                "cpu":overall_cpu_data
             }
         }
-        return current_build_data
+        return current_build_data,{ "node_level_total_average_resource_utilization":{
+                                        "memory":overall_memory_data,
+                                        "cpu":overall_cpu_data
+                                    }}
