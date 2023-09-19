@@ -1,6 +1,7 @@
 import json,os
 from helper import extract_stack_details
 
+
 class configuration:
     def __init__(self,test_env_file_name=None , fetch_node_parameters_before_generating_report=False):
         self.prometheus_port = "9090"
