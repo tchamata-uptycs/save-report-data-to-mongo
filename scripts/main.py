@@ -49,6 +49,7 @@ if __name__ == "__main__":
             run=max_run+1
             print(f"you have already saved the details for this load in this sprint, setting run value to {run}")
         #-------------------------disk space--------------------------
+        disk_space_usage_dict=None
         if variables["load_name"] != "ControlPlane":
             print("Performing disk space calculations ...")
             calc = DISK(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
