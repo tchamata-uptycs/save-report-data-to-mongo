@@ -1,6 +1,5 @@
 import requests
 import json
-import paramiko
 
 class DISK:
     def __init__(self,start_timestamp,end_timestamp,prom_con_obj):
@@ -32,6 +31,9 @@ class DISK:
         self.get_total_space_query=f"sort(sum(uptycs_hdfs_node_config_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}}) by (hdfsdatanode))"
         self.remaining_hdfs_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}})"
         self.kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
+
+        self.pg_partition_used_in_bytes="uptycs_used_disk_bytes{partition=~'/pg',node_type='pg'}"
+        self.data_partition_used_in_bytes="uptycs_used_disk_bytes{partition=~'/data',node_type='pg'}"
 
     def extract_data(self,query,timestamp , TAG):
         final=dict()
@@ -79,30 +81,22 @@ class DISK:
 
         return TYPE,save_dict
 
-    def pg_disk_calc(self):
+    def pg_disk_calc(self,TYPE):
         save_dict={}
-        commands = {'/pg' : "sudo du -sh /pg"  , '/data':"sudo du -sh /data"}
-        for partition,command in commands.items():
-            ssh_client = paramiko.SSHClient()
-            ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            save_dict[partition]={}
-            for config_node in self.stack_details['pgnodes']:                
-                try:
-                    ssh_client.connect(config_node, self.port, self.username, self.password)
-                    stdin, stdout, stderr = ssh_client.exec_command(command)
-                    output = stdout.read().decode('utf-8')
-                    output = output.split()[0]
-                    errors = stderr.read().decode('utf-8')
-                    if errors:
-                        print("Errors:")
-                        print(errors)
-                except Exception as e:
-                    print("ERROR : ",str(e))
-                    output=0
-                finally:
-                    ssh_client.close()
-                save_dict[partition][config_node]=output
-        return 'pg',save_dict
+        pg_used_before_load_in_bytes = self.extract_data(self.pg_partition_used_in_bytes,self.curr_ist_start_time,'host_name')
+        pg_used_after_load_in_bytes = self.extract_data(self.pg_partition_used_in_bytes,self.curr_ist_end_time,'host_name')
+        data_used_before_load_in_bytes = self.extract_data(self.data_partition_used_in_bytes,self.curr_ist_start_time,'host_name')
+        data_used_after_load_in_bytes = self.extract_data(self.data_partition_used_in_bytes,self.curr_ist_end_time,'host_name')
+        nodes = [node for node in pg_used_before_load_in_bytes]
+        bytes_in_a_gb=1e+9
+        for node in nodes:
+            total_pg_partition_disk_used = (pg_used_after_load_in_bytes[node]-pg_used_before_load_in_bytes[node])/bytes_in_a_gb
+            total_data_partition_disk_used = (data_used_after_load_in_bytes[node]-data_used_before_load_in_bytes[node])/bytes_in_a_gb
+            print(f"for node {node}, pg_used_after_load_in_bytes : {pg_used_after_load_in_bytes[node]} , pg_used_before_load_in_bytes : {pg_used_before_load_in_bytes[node]}")
+            print(f"for node {node}, data_used_after_load_in_bytes : {data_used_after_load_in_bytes[node]} , data_used_before_load_in_bytes : {data_used_before_load_in_bytes[node]}")
+            save_dict[node] = {"/pg (used in GB)" : total_pg_partition_disk_used,
+                               "/data (used in GB)" : total_data_partition_disk_used}
+        return TYPE,save_dict
 
     def save(self,_ ,current_build_data):
         TYPE ,save_dict=_
@@ -113,5 +107,6 @@ class DISK:
         current_build_data={}
         current_build_data=self.save(self.calculate_disk_usage('kafka'),current_build_data)
         current_build_data=self.save(self.calculate_disk_usage('hdfs'),current_build_data)
+        current_build_data=self.save(self.pg_disk_calc('pg'),current_build_data)
         return current_build_data
     

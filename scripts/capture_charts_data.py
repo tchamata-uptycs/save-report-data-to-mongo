@@ -91,7 +91,7 @@ class Charts:
         final=dict()
         ste = self.curr_ist_start_time - (self.add_extra_time_for_charts_at_start_in_min * (60))
         ete = self.curr_ist_end_time + (self.add_extra_time_for_charts_at_end_in_min * (60))
-        print(f"charts data timestmaps : from {ste} to {ete}")
+        print(f"charts data timestamps : from {ste} to {ete}")
 
         for query in queries:
             PARAMS = {
