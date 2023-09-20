@@ -1,5 +1,4 @@
 import requests
-from datetime import datetime
 import copy
 
 common_app_names={
@@ -78,9 +77,9 @@ all_chart_queries={
 }
 
 class Charts:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,add_extra_time_for_charts_at_end_in_min,fs):
-        self.curr_ist_start_time=curr_ist_start_time
-        self.curr_ist_end_time=curr_ist_end_time
+    def __init__(self,prom_con_obj,start_timestamp,end_timestamp,add_extra_time_for_charts_at_end_in_min,fs):
+        self.curr_ist_start_time=start_timestamp
+        self.curr_ist_end_time=end_timestamp
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_api_path
@@ -90,13 +89,9 @@ class Charts:
 
     def extract_charts_data(self,queries):
         final=dict()
-        ist_time_format = '%Y-%m-%d %H:%M'
-        start_time = (datetime.strptime(self.curr_ist_start_time, ist_time_format))
-        end_time = (datetime.strptime(self.curr_ist_end_time, ist_time_format))
-        stu = int(start_time.timestamp())
-        etu = int(end_time.timestamp())
-        ste = stu - (self.add_extra_time_for_charts_at_start_in_min * (60))
-        ete = etu + (self.add_extra_time_for_charts_at_end_in_min * (60))
+        ste = self.curr_ist_start_time - (self.add_extra_time_for_charts_at_start_in_min * (60))
+        ete = self.curr_ist_end_time + (self.add_extra_time_for_charts_at_end_in_min * (60))
+        print(f"charts data timestmaps : from {ste} to {ete}")
 
         for query in queries:
             PARAMS = {

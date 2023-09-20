@@ -20,11 +20,19 @@ if __name__ == "__main__":
         sys.exit()
     TEST_ENV_FILE_PATH   = prom_con_obj.test_env_file_path
     print("Test environment file path is : " + TEST_ENV_FILE_PATH)
-    #-------------------------------------------------------------------------------------------------
-    start_time = datetime.strptime(variables["start_time_str_ist"], "%Y-%m-%d %H:%M")
+    #---------------------start time and endtime (timestamps) for prometheus queries-------------------
+    format_data = "%Y-%m-%d %H:%M"
+    start_time = datetime.strptime(variables["start_time_str_ist"], format_data)
     end_time = start_time + timedelta(hours=variables["load_duration_in_hrs"])
-    end_time_str = end_time.strftime("%Y-%m-%d %H:%M")
 
+    start_time_str = variables["start_time_str_ist"]
+    end_time_str = end_time.strftime(format_data)
+    start_timestamp = int(start_time.timestamp())
+    end_timestamp = int(end_time.timestamp())
+
+    print("------ starttime and endtime strings in IST are : ", start_time_str , end_time_str)
+    print("------ starttime and endtime unix time stamps are : ", start_timestamp , end_timestamp)
+    #-------------------------------------------------------------------------------------------------
     with open(TEST_ENV_FILE_PATH , 'r') as file:
         test_env_json_details = json.load(file)
     skip_fetching_data=False
@@ -53,7 +61,7 @@ if __name__ == "__main__":
         disk_space_usage_dict=None
         if variables["load_name"] != "ControlPlane":
             print("Performing disk space calculations ...")
-            calc = DISK(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+            calc = DISK(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj)
             disk_space_usage_dict=calc.make_calculations()
         #--------------------------------- add kafka topics ---------------------------------------
         kafka_topics_list=None
@@ -63,17 +71,17 @@ if __name__ == "__main__":
             kafka_topics_list = kafka_obj.add_topics_to_report()
         #--------------------------------cpu and mem node-wise---------------------------------------
         print("Fetching resource usages data ...")
-        comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+        comp = MC_comparisions(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj)
         mem_cpu_usages_dict,overall_usage_dict=comp.make_comparisions()
         #--------------------------------Capture charts data---------------------------------------
         fs = GridFS(db)
         print("Fetching charts data ...")
-        charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
+        charts_obj = Charts(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj,
                 add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"],fs=fs)
         complete_charts_data_dict=charts_obj.capture_charts_and_save()
         #--------------------------------take screenshots---------------------------------------
         print("Capturing compaction status screenshots  ...")
-        cp_obj = take_screenshots(start_time_str_ist=variables["start_time_str_ist"],end_time_str=end_time_str,fs=fs,elk_url=test_env_json_details["elk_url"])
+        cp_obj = take_screenshots(start_time=start_time,end_time=end_time,fs=fs,elk_url=test_env_json_details["elk_url"])
         compaction_status_image=cp_obj.get_compaction_status()
         #-------------------------- Saving the json data to mongo -------------------------
         print("Saving data to mongoDB ...")

@@ -1,12 +1,11 @@
 import requests
-from datetime import datetime
 import json
 import paramiko
 
 class DISK:
-    def __init__(self,curr_ist_start_time,curr_ist_end_time,prom_con_obj):
-        self.curr_ist_start_time=curr_ist_start_time
-        self.curr_ist_end_time=curr_ist_end_time
+    def __init__(self,start_timestamp,end_timestamp,prom_con_obj):
+        self.curr_ist_start_time=start_timestamp
+        self.curr_ist_end_time=end_timestamp
         self.test_env_file_path=prom_con_obj.test_env_file_path
         self.PROMETHEUS = prom_con_obj.prometheus_path
         self.API_PATH = prom_con_obj.prom_point_api_path
@@ -34,11 +33,8 @@ class DISK:
         self.remaining_hdfs_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}})"
         self.kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
 
-    def extract_data(self,query,time , TAG):
+    def extract_data(self,query,timestamp , TAG):
         final=dict()
-        ist_time_format = '%Y-%m-%d %H:%M'
-        start_time_utc = (datetime.strptime(time, ist_time_format))
-        timestamp = int(start_time_utc.timestamp())
         final={}
         PARAMS = {
             'query': query,
