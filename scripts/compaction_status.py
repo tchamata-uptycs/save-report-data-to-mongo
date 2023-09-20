@@ -29,7 +29,7 @@ class take_screenshots:
         driver = webdriver.Chrome(service=service,options=chrome_options)
         driver.get(self.compaction_status_url)
         print(f"Connecting to {self.compaction_status_url}")
-        time.sleep(80)
+        time.sleep(60)
         screenshot = driver.get_screenshot_as_png()
         try:
             with self.fs.new_file(filename="screenshot.png") as fp:

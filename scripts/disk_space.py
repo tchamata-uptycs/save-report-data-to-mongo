@@ -14,10 +14,10 @@ class DISK:
         with open(self.test_env_file_path, 'r') as file:
             self.stack_details = json.load(file)
 
-        dnode_pattern=''
-        for dnode in self.stack_details['dnodes']:
-            dnode_pattern+=dnode+'|'
-        dnode_pattern=dnode_pattern[:-1]
+        # dnode_pattern=''
+        # for dnode in self.stack_details['dnodes']:
+        #     dnode_pattern+=dnode+'|'
+        # dnode_pattern=dnode_pattern[:-1]
         self.kafka_total_space = {}
         for pnode in self.stack_details['pnodes']:
             capacity = self.stack_details[pnode]['storage']['kafka']
@@ -28,8 +28,8 @@ class DISK:
                 self.kafka_total_space[pnode] = float(str(capacity)[:-1]) * 1e+9
                 self.kafka_total_space[pnode+'v'] = float(str(capacity)[:-1]) * 1e+9
 
-        self.get_total_space_query=f"sort(sum(uptycs_hdfs_node_config_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}}) by (hdfsdatanode))"
-        self.remaining_hdfs_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1', hdfsdatanode=~'({dnode_pattern})'}})"
+        self.get_total_space_query=f"sort(sum(uptycs_hdfs_node_config_capacity{{cluster_id=~'clst1'}}) by (hdfsdatanode))"
+        self.remaining_hdfs_space_query=f"sort(uptycs_hdfs_node_remaining_capacity{{cluster_id=~'clst1'}})"
         self.kafka_disk_used_percentage="uptycs_percentage_used{partition=~'/data/kafka'}"
 
         self.pg_partition_used_in_bytes="uptycs_used_disk_bytes{partition=~'/pg',node_type='pg'}"
@@ -63,7 +63,8 @@ class DISK:
             used_space_before_load = self.extract_data(self.kafka_disk_used_percentage,self.curr_ist_start_time,'host_name')
             used_space_after_load = self.extract_data(self.kafka_disk_used_percentage,self.curr_ist_end_time,'host_name')
             nodes = [node for node in used_space_before_load]
-
+        print(f"Total {TYPE} space configured: {total_space}")
+        print(f"nodes : {nodes}")
         save_dict={}
         bytes_in_a_tb=1e+12
 
