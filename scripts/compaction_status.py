@@ -23,7 +23,7 @@ class take_screenshots:
         start_time_elk = utc_starttime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         end_time_elk = utc_endtime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         self.elk_url = elk_url
-        self.compaction_status_url= f"http://{self.elk_url}:5601/app/dashboards#/view/4772c950-5771-11ee-95da-5780638a53fb?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'{start_time_elk}',to:'{end_time_elk}'))"
+        self.compaction_status_url= f"http://{self.elk_url}:5601/app/dashboards#/view/Uptycs%20Data%20Pipeline?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'{start_time_elk}',to:'{end_time_elk}'))"
     
     def get_compaction_status(self):
         driver = webdriver.Chrome(service=service,options=chrome_options)
