@@ -32,7 +32,6 @@ class MC_comparisions:
         with open(self.test_env_file_path, 'r') as file:
             self.nodes_data = json.load(file)
 
-
     def extract_data(self,queries,tag,unit):
         final=dict()
         return_overall = dict()
@@ -47,8 +46,11 @@ class MC_comparisions:
             }
             response = requests.get(self.PROMETHEUS + self.API_PATH, params=PARAMS)
             result = response.json()['data']['result']
+            if query==HOST:
+                print("All hosts : ", [r['metric']['host_name'] for r in result])
             for res in result:
                 hostname = res['metric']['host_name']
+                print(f"Processing node-level {tag} usage for {query} : {hostname}")
                 if str(hostname).endswith('v') and len(hostname)>1:
                     hostname = str(hostname)[:-1]
                 values = [float(i[1]) for i in res['values']]   
@@ -82,7 +84,10 @@ class MC_comparisions:
         for node_type in ["pnodes" , "dnodes" , "pgnodes"]:
             new_sum=0
             for node in self.nodes_data[node_type]:
-                new_sum+=new_data[node][unit]["average"]
+                try:
+                    new_sum+=new_data[node][unit]["average"]
+                except KeyError as e:
+                    print(f"ERROR : key {node} not found in : {new_data}")
             return_overall[node_type] = {f"{unit}":new_sum}
         return final,return_overall
 
@@ -100,6 +105,7 @@ class MC_comparisions:
             result = response.json()['data']['result']
             for res in result:
                 container_name = res['metric']['container_name']
+                print(f"Processing container-level {tag} usage for {query} : {container_name}")
                 values = [float(i[1]) for i in res['values']]   
                 avg = sum(values) / len(values)
                 minimum = min(values)

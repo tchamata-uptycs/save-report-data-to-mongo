@@ -52,6 +52,7 @@ class DISK:
         return final 
     
     def calculate_disk_usage(self,TYPE):
+        print(f"processing {TYPE} disk space calculation")
         if TYPE == 'hdfs':
             total_space = self.extract_data(self.get_total_space_query,self.curr_ist_start_time,'hdfsdatanode')
             remaining_space_before_load = self.extract_data(self.remaining_hdfs_space_query,self.curr_ist_start_time,'hdfsdatanode')
@@ -78,10 +79,11 @@ class DISK:
                 percentage_used_after_load=used_space_after_load[node]
             used_space=(percentage_used_after_load-percentage_used_before_load)*total*(1024/100)
             save_dict[node] = {f"{TYPE}_total_space_configured_in_tb" : total , f"{TYPE}_disk_used_percentage_before_load" :percentage_used_before_load,f"{TYPE}_disk_used_percentage_after_load":percentage_used_after_load,f"{TYPE} used_space_during_load_in_gb":used_space}
-
+        print(save_dict)
         return TYPE,save_dict
 
     def pg_disk_calc(self,TYPE):
+        print(f"processing {TYPE} disk space calculation")
         save_dict={}
         pg_used_before_load_in_bytes = self.extract_data(self.pg_partition_used_in_bytes,self.curr_ist_start_time,'host_name')
         pg_used_after_load_in_bytes = self.extract_data(self.pg_partition_used_in_bytes,self.curr_ist_end_time,'host_name')
@@ -96,6 +98,7 @@ class DISK:
             print(f"for node {node}, data_used_after_load_in_bytes : {data_used_after_load_in_bytes[node]} , data_used_before_load_in_bytes : {data_used_before_load_in_bytes[node]}")
             save_dict[node] = {"/pg (used in GB)" : total_pg_partition_disk_used,
                                "/data (used in GB)" : total_data_partition_disk_used}
+        print(save_dict)
         return TYPE,save_dict
 
     def save(self,_ ,current_build_data):

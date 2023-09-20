@@ -1,6 +1,6 @@
 {
     "stack": "S4",
-    "domain":"mercury",
+    "domain": "mercury",
     "stack_url": "https://mercury.uptycs.net/",
     "elk_url": "192.168.136.53",
     "pnodes": [
@@ -41,14 +41,15 @@
     "other_nodes": [
         "s4stsnode1",
         "s4stsnode2",
-        "mlbank1a"
+        "mlbank1a",
+        "s2logstash1",
+        "s2logstash2"
     ],
     "s4c1pn1": {
         "storage": {
             "root_partition": "731G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.135.26",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -58,7 +59,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.138.25",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -68,7 +68,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.139.25",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -78,7 +77,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.140.15",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -88,7 +86,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.141.15",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -98,7 +95,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.142.15",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -108,7 +104,6 @@
             "root_partition": "731G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.137.20",
         "ram": "188",
         "cores": "32",
         "clst": "2"
@@ -118,7 +113,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.137.12",
         "ram": "188",
         "cores": "32",
         "clst": "2"
@@ -128,7 +122,6 @@
             "root_partition": "731G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.137.16",
         "ram": "188",
         "cores": "32",
         "clst": "2"
@@ -138,7 +131,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.131.15",
         "ram": "188",
         "cores": "32",
         "clst": "2"
@@ -148,7 +140,6 @@
             "root_partition": "3.6T",
             "kafka": "366G"
         },
-        "lan_ip": "192.168.133.15",
         "ram": "188",
         "cores": "32",
         "clst": "2"
@@ -158,7 +149,6 @@
             "root_partition": "365G",
             "kafka": "3.6T"
         },
-        "lan_ip": "192.168.134.15",
         "ram": "188",
         "cores": "32",
         "clst": "2"
@@ -171,7 +161,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.141.25",
         "ram": "251",
         "cores": "32",
         "clst": "1"
@@ -184,7 +173,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.15",
         "ram": "251",
         "cores": "32",
         "clst": "1"
@@ -197,7 +185,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.17",
         "ram": "251",
         "cores": "32",
         "clst": "1"
@@ -210,7 +197,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.19",
         "ram": "251",
         "cores": "32",
         "clst": "1"
@@ -223,7 +209,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.23",
         "ram": "251",
         "cores": "32",
         "clst": "1"
@@ -236,7 +221,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.134.25",
         "ram": "251",
         "cores": "32",
         "clst": "1"
@@ -249,7 +233,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.13",
         "ram": "251",
         "cores": "32",
         "clst": "2"
@@ -262,7 +245,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.14",
         "ram": "251",
         "cores": "32",
         "clst": "2"
@@ -275,7 +257,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.141.19",
         "ram": "251",
         "cores": "32",
         "clst": "2"
@@ -288,7 +269,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.18",
         "ram": "251",
         "cores": "32",
         "clst": "2"
@@ -301,7 +281,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.137.22",
         "ram": "251",
         "cores": "32",
         "clst": "2"
@@ -314,7 +293,6 @@
             "dn2": "3.6T",
             "dn3": "3.6T"
         },
-        "lan_ip": "192.168.134.26",
         "ram": "251",
         "cores": "32",
         "clst": "2"
@@ -322,12 +300,11 @@
     "s4configdb1": {
         "storage": {
             "root_partition": "731G",
-            "pg": "3.6T",
-            "data": "3.6T"
+            "pg": "5.5T",
+            "data": "5.5T"
         },
-        "lan_ip": "192.168.136.25",
         "ram": "188",
-        "cores": "32",
+        "cores": "48",
         "clst": "1"
     },
     "s4configdb2": {
@@ -336,7 +313,6 @@
             "pg": "3.6T",
             "data": "3.6T"
         },
-        "lan_ip": "192.168.137.25",
         "ram": "188",
         "cores": "32",
         "clst": "1"
@@ -346,7 +322,6 @@
             "root_partition": "196G",
             "data": "3.6T"
         },
-        "lan_ip": "192.168.136.69",
         "ram": "78",
         "cores": "16",
         "clst": "1"
@@ -356,7 +331,6 @@
             "root_partition": "196G",
             "spark": "3.6T"
         },
-        "lan_ip": "192.168.141.61",
         "ram": "78",
         "cores": "16",
         "clst": "1"
@@ -366,7 +340,6 @@
             "root_partition": "196G",
             "spark": "3.6T"
         },
-        "lan_ip": "192.168.141.62",
         "ram": "78",
         "cores": "16",
         "clst": "1"
@@ -375,7 +348,22 @@
         "storage": {
             "root_partition": "196G"
         },
-        "lan_ip": "192.168.140.77",
+        "ram": "47",
+        "cores": "8",
+        "clst": "1"
+    },
+    "s2logstash1": {
+        "storage": {
+            "root_partition": "295G"
+        },
+        "ram": "47",
+        "cores": "8",
+        "clst": "1"
+    },
+    "s2logstash2": {
+        "storage": {
+            "root_partition": "295G"
+        },
         "ram": "47",
         "cores": "8",
         "clst": "1"
