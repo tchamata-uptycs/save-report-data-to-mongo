@@ -1,4 +1,5 @@
 scripts/__pycache__/*
 scripts/osquery/__pycache__/*
 other/test.py
+other/test2.py
 other/get_current_pg_disk_s1.py

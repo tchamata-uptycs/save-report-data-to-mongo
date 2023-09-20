@@ -1,27 +1,81 @@
 import requests
 from datetime import datetime
+import copy
 
-memory_chart_queries = {f"Host" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100) by (host_name)',
-           'rule-engine' : "avg(uptycs_app_memory{app_name=~'.*ruleEngine.*'}) by (host_name)",
-           'osquery-ingestion' : "sum(uptycs_app_memory{app_name=~'osqueryIngestion'}) by (host_name)",
-           "kafka" : "avg(uptycs_app_memory{app_name=~'kafka'}) by (host_name)",
-           "trino" : "avg(uptycs_app_memory{app_name='trino'}) by (host_name)",
-           "tls" : "avg(uptycs_app_memory{app_name='tls'}) by (host_name)",
-           "eventsdb-ingestion" : "avg(uptycs_app_memory{app_name=~'eventsDbIngestion'}) by (host_name)",
-           "logger" : "sum(uptycs_app_memory{app_name=~'.*osqLogger-1.*'}) by (host_name)"
-           }
+common_app_names={
+            "sum":["orc-compaction" ,"uptycs-configdb",  ".*osqLogger.*", "kafka","spark-worker",".*ruleEngine.*",
+                "data-archival",".*redis-server.*","/opt/uptycs/cloud/go/bin/complianceSummaryConsumer","tls",".*airflow.*",
+                "eventsDbIngestion"  , "trino" , "osqueryIngestion"],
+            "avg":[]
+        }
 
-cpu_chart_queries = {f"Host" : 'avg(100-uptycs_idle_cpu) by (host_name)',
-           'rule-engine' : "avg(uptycs_app_cpu{app_name=~'.*ruleEngine.*'}) by (host_name)",
-           'osquery-ingestion' : "avg(uptycs_app_cpu{app_name=~'osqueryIngestion'}) by (host_name)",
-           "kafka" : "avg(uptycs_app_cpu{app_name=~'kafka'}) by (host_name)",
-           "trino" : "avg(uptycs_app_cpu{app_name='trino'}) by (host_name)",
-           "tls" : "avg(uptycs_app_cpu{app_name='tls'}) by (host_name)",
-           "eventsdb-ingestion" : "avg(uptycs_app_cpu{app_name=~'eventsDbIngestion'}) by (host_name)",
-           "logger" : "sum(uptycs_app_cpu{app_name=~'.*osqLogger-1.*'}) by (host_name)"
-           }
-lag_chart_queries={}
-other_chart_queries={}
+memory_app_names=copy.deepcopy(common_app_names)
+cpu_app_names=copy.deepcopy(common_app_names)
+cpu_app_names['avg'].extend([])
+cpu_app_names['sum'].extend(["pgbouncer","spark-master","/usr/local/bin/pushgateway"])
+
+live_asset_count_query = {"live assets count":"sum(uptycs_live_count)"}
+
+node_level_RAM_used_percentage_queries = dict([(f"{node} Node RAM used percentage",f"((uptycs_memory_used{{node_type='{node}'}}/uptycs_total_memory{{node_type='{node}'}})*100)") for node in ['process','data','pg']])
+app_level_RAM_used_percentage_queries= dict([(f"Memory Used by {app}",f"{key}(uptycs_app_memory{{app_name=~'{app}'}}) by (host_name)") for key,app_list in memory_app_names.items() for app in app_list])
+more_memory_queries={
+    "Kafka Disk Used Percentage":"uptycs_percentage_used{partition=~'/data/kafka'}",
+    "Debezium memory usage":"uptycs_docker_mem_used{container_name='debezium'}",
+}
+
+memory_chart_queries={}
+memory_chart_queries.update(node_level_RAM_used_percentage_queries)
+memory_chart_queries.update(app_level_RAM_used_percentage_queries)
+memory_chart_queries.update(more_memory_queries)
+
+node_level_CPU_busy_percentage_queries=dict([(f"{node} Node CPU busy percentage",f"100-uptycs_idle_cpu{{node_type='{node}'}}") for node in ['process','data','pg']])
+app_level_CPU_used_cores_queries=dict([(f"CPU used by {app}",f"{key}(uptycs_app_cpu{{app_name=~'{app}'}}) by (host_name)") for key,app_list in cpu_app_names.items() for app in app_list])
+more_cpu_queries={
+    "Debezium cpu usage":"uptycs_docker_cpu_stats{container_name='debezium'}",
+}
+
+cpu_chart_queries={}
+cpu_chart_queries.update(node_level_CPU_busy_percentage_queries)
+cpu_chart_queries.update(app_level_CPU_used_cores_queries)
+cpu_chart_queries.update(more_cpu_queries)
+
+inject_drain_rate_and_lag_chart_queries={
+    "Spark Inject Rate for agent Osquery":"uptycs_mon_spark_inject_rate{topic='agentosquery'}",
+    "Spark Drain Rate for agent Osquery":"uptycs_mon_spark_drain_rate{topic='agentosquery'}",
+    "Spark Lag for Agent Osquery":"uptycs_mon_spark_lag{topic='agentosquery'}",
+
+    "Spark Inject Rate for Events":"uptycs_mon_spark_inject_rate{topic='event'}",
+    "Spark Drain Rate for Events":"uptycs_mon_spark_drain_rate{topic='event'}",
+    "Spark lag for events":"uptycs_mon_spark_lag{topic='event'}",
+
+    "Inject Rate for Db-Alerts group":"uptycs_kafka_group_inject_rate{group='db-alerts'}",
+    "Drain Rate for Db-Alerts group":"uptycs_kafka_group_drain_rate{group='db-alerts'}",
+    "kafka lag for Db-alerts group":"uptycs_kafka_group_lag{group='db-alerts'}",
+
+    "Inject rate for ruleengine group":"uptycs_kafka_group_inject_rate{group='ruleengine'}",
+    "Drain rate for ruleengine group":"uptycs_kafka_group_drain_rate{group='ruleengine'}",
+    "Kafka lag for ruleengine group":"uptycs_kafka_group_lag{group='ruleengine'}",
+
+    "Kafka Inject rate for debezium group":"uptycs_kafka_group_inject_rate{group='debeziumconsumer'}",
+    "Kafka Drain rate for debezium group":"uptycs_kafka_group_drain_rate{group='debeziumconsumer'}",
+    "Debezium Aggregate Lag":"uptycs_kafka_group_lag{group='debeziumconsumer'}",
+}
+
+other_chart_queries={"Active Client Connections":"uptycs_pgb_cl_active","Average records in pg bouncer":"uptycs_pbouncer_stats{col=~'avg.*', col!~'.*time'}",
+                     "Average time spent by pg bouncer":"uptycs_pbouncer_stats{col=~'avg.*time'}",
+                     "Redis client connections for tls":"sum(uptycs_app_redis_clients{app_name='/opt/uptycs/cloud/tls/tls.js'}) by (host_name)",
+                     "Configdb Pg wal folder size":"configdb_wal_folder","Configdb number of wal files":"configdb_wal_file{}",
+                     "Top 10 redis client connections by app":"sort(topk(9,sum(uptycs_app_redis_clients{}) by (app_name)))",
+                     "Configdb folder size":"configdb_size"
+                     }
+
+all_chart_queries={
+    "live_asset_count":live_asset_count_query,
+    "memory_charts":memory_chart_queries,
+    "cpu_charts":cpu_chart_queries,
+    "inject_drain_rate_and_lag_charts":inject_drain_rate_and_lag_chart_queries,
+    "other_charts":other_chart_queries
+}
 
 class Charts:
     def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time,add_extra_time_for_charts_at_end_in_min,fs):
@@ -60,9 +114,7 @@ class Charts:
         return final
             
     def capture_charts_and_save(self): 
-        return {
-            "memory_charts_data":self.extract_charts_data(memory_chart_queries),
-            "cpu_charts_data":self.extract_charts_data(cpu_chart_queries),
-            "lag_charts_data":self.extract_charts_data(lag_chart_queries),
-            "other_charts_data":self.extract_charts_data(other_chart_queries)
-        }
+        final_dict={}
+        for key,value in all_chart_queries.items():
+            final_dict[key] = self.extract_charts_data(value)
+        return final_dict

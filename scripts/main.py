@@ -10,6 +10,7 @@ from disk_space import DISK
 from input import create_input_form
 from capture_charts_data import Charts
 from gridfs import GridFS
+from compaction_status import take_screenshots
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
@@ -70,6 +71,10 @@ if __name__ == "__main__":
         charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
                 add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"],fs=fs)
         complete_charts_data_dict=charts_obj.capture_charts_and_save()
+        #--------------------------------take screenshots---------------------------------------
+        print("Capturing compaction status screenshots  ...")
+        cp_obj = take_screenshots(start_time_str_ist=variables["start_time_str_ist"],end_time_str=end_time_str,fs=fs,elk_url=test_env_json_details["elk_url"])
+        compaction_status_image=cp_obj.get_compaction_status()
         #-------------------------- Saving the json data to mongo -------------------------
         print("Saving data to mongoDB ...")
         load_details =  {
@@ -100,6 +105,7 @@ if __name__ == "__main__":
             final_data_to_save.update({"kafka_topics":kafka_topics_list})
 
         final_data_to_save.update({"charts":complete_charts_data_dict})
+        final_data_to_save.update({"images":compaction_status_image})
         final_data_to_save.update(mem_cpu_usages_dict)
 
         try:
