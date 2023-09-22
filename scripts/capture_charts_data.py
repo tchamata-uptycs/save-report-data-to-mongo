@@ -1,5 +1,6 @@
 import requests
 import copy
+import json
 
 common_app_names={
             "sum":["orc-compaction" ,"uptycs-configdb",  ".*osqLogger.*", "kafka","spark-worker",".*ruleEngine.*",
@@ -93,7 +94,6 @@ class Charts:
         ete = self.curr_ist_end_time + (self.add_extra_time_for_charts_at_end_in_min * (60))
 
         for query in queries:
-            print(f"processing {query} chart data (timestamp : from {ste} to {ete})")
             PARAMS = {
                 'query': queries[query],
                 'start': ste,
@@ -101,6 +101,8 @@ class Charts:
                 'step':15
             }
             response = requests.get(self.PROMETHEUS + self.API_PATH, params=PARAMS)
+            print(f"processing {query} chart data (timestamp : {ste} to {ete}), Status code : {response.status_code}")
+            if response.status_code != 200:print("ERROR : Request failed")
             result = response.json()['data']['result']
             for host in result:
                 file_id = self.fs.put(str(host["values"]).encode('utf-8'), filename='array.json')
@@ -109,6 +111,8 @@ class Charts:
         return final
             
     def capture_charts_and_save(self): 
+        print("All chart queries to be executed are:")
+        print(json.dumps(all_chart_queries, indent=4))
         final_dict={}
         for key,value in all_chart_queries.items():
             print(f"-----------Processing {key} queries-----------")
