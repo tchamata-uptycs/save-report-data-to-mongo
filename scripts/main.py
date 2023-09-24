@@ -10,6 +10,8 @@ from disk_space import DISK
 from input import create_input_form
 from capture_charts_data import Charts
 from trino_queries import TRINO
+from gridfs import GridFS
+from compaction_status import take_screenshots
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
@@ -19,23 +21,33 @@ if __name__ == "__main__":
         sys.exit()
     TEST_ENV_FILE_PATH   = prom_con_obj.test_env_file_path
     print("Test environment file path is : " + TEST_ENV_FILE_PATH)
-    #-------------------------------------------------------------------------------------------------
-    start_time = datetime.strptime(variables["start_time_str_ist"], "%Y-%m-%d %H:%M")
+    #---------------------start time and endtime (timestamps) for prometheus queries-------------------
+    format_data = "%Y-%m-%d %H:%M"
+    start_time = datetime.strptime(variables["start_time_str_ist"], format_data)
     end_time = start_time + timedelta(hours=variables["load_duration_in_hrs"])
-    end_time_str = end_time.strftime("%Y-%m-%d %H:%M")
 
+    start_time_str = variables["start_time_str_ist"]
+    end_time_str = end_time.strftime(format_data)
+    start_timestamp = int(start_time.timestamp())
+    end_timestamp = int(end_time.timestamp())
+
+    print("------ starttime and endtime strings in IST are : ", start_time_str , end_time_str)
+    print("------ starttime and endtime unix time stamps are : ", start_timestamp , end_timestamp)
+    #-------------------------------------------------------------------------------------------------
     with open(TEST_ENV_FILE_PATH , 'r') as file:
         test_env_json_details = json.load(file)
     skip_fetching_data=False
     #---------------------Check for previous runs------------------------------------
     mongo_connection_string=prom_con_obj.mongo_connection_string
     client = pymongo.MongoClient(mongo_connection_string)
-    db=client[variables['load_type']+"_LoadTests"]
-    collection = db[variables["load_name"]]
+    database_name = variables['load_type']+"_LoadTests"
+    collection_name = variables["load_name"]
+    db=client[database_name]
+    collection = db[collection_name]
 
     documents_with_same_load_time_and_stack = collection.find({"load_details.sprint":variables['sprint'] ,"load_details.stack":test_env_json_details["stack"] , "load_details.load_start_time_ist":f"{variables['start_time_str_ist']}" , "load_details.load_duration_in_hrs":variables['load_duration_in_hrs']})
     if len(list(documents_with_same_load_time_and_stack)) > 0:
-        print(f"ERROR! A document with load time ({variables['start_time_str_ist']}) - ({end_time_str}) on {test_env_json_details['stack']} for this sprint for {variables['load_type']}-{variables['load_name']} load is already available.")
+        print(f"ERROR! A document with load time ({variables['start_time_str_ist']}) - ({end_time_str}) on {test_env_json_details['stack']} for this sprint for {database_name}-{collection_name} load is already available.")
         skip_fetching_data=True
     if skip_fetching_data == False:
         run=1
@@ -47,9 +59,10 @@ if __name__ == "__main__":
             run=max_run+1
             print(f"you have already saved the details for this load in this sprint, setting run value to {run}")
         #-------------------------disk space--------------------------
+        disk_space_usage_dict=None
         if variables["load_name"] != "ControlPlane":
             print("Performing disk space calculations ...")
-            calc = DISK(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+            calc = DISK(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj)
             disk_space_usage_dict=calc.make_calculations()
         #--------------------------------- add kafka topics ---------------------------------------
         kafka_topics_list=None
@@ -59,14 +72,19 @@ if __name__ == "__main__":
             kafka_topics_list = kafka_obj.add_topics_to_report()
         #--------------------------------cpu and mem node-wise---------------------------------------
         print("Fetching resource usages data ...")
-        comp = MC_comparisions(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
-        mem_cpu_usages_dict=comp.make_comparisions()
+        comp = MC_comparisions(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj)
+        mem_cpu_usages_dict,overall_usage_dict=comp.make_comparisions()
         #--------------------------------Capture charts data---------------------------------------
+        fs = GridFS(db)
         print("Fetching charts data ...")
-        charts_obj = Charts(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj,
-                add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"])
+        charts_obj = Charts(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj,
+                add_extra_time_for_charts_at_end_in_min=variables["add_extra_time_for_charts_at_end_in_min"],fs=fs)
         complete_charts_data_dict=charts_obj.capture_charts_and_save()
-        #----------------Saving the json data to mongo--------------------
+        #--------------------------------take screenshots---------------------------------------
+        print("Capturing compaction status screenshots  ...")
+        cp_obj = take_screenshots(start_time=start_time,end_time=end_time,fs=fs,elk_url=test_env_json_details["elk_url"])
+        compaction_status_image=cp_obj.get_compaction_status()
+        #-------------------------- Saving the json data to mongo -------------------------
         print("Saving data to mongoDB ...")
         load_details =  {
             "stack":test_env_json_details["stack"],
@@ -85,19 +103,25 @@ if __name__ == "__main__":
 
         final_data_to_save = {
             "load_details":load_details,
-            "test_environment_details":test_env_json_details,
-            "disk_space_usages":disk_space_usage_dict,
-            "charts":complete_charts_data_dict
+            "test_environment_details":test_env_json_details
         }
+
+        final_data_to_save.update(overall_usage_dict)
+
+        if disk_space_usage_dict:
+            final_data_to_save.update({"disk_space_usages":disk_space_usage_dict})
         if kafka_topics_list:
             final_data_to_save.update({"kafka_topics":kafka_topics_list})
+
+        final_data_to_save.update({"charts":complete_charts_data_dict})
+        final_data_to_save.update({"images":compaction_status_image})
         final_data_to_save.update(mem_cpu_usages_dict)
 
         try:
             inserted_id = collection.insert_one(final_data_to_save).inserted_id
-            print(f"Document pushed to mongo successfully into database:{variables['load_type']}, collection:{variables['load_name']} with id {inserted_id}")
+            print(f"Document pushed to mongo successfully into database:{database_name}, collection:{collection_name} with id {inserted_id}")
         except Exception as e:
-            print(f"ERROR : Failed to insert document into database {variables['load_name']}, collection:{variables['load_name']} , {str(e)}")
+            print(f"ERROR : Failed to insert document into database {database_name}, collection:{collection_name} , {str(e)}")
         client.close()
         #------------------------load and test env details--------------------------
 
@@ -166,4 +190,3 @@ if __name__ == "__main__":
         f3_at = time.perf_counter()
         print(f"Collecting the report data took : {round(f3_at - s_at,2)} seconds in total")
     
-

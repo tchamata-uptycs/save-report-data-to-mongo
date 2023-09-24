@@ -1,40 +1,30 @@
 import requests
-from datetime import datetime
 import json
-#-------------------------------------------------------------
+
 HOST = 'Host'
 memory_tag = "Memory"
 cpu_tag = "CPU"
 memory_unit = "GB"
 cpu_unit = "cores"
 
-memory_queries = {f"{HOST}" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100) by (host_name)',
-           'rule-engine' : "avg(uptycs_app_memory{app_name=~'.*ruleEngine.*'}) by (host_name)",
-           'osquery-ingestion' : "sum(uptycs_app_memory{app_name=~'osqueryIngestion'}) by (host_name)",
-           "kafka" : "avg(uptycs_app_memory{app_name=~'kafka'}) by (host_name)",
-           "trino" : "avg(uptycs_app_memory{app_name='trino'}) by (host_name)",
-           "tls" : "avg(uptycs_app_memory{app_name='tls'}) by (host_name)",
-           "eventsdb-ingestion" : "avg(uptycs_app_memory{app_name=~'eventsDbIngestion'}) by (host_name)",
-           "logger" : "sum(uptycs_app_memory{app_name=~'.*osqLogger-1.*'}) by (host_name)"
-           }
+app_names={
+            "sum":[ ".*osqLogger.*", "kafka",".*ruleEngine.*","tls","eventsDbIngestion"  , "trino" , "osqueryIngestion"],
+            "avg":[]
+          }
 
-cpu_queries = {f"{HOST}" : 'avg(100-uptycs_idle_cpu) by (host_name)',
-           'rule-engine' : "avg(uptycs_app_cpu{app_name=~'.*ruleEngine.*'}) by (host_name)",
-           'osquery-ingestion' : "avg(uptycs_app_cpu{app_name=~'osqueryIngestion'}) by (host_name)",
-           "kafka" : "avg(uptycs_app_cpu{app_name=~'kafka'}) by (host_name)",
-           "trino" : "avg(uptycs_app_cpu{app_name='trino'}) by (host_name)",
-           "tls" : "avg(uptycs_app_cpu{app_name='tls'}) by (host_name)",
-           "eventsdb-ingestion" : "avg(uptycs_app_cpu{app_name=~'eventsDbIngestion'}) by (host_name)",
-           "logger" : "sum(uptycs_app_cpu{app_name=~'.*osqLogger-1.*'}) by (host_name)"
-           }
+memory_queries = {f"{HOST}" : 'avg((uptycs_memory_used/uptycs_total_memory) * 100)  by (host_name)',}
+memory_queries.update(dict([(app,f"{key}(uptycs_app_memory{{app_name=~'{app}'}}) by (host_name)") for key,app_list in app_names.items() for app in app_list]))
+
+cpu_queries = {f"{HOST}" : 'avg(100-uptycs_idle_cpu) by (host_name)',}
+cpu_queries.update(dict([(app,f"{key}(uptycs_app_cpu{{app_name=~'{app}'}}) by (host_name)") for key,app_list in app_names.items() for app in app_list]))
 
 container_memory_queries = {'container' : "sum(uptycs_docker_mem_used{}/(1000*1000*1000)) by (container_name)",}
 container_cpu_queries = {'container' : "sum(uptycs_docker_cpu_stats{}) by (container_name)",}
 
 class MC_comparisions:
-    def __init__(self,prom_con_obj,curr_ist_start_time,curr_ist_end_time):
-        self.curr_ist_start_time=curr_ist_start_time
-        self.curr_ist_end_time=curr_ist_end_time
+    def __init__(self,prom_con_obj,start_timestamp,end_timestamp):
+        self.curr_ist_start_time=start_timestamp
+        self.curr_ist_end_time=end_timestamp
         self.prom_con_obj=prom_con_obj
         self.PROMETHEUS = self.prom_con_obj.prometheus_path
         self.API_PATH = self.prom_con_obj.prom_api_path
@@ -45,24 +35,22 @@ class MC_comparisions:
     def extract_data(self,queries,tag,unit):
         final=dict()
         return_overall = dict()
-        ist_time_format = '%Y-%m-%d %H:%M'
-        start_time = (datetime.strptime(self.curr_ist_start_time, ist_time_format))
-        end_time = (datetime.strptime(self.curr_ist_end_time, ist_time_format))
-        stu = int(start_time.timestamp())
-        etu = int(end_time.timestamp())
 
         for query in queries:
             final[query] = {}
             PARAMS = {
                 'query': queries[query],
-                'start': stu,
-                'end': etu,
+                'start': self.curr_ist_start_time,
+                'end': self.curr_ist_end_time,
                 'step':15
             }
             response = requests.get(self.PROMETHEUS + self.API_PATH, params=PARAMS)
             result = response.json()['data']['result']
+            if query==HOST:
+                print("All hosts : ", [r['metric']['host_name'] for r in result])
             for res in result:
                 hostname = res['metric']['host_name']
+                print(f"Processing node-level {tag} usage for {query} : {hostname}")
                 if str(hostname).endswith('v') and len(hostname)>1:
                     hostname = str(hostname)[:-1]
                 values = [float(i[1]) for i in res['values']]   
@@ -96,29 +84,28 @@ class MC_comparisions:
         for node_type in ["pnodes" , "dnodes" , "pgnodes"]:
             new_sum=0
             for node in self.nodes_data[node_type]:
-                new_sum+=new_data[node][unit]["average"]
+                try:
+                    new_sum+=new_data[node][unit]["average"]
+                except KeyError as e:
+                    print(f"ERROR : key {node} not found in : {new_data}")
             return_overall[node_type] = {f"{unit}":new_sum}
         return final,return_overall
 
     def extract_container_data(self,queries,tag,unit):
         final=dict()
-        ist_time_format = '%Y-%m-%d %H:%M'
-        start_time_utc = (datetime.strptime(self.curr_ist_start_time, ist_time_format))
-        end_time_utc = (datetime.strptime(self.curr_ist_end_time, ist_time_format))
-        stu = int(start_time_utc.timestamp())
-        etu = int(end_time_utc.timestamp())
         for query in queries:
             final[query] = {}
             PARAMS = {
                 'query': queries[query],
-                'start': stu,
-                'end': etu,
+                'start': self.curr_ist_start_time,
+                'end': self.curr_ist_end_time,
                 'step':15
             }
             response = requests.get(self.PROMETHEUS + self.API_PATH, params=PARAMS)
             result = response.json()['data']['result']
             for res in result:
                 container_name = res['metric']['container_name']
+                print(f"Processing container-level {tag} usage for {query} : {container_name}")
                 values = [float(i[1]) for i in res['values']]   
                 avg = sum(values) / len(values)
                 minimum = min(values)
@@ -144,10 +131,9 @@ class MC_comparisions:
             "container_level_resource_utilization":{
                 "memory":container_memory_data,
                 "cpu" : container_cpu_data,
-            },
-            "node_level_total_average_resource_utilization":{
-                "memory":overall_memory_data,
-                "cpu":overall_cpu_data
             }
         }
-        return current_build_data
+        return current_build_data,{ "node_level_total_average_resource_utilization":{
+                                        "memory":overall_memory_data,
+                                        "cpu":overall_cpu_data
+                                    }}
