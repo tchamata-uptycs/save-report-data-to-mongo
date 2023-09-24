@@ -19,16 +19,10 @@ def create_input_form():
             "load_name": "SingleCustomer",
             "start_time_str_ist":  "2023-08-12 23:08",
             "load_duration_in_hrs": 10,
-            "sprint": 138,
-            "build": 138000,
-            "start_margin_for_charts":  10,
-            "end_margin_for_charts": 10,
-            "add_disk_space_usage": True,
-            "add_screenshots": True,
-            "add_kafka_topics": True,
-            "add_trino_queries": True,
-            "make_cpu_mem_comparisions": True,
-            "fetch_node_parameters_before_generating_report" :  False
+            "sprint": 111,
+            "build": 111111,
+            "add_extra_time_for_charts_at_end_in_min": 10,
+            "fetch_node_parameters_before_generating_report" :  False,
             }
 
     print("Please enter the following load details ...")

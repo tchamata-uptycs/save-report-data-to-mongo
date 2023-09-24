@@ -9,9 +9,9 @@ from osquery.add_kafka_topics import kafka_topics
 from disk_space import DISK
 from input import create_input_form
 from capture_charts_data import Charts
-from trino_queries import TRINO
 from gridfs import GridFS
 from compaction_status import take_screenshots
+from trino_queries import TRINO
 
 if __name__ == "__main__":
     s_at = time.perf_counter()
@@ -70,6 +70,14 @@ if __name__ == "__main__":
             print("Add kafka topics ...")
             kafka_obj = kafka_topics(prom_con_obj=prom_con_obj)
             kafka_topics_list = kafka_obj.add_topics_to_report()
+
+        #-------------------------Trino Queries--------------------------
+
+        if variables["load_type"] != "KubeQuery":
+            print("Performing trino queries ...")
+            calc = TRINO(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
+            trino_queries = calc.make_calculations()
+
         #--------------------------------cpu and mem node-wise---------------------------------------
         print("Fetching resource usages data ...")
         comp = MC_comparisions(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj)
@@ -112,6 +120,8 @@ if __name__ == "__main__":
             final_data_to_save.update({"disk_space_usages":disk_space_usage_dict})
         if kafka_topics_list:
             final_data_to_save.update({"kafka_topics":kafka_topics_list})
+        if trino_queries:
+            final_data_to_save.update({"Trino_queries":trino_queries})
 
         final_data_to_save.update({"charts":complete_charts_data_dict})
         final_data_to_save.update({"images":compaction_status_image})
@@ -123,69 +133,6 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"ERROR : Failed to insert document into database {database_name}, collection:{collection_name} , {str(e)}")
         client.close()
-        #------------------------load and test env details--------------------------
-
-        current_build_data = {"details":details_for_report , "load_specific_details":load_specific_details[variables['load_name']] ,"test_environment_details":test_env_json_details}
-        ROOT_PATH = prom_con_obj.ROOT_PATH
-        SCREENSHOT_DIR= f"{ROOT_PATH}/grafana_screenshots"
-        save_current_build_data_path = Path(f'{prom_con_obj.base_stack_config_path}/report_data.json')
-        with open(save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4) 
-
-        #-------------------------disk space--------------------------
-
-        if variables["add_disk_space_usage"] == True and variables["load_name"] != "ControlPlane":
-            print("Performing disk space calculations ...")
-            calc = DISK(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
-                        save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
-            
-            calc.make_calculations()
-
-        #-------------------------Trino Queries--------------------------
-
-        if variables["add_trino_queries"] == True:
-            print("Performing trino queries ...")
-            calc = TRINO(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
-                        save_current_build_data_path=save_current_build_data_path,prom_con_obj=prom_con_obj)
-            
-            calc.make_calculations()
-
-        #--------------------------------- add kafka topics ---------------------------------------
-
-        if variables["add_kafka_topics"]==True:
-            print("Add kafka topics ...")
-            kafka_obj = kafka_topics(save_path=save_current_build_data_path,prom_con_obj=prom_con_obj,root_path=ROOT_PATH)
-            kafka_obj.add_topics_to_report()
-
-        #---------------------------take screenshots and add to report------------------------------
-
-        if variables["add_screenshots"]==True:
-            print("Collecting screenshots ...")
-            dash_board_path= f'/d/{test_env_json_details["dashboard_uid"]}/{test_env_json_details["dashboard_name"]}'
-            ss_object = take_screenshots(start_time_str=variables["start_time_str"],end_time_str=end_time_str,
-                                SCREENSHOT_DIR=SCREENSHOT_DIR,table_ids=test_env_json_details["grafana_table_ids"],
-                                start_margin=variables["start_margin_for_charts"],
-                                end_margin=variables["end_margin_for_charts"],
-                                elk_url = test_env_json_details["elk_url"],
-                                prom_con_obj=prom_con_obj,
-                                dash_board_path=dash_board_path
-                                )
-            grafana_ids=ss_object.capture_screenshots_add_get_ids()
-            add_screenshots_to_docx(SCREENSHOT_DIR, grafana_ids,test_env_json_details["grafana_table_ids"])
-            f_at = time.perf_counter()
-            print(f"Collecting the Screenshots took : {round(f_at - s_at,2)} seconds in total")     
-
-        #--------------------------------cpu and mem node-wise---------------------------------------
-
-        if variables["make_cpu_mem_comparisions"]==True:
-            print("Fetching resource usages ...")
-            comp = MC_comparisions(curr_ist_start_time=variables["start_time_str"],curr_ist_end_time=end_time_str,
-                    save_current_build_data_path=save_current_build_data_path,show_gb_cores=False,prom_con_obj=prom_con_obj)
-            comp.make_comparisions()
-
-        #----------------Saving the json data to mongo--------------------
-        print("Savig data to mongoDB ...")
-        push_data_to_mongo(variables['load_name'],variables['load_type'],save_current_build_data_path,mongo_connection_string)
         #-----------------------------------------------------------------
         f3_at = time.perf_counter()
         print(f"Collecting the report data took : {round(f3_at - s_at,2)} seconds in total")

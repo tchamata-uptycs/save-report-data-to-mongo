@@ -4,10 +4,10 @@ import json
 import paramiko
 
 class TRINO:
-    def __init__(self,curr_ist_start_time,curr_ist_end_time,save_current_build_data_path,prom_con_obj):
+    def __init__(self,curr_ist_start_time,curr_ist_end_time,prom_con_obj):
         self.curr_ist_start_time=curr_ist_start_time
         self.curr_ist_end_time=curr_ist_end_time
-        self.save_current_build_data_path=save_current_build_data_path
+        
         self.test_env_file_path=prom_con_obj.test_env_file_path
         self.PROMETHEUS = prom_con_obj.prometheus_path
         self.API_PATH = prom_con_obj.prom_point_api_path
@@ -32,7 +32,7 @@ class TRINO:
 
         try:
             ssh_client.connect(n, 22, "abacus", "abacus")
-            command = f"sudo -u monkey TRINO_PASSWORD=ac11a741-42b8-45ba-87e0-3d0b5113a0f5 /opt/uptycs/cloud/utilities/trino-cli --insecure --server https://localhost:5665 --schema upt_system --user upt_read_{self.stack_details['domain']} --catalog uptycs --password --truststore-password sslpassphrase --truststore-path /opt/uptycs/etc/presto/presto.jks --execute \"select source,query_operation,count(*) from presto_query_logs where upt_time > timestamp '{start_time_utc}' and upt_time< timestamp '{end_time_utc}' group by source,query_operation order by source;\""
+            command = f"sudo -u monkey TRINO_PASSWORD={self.stack_details['trino_password']} /opt/uptycs/cloud/utilities/trino-cli --insecure --server https://localhost:5665 --schema upt_system --user upt_read_{self.stack_details['domain']} --catalog uptycs --password --truststore-password sslpassphrase --truststore-path /opt/uptycs/etc/presto/presto.jks --execute \"select source,query_operation,count(*) from presto_query_logs where upt_time > timestamp '{start_time_utc}' and upt_time< timestamp '{end_time_utc}' group by source,query_operation order by source;\""
 
             stdin, stdout, stderr = ssh_client.exec_command(command)
 
@@ -74,14 +74,11 @@ class TRINO:
         return current_build_data
     
     def make_calculations(self):
-        with open(self.save_current_build_data_path, 'r') as file:
-            current_build_data = json.load(file)
         
-        
+        current_build_data={}
         current_build_data=self.save(self.trino_queries(),current_build_data)
 
-        with open(self.save_current_build_data_path, 'w') as file:
-            json.dump(current_build_data, file, indent=4)  
+        return current_build_data
     
 
 
