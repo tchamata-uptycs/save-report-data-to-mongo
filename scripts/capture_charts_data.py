@@ -90,6 +90,7 @@ class Charts:
 
     def extract_charts_data(self,queries):
         final=dict()
+        file_ids=[]
         ste = self.curr_ist_start_time - (self.add_extra_time_for_charts_at_start_in_min * (60))
         ete = self.curr_ist_end_time + (self.add_extra_time_for_charts_at_end_in_min * (60))
 
@@ -107,14 +108,18 @@ class Charts:
             for host in result:
                 file_id = self.fs.put(str(host["values"]).encode('utf-8'), filename='array.json')
                 host["values"] = file_id
+                file_ids.append(file_id)
             final[query] = result
-        return final
+        return final,file_ids
             
     def capture_charts_and_save(self): 
         print("All chart queries to be executed are:")
         print(json.dumps(all_chart_queries, indent=4))
+
+        all_gridfs_fileids = []
         final_dict={}
         for key,value in all_chart_queries.items():
             print(f"-----------Processing {key} queries-----------")
-            final_dict[key] = self.extract_charts_data(value)
-        return final_dict
+            final_dict[key],file_ids = self.extract_charts_data(value)
+            all_gridfs_fileids.extend(file_ids)
+        return final_dict,all_gridfs_fileids
