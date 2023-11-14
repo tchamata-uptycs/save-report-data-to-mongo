@@ -114,7 +114,7 @@ def http_query(config, query_str, url_ext):
     raise Exception('Unsuccessful http query 10 time in a row: %s' % query_str)
 
 class osq_accuracy:
-    def __init__(self,start_time,end_time,api_path,domain,endline,assets_per_cust,ext,trans):
+    def __init__(self,start_time,end_time,api_path,domain,endline,assets_per_cust,ext,trans,duration):
         self.load_start=start_time
         self.load_end=end_time
         self.api_path=api_path
@@ -123,6 +123,7 @@ class osq_accuracy:
         self.assets_per_cust=assets_per_cust
         self.ext=ext
         self.trans=trans
+        self.duration=duration
         self.start=datetime.strptime(self.start_time, '%Y-%m-%d %H:%M')
         self.upt_day="".join(str(self.start.date()).split('-'))
     def api_keys(self):

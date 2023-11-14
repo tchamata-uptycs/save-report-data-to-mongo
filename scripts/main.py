@@ -103,7 +103,7 @@ if __name__ == "__main__":
         Osquery_accuracies=None
         if variables["load_type"] == "Osquery":
             print("Calculating Table accuracies for Osquery ...")
-            accuracy_obj= osq_accuracy(start_timestamp=start_utc_time,end_timestamp=end_utc_time,api_path="osquery/api_keys/jupiter.json",domain='jupiter',endline=18000,assets_per_cust=125,ext='.net',trans=False)
+            accuracy_obj= osq_accuracy(start_time=start_utc_time,end_time=end_utc_time,api_path="osquery/api_keys/jupiter.json",domain='jupiter',endline=18000,assets_per_cust=125,ext='.net',trans=False,duration=variables['load_duration_in_hrs'])
             Osquery_table_accuracies = accuracy_obj.table_accuracy()
             print(Osquery_table_accuracies)
             print("Calculating Events accuracies for Osquery ...")
