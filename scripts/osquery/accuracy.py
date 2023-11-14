@@ -289,6 +289,7 @@ class accuracy:
             thread_list.append(t1)
         for thread1 in thread_list:
             thread1.join()
+        return accuracy
     def events_accuracy(self,cust=0):
         api_config=self.api_keys()
         if cust==0:
@@ -313,4 +314,5 @@ class accuracy:
                 print(actual)
             accuracy[table]={"actual":actual,"expected":expect,"accuracy":round((actual/expect)*100,2)}
         return accuracy
+        
 
