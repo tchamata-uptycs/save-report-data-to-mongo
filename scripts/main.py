@@ -13,6 +13,7 @@ from gridfs import GridFS
 from trino_queries import TRINO
 from elk_errors import Elk_erros
 from cloudquery.accuracy import ACCURACY
+from osquery.accuracy import osq_accuracy
 from kubequery.kube_accuracy import Kube_Accuracy
 from kubequery.selfmanaged_accuracy import SelfManaged_Accuracy
 from pg_stats import PG_STATS
@@ -97,7 +98,18 @@ if __name__ == "__main__":
             print("Performing trino queries ...")
             calc = TRINO(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
             trino_queries = calc.fetch_trino_queries()
-
+            
+        #-------------------------Osquery Table Accuracies----------------------------
+        Osquery_accuracies=None
+        if variables["load_type"] == "Osquery":
+            print("Calculating Table accuracies for Osquery ...")
+            accuracy_obj= osq_accuracy(start_timestamp=start_utc_time,end_timestamp=end_utc_time,api_path="osquery/api_keys/jupiter.json",domain='jupiter',endline=18000,assets_per_cust=125,ext='.net',trans=False)
+            Osquery_table_accuracies = accuracy_obj.table_accuracy()
+            print(Osquery_table_accuracies)
+            print("Calculating Events accuracies for Osquery ...")
+            Osquery_event_accuracies = accuracy_obj.events_accuracy()
+            print(Osquery_event_accuracies)
+        
         #-------------------------Cloudquery Accuracies----------------------------
         cloudquery_accuracies=None
         if variables["load_type"] == "CloudQuery":
