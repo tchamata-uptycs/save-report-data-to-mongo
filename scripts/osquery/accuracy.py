@@ -113,7 +113,7 @@ def http_query(config, query_str, url_ext):
            time.sleep(30)
     raise Exception('Unsuccessful http query 10 time in a row: %s' % query_str)
 
-class accuracy:
+class osq_accuracy:
     def __init__(self,start_time,end_time,api_path,domain,endline,assets_per_cust,ext,trans):
         self.load_start=start_time
         self.load_end=end_time
@@ -138,7 +138,7 @@ class accuracy:
         process_file_events = {'process_file_events-builder-added':0, 'process_file_events_3-builder-added':0, 'process_file_events_4-builder-added':0, 'process_file_events_5-builder-added':0, 'process_file_events_6-builder-added':0, 'process_file_events_7-builder-added':0, 'process_file_events_8-builder-added':0, 'process_file_events_9-builder-added':0, 'process_file_events_10-builder-added':0}
         req_tables = ['process_events', 'process_file_events', 'socket_events', 'dns_lookup_events']
         increment=self.assets_per_cust
-        with open("save-report-data-to-mongo/scripts/osquery/testinputfiles/rhel7-6tab_12rec.log", "r") as fin:
+        with open("osquery/testinputfiles/rhel7-6tab_12rec.log", "r") as fin:
             line_no = 1
             for line in fin:
                 if line_no % 2 == 0 and line_no <= input_lines: 
@@ -250,7 +250,7 @@ class accuracy:
                        dict1[events]=0        
             return dict1
     def get_expected_tables(self,endline):
-        with open("save-report-data-to-mongo/scripts/osquery/testinputfiles/rhel7-6tab_12rec.log", "r") as fin:
+        with open("osquery/testinputfiles/rhel7-6tab_12rec.log", "r") as fin:
             line_no = 1
             count=0
             output_log={}

@@ -13,7 +13,7 @@ from gridfs import GridFS
 from trino_queries import TRINO
 from elk_errors import Elk_erros
 from cloudquery.accuracy import ACCURACY
-from osquery.accuracy import accuracy
+from osquery.accuracy import osq_accuracy
 from kubequery.kube_accuracy import Kube_Accuracy
 from kubequery.selfmanaged_accuracy import SelfManaged_Accuracy
 from pg_stats import PG_STATS
@@ -101,19 +101,14 @@ if __name__ == "__main__":
             
         #-------------------------Osquery Table Accuracies----------------------------
         Osquery_accuracies=None
-        if variables["load_type"] == "OsQuery":
+        if variables["load_type"] == "Osquery":
             print("Calculating Table accuracies for Osquery ...")
-            accuracy_obj= accuracy(start_timestamp=start_utc_time,end_timestamp=end_utc_time,)
+            accuracy_obj= osq_accuracy(start_timestamp=start_utc_time,end_timestamp=end_utc_time,api_path="osquery/api_keys/jupiter.json",domain='jupiter',endline=18000,assets_per_cust=125,ext='.net',trans=False)
             Osquery_table_accuracies = accuracy_obj.table_accuracy()
             print(Osquery_table_accuracies)
-        #-------------------------Osquery Events Accuracies----------------------------
-        Osquery_event_accuracies=None
-        if variables["load_type"] == "OsQuery":
             print("Calculating Events accuracies for Osquery ...")
-            accuracy_obj= accuracy(start_timestamp=start_utc_time,end_timestamp=end_utc_time,)
             Osquery_event_accuracies = accuracy_obj.events_accuracy()
             print(Osquery_event_accuracies)
-        
         
         #-------------------------Cloudquery Accuracies----------------------------
         cloudquery_accuracies=None
